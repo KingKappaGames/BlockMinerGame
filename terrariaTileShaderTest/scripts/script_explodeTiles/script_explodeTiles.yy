@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"script_isTileEmpty",
+  "%Name":"script_explodeTiles",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"script_isTileEmpty",
+  "name":"script_explodeTiles",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

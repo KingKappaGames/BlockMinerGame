@@ -35,6 +35,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":null,
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_defaultMask",
+    "path":"sprites/spr_defaultMask/spr_defaultMask.yy",
+  },
   "visible":true,
 }

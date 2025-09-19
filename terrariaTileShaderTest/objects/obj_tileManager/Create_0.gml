@@ -4,21 +4,13 @@ cam = view_camera[0];
 
 #region tile grid set up for world and screen/camera
 #macro tileSize 16
-#macro tileRangeWorld 1000
-#macro worldSizePixels 16000 // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
+#macro tileRangeWorld 2000
+#macro worldSizePixels 32000 // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
 #macro screenBorder 3
 #macro spawnX tileSize * tileRangeWorld * .5
-#macro spawnY tileSize * tileRangeWorld * .5
+#macro spawnY tileSize * tileRangeWorld * .125
 
-tiles = array_create(tileRangeWorld);
-for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
-	tiles[_worldX] = array_create(tileRangeWorld); // 2d array of tiles 16x16 for demo purposes
-	
-	for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
-		tiles[_worldX][_worldY] = (_worldY % 50 < 15) ? 0 : irandom(3);
-	}
-}
-
+tiles = array_create(tileRangeWorld); // one dimension of the grid, generate the rest later in the generateWorld script
 global.worldTiles = tiles;
 
 tileScreenWidth = camera_get_view_width(cam) div tileSize + 2;
@@ -83,3 +75,48 @@ updateScreenStatic = function() {
 
 #endregion
 
+generateWorld = function(type = "normal") {
+	if(type == "normal") {
+		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
+			tiles[_worldX] = array_create(tileRangeWorld);
+			
+			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+				var _tileType = 0;
+				
+				var _worldDepth = clamp(_worldY / tileRangeWorld, 0, 1);
+				
+				var _noise = _worldDepth * 4 + dsin(_worldX * 4) * .02 + dsin(_worldX * 1.3) * .04;
+				
+				_tileType = clamp(round(_noise), 0, 4);
+				
+				if(_tileType > 1) {
+					if((dsin(screenWorldTileX * 13.9) + dsin(screenWorldTileX * 149.1) * .8 + dsin(screenWorldTileX * 410.8) * .4) > .5) {
+						if(dsin(screenWorldTileY * 48.3) > .4) {
+							_tileType = 0; // you're looking at caves buddy
+						}
+					}
+				}
+				
+				tiles[_worldX][_worldY] = _tileType;
+			}
+		}
+	} else if(type == "layers") {
+		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
+			tiles[_worldX] = array_create(tileRangeWorld);
+			
+			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+				tiles[_worldX][_worldY] = (_worldY % 50 < 15) ? 0 : irandom(3);
+			}
+		}
+	} else if(type == "random") {
+		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
+			tiles[_worldX] = array_create(tileRangeWorld);
+			
+			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+				tiles[_worldX][_worldY] = irandom(3);
+			}
+		}
+	}
+}
+
+generateWorld("normal");

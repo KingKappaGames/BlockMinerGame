@@ -1,31 +1,158 @@
 event_inherited();
 
-#region item use controls
-if(mouse_check_button_released(mb_left)) {
-	if(clickTimer == 0) {
-		if(point_distance(x, y, mouse_x, mouse_y) < reachRange) {
-			script_breakTileAtPos(mouse_x, mouse_y);
-			
-			pickaxeAngleChange -= directionFacing * 40;
-			
-			clickTimer = clickTimerDelay;
+timer++;
+
+#region movement checks and forces
+if(keyboard_check_released(ord("X"))) {
+	flying = true;
+	yChange -= 1; // you should only be able to fly during nightime or something like that, some kind of thematic use case for flying so that it's more interesting. That or a harsh "fuel" perhaps even some kind of *kill to fuel your flight* kind of model where you have to kill enemies or harvest resources or something.
+	y -= 1;
+}
+
+var _tileStanding = inWorld ? global.worldTiles[x div tileSize][(y + 1) div tileSize] : 0;
+
+if(!flying) {
+	if(keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space)) {
+		if(_tileStanding != 0) {
+			yChange -= jumpSpeed;
+			_tileStanding = 0;
 		}
 	}
-} else if(mouse_check_button_released(mb_right)) {
-	if(point_distance(x, y, mouse_x, mouse_y) < reachRange) {
-		if(script_isTileEmpty(mouse_x, mouse_y, true)) {
+	
+	if(keyboard_check(ord("A"))) {
+		if(_tileStanding != 0) {
+			xChange -= moveSpeed;
+		} else {
+			xChange -= moveSpeedAir;
+		}
+		
+		directionFacing = -1;
+		pickaxeAngleBase = 90 + 30 * directionFacing;
+	}
+	
+	if(keyboard_check(ord("D"))) {
+		if(_tileStanding != 0) {
+			xChange += moveSpeed;
+		} else {
+			xChange += moveSpeedAir;
+		}
+		directionFacing = 1;
+		pickaxeAngleBase = 90 + 30 * directionFacing;
+	}
+} else {
+	if(_tileStanding == 0) {
+		part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), trailPart, #251030, 1);
+	}
+	
+	if(keyboard_check(ord("A"))) {
+		xChange -= moveSpeedFly;
+		
+		directionFacing = -1;
+	}
+	if(keyboard_check(ord("D"))) {
+		xChange += moveSpeedFly;
+		
+		directionFacing = 1; // direction facing should be determined by angle of fly not input
+	}
+	
+	if(keyboard_check(ord("W"))) { // if in edge lands just move as in fly mode...
+		yChange -= moveSpeedFlyVertical;
+	}
+	if(keyboard_check(ord("S"))) {
+		yChange += moveSpeedFlyVertical * 1.25;
+	}
+}
+
+if(_tileStanding != 0) {
+	xChange *= speedDecay;
+	image_angle = 0;
+	
+	if(flying) {
+		flying = false;
+	}
+} else {
+	xChange *= speedDecayAir;
+	if(!flying) {
+		yChange += grav; // gravity
+		yChange *= .995; // tiny bit of falling slow down
+	} else {
+		yChange *= speedDecayAir;
+		
+		image_angle += angle_difference(point_direction(0, 0, xChange, yChange - 3.5) - 90, image_angle) * .08;
+	}
+}
+
+if(inWorld) {
+	script_moveCollide();
+} else {
+	x += xChange;
+	y += yChange;
+}
+
+if(flying) { // argggggg flying checks redundant
+	chestX = x + dcos(image_angle + 90) * chestOff;
+	chestY = y - dsin(image_angle + 90) * chestOff;
+} else {
+	chestX = x;
+	chestY = y - chestOff;
+}
+
+audio_listener_set_position(0, x, y, 0);
+#endregion
+
+#region item use controls
+if(mouse_check_button(mb_left)) {
+	directionFacing = sign(mouse_x - x);
+	if(directionFacing == 0) {
+		directionFacing = 1;
+	}
+	
+	if(usingPickaxeNotSpell) {
+		if(!flying) {
+			if(pickaxeTimer <= 0) {
+				if(point_distance(x, y, mouse_x, mouse_y) < pickaxeRange) {
+					script_breakTileAtPos(mouse_x, mouse_y);
+					
+					pickaxeAngleChange -= directionFacing * 40;
+					
+					pickaxeTimer = pickaxeTimerDelay;
+				}
+			}
+		}
+	} else { // spell
+		if(spellTimer <= 0) {
+			castSpell(mouse_x, mouse_y);
+			
+			var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
+			
+			spellXChange = dcos(_dirToMouse) * 5.2;
+			spellYChange = -dsin(_dirToMouse) * 4.4;
+			
+			spellTimer = spellTimerDelay;
+		}
+	}
+} else if(!flying && mouse_check_button(mb_right)) {
+	directionFacing = sign(mouse_x - x);
+	if(directionFacing == 0) {
+		directionFacing = 1;
+	}
+	
+	if(heldResourceTimer <= 0) {
+		if(point_distance(x, y, mouse_x, mouse_y) < blockPlacementRange) {
 			script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex);
 			
 			var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
 			heldResourceXChange = dcos(_dirToMouse) * 5.2;
 			heldResourceYChange = -dsin(_dirToMouse) * 4.4;
+			
+			heldResourceTimer = heldResourceTimerDelay;
 		}
 	}
 } else if(mouse_check_button_released(mb_middle)) {
 	var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
 	var _bomb = instance_create_layer(x, y - 10, "Instances", obj_bomb);
-	_bomb.xChange = dcos(_dirToMouse) * 4.4;
-	_bomb.yChange = -dsin(_dirToMouse) * 4.4;
+	_bomb.xChange = dcos(_dirToMouse) * 3.1;
+	_bomb.yChange = -dsin(_dirToMouse) * 3.1;
 }
 
 if(keyboard_check_released(ord("T"))) {
@@ -38,22 +165,33 @@ if(keyboard_check_released(ord("T"))) {
 }
 
 if(keyboard_check_released(ord("R"))) {
-	heldResourceIndex++;
-	if(heldResourceIndex > 4) {
-		heldResourceIndex = 1;
-	}
+	heldResourceArrayPos = (heldResourceArrayPos + 1) % array_length(heldMaterialsUnlocked);
+	heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
+}
+if(keyboard_check_released(ord("Q"))) {
+	usingPickaxeNotSpell = !usingPickaxeNotSpell; // toggle between pick and spell
 }
 
-if(clickTimer > 0) {
-	clickTimer--;
+pickaxeTimer--;
+heldResourceTimer--;
+spellTimer--;
+
+
+if(usingPickaxeNotSpell) {
+	pickaxeAngleChange += (pickaxeAngleBase - pickaxeAngle) * .015;
+
+	pickaxeAngleChange *= .85;
+	
+	pickaxeAngle += pickaxeAngleChange;
+	pickaxeAngle = lerp(pickaxeAngle, pickaxeAngleBase, .03); // if you'd also like to force the angle along with the acceleration to the goal
+} else {
+	spellXOff *= .88;
+	spellYOff *= .88; // position and speed can both be culled back to 0 to avoid springing and distance/dir calculations (plus the rigid lerp is more arcade-y)
+	spellXOff += spellXChange;
+	spellYOff += spellYChange;
+	spellXChange *= .84;
+	spellYChange *= .84;
 }
-
-pickaxeAngleChange += (pickaxeAngleBase - pickaxeAngle) * .015;
-
-pickaxeAngleChange *= .85;
-
-pickaxeAngle += pickaxeAngleChange;
-pickaxeAngle = lerp(pickaxeAngle, pickaxeAngleBase, .03); // if you'd also like to force the angle along with the acceleration to the goal
 
 heldResourceXOff *= .88;
 heldResourceYOff *= .88; // position and speed can both be culled back to 0 to avoid springing and distance/dir calculations (plus the rigid lerp is more arcade-y)
@@ -61,48 +199,6 @@ heldResourceXOff += heldResourceXChange;
 heldResourceYOff += heldResourceYChange;
 heldResourceXChange *= .84;
 heldResourceYChange *= .84;
-#endregion
-
-if(keyboard_check(ord("A"))) {
-	xChange -= moveSpeed;
-	
-	directionFacing = -1;
-	pickaxeAngleBase = 90 + 30 * directionFacing;
-}
-
-if(keyboard_check(ord("D"))) {
-	xChange += moveSpeed;
-	directionFacing = 1;
-	pickaxeAngleBase = 90 + 30 * directionFacing;
-}
-
-if(inWorld) {
-	if(keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space)) {
-		var _tileStanding = global.worldTiles[x div tileSize][(y + 1) div tileSize];
-		if(_tileStanding != 0) {
-			yChange -= jumpSpeed;
-		}
-	}
-	
-	
-	#region movement checks and forces
-	yChange += grav; // gravity
-	
-	script_moveCollide();
-} else {
-	if(keyboard_check(ord("W"))) { // if in edge lands just move as in fly mode...
-		yChange -= moveSpeed;
-	}
-	if(keyboard_check(ord("S"))) {
-		yChange += moveSpeed;
-	}
-	
-	x += xChange;
-	y += yChange;
-}
-
-
-xChange *= speedDecay;
 #endregion
 
 #region camera and screen updates

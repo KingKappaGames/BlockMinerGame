@@ -4,6 +4,8 @@ var _tileY = 0;
 var _color = c_white;
 var _tileFrameIndex = 0;
 
+//maybe add functions to the tile index so like, tile index 6 could have a smoke effect and tile index 3 could have smoke and glow and hurting you know? It could be stored as a ref to index data
+
 for(var _x = 1; _x < tileScreenWidth - 1; _x++) {
 	for(var _y = 1; _y < tileScreenHeight - 1; _y++) { // draw all tiles at least one tile in to avoid edge checking (the camera border should make them not appear anyway..)
 		_tileVal = tilesScreen[_x][_y];
@@ -36,6 +38,8 @@ for(var _x = 1; _x < tileScreenWidth - 1; _x++) {
 			#endregion
 			
 			draw_sprite_ext(spr_tileGuideFrames, _tileFrameIndex, screenWorldX + _x * tileSize + tileSize * .5, screenWorldY + _y * tileSize + tileSize * .5, 1, 1, 0, _color, 1);
+			
+			//draw_text_transformed(screenWorldX + _x * tileSize + tileSize * .375, screenWorldY + _y * tileSize + tileSize * .25, _tileVal, .5, .5, 0);
 			//draw_rectangle_color(screenWorldX + _x * tileSize, screenWorldY + _y * tileSize, screenWorldX + _x * tileSize + tileSize - 1, screenWorldY + _y * tileSize + tileSize - 1, _color, _color, _color, _color, false);
 		}
 		

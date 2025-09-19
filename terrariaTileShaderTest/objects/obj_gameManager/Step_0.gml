@@ -3,6 +3,12 @@ timer++;
 if(timer % 30 == 0) {
 	cameraWorldDepth = global.player.y / worldSizePixels;
 	
+	//if(irandom(100) == 0) {
+		//ef_reverb.size = cameraWorldDepth * 2;
+		//ef_reverb.mix = 0.3;
+		//audio_bus_main.effects[0] = ef_reverb;
+	//}
+	
 	#region effect controls
 	var _abyssStrength = min((cameraWorldDepth - abyssEffectRange[0]) / (abyssEffectRange[1] - abyssEffectRange[0]), 1.0);
 	if(_abyssStrength > 0) {
@@ -22,7 +28,7 @@ if(timer % 30 == 0) {
 var _camChange = keyboard_check(vk_subtract) - keyboard_check(vk_add);
 if(_camChange != 0) {
 	var _camScaleChange = 1 + _camChange * .01;
-	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 480, 2160), clamp(camera_get_view_height(cam) * _camScaleChange, 270, 1440));
+	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 2560), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 1440));
 	global.tileManager.updateScreen();
 }
 
