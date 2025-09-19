@@ -20,7 +20,7 @@ if(duration <= 0) {
 	var _xx = 0;
 	var _yy = 0;
 	repeat(350) {
-		_dist = _dist * 1.0005 + .3;
+		_dist = _dist + .25;
 		_angle += irandom_range(20, 70);
 		_xx = x + dcos(_angle) * _dist + irandom_range(-tileSize, tileSize);
 		_yy = y - dsin(_angle) * _dist + irandom_range(-tileSize, tileSize);

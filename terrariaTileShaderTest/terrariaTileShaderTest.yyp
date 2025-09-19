@@ -37,6 +37,7 @@
   "resources":[
     {"id":{"name":"obj_bomb","path":"objects/obj_bomb/obj_bomb.yy",},},
     {"id":{"name":"obj_debugMark","path":"objects/obj_debugMark/obj_debugMark.yy",},},
+    {"id":{"name":"obj_gameManager","path":"objects/obj_gameManager/obj_gameManager.yy",},},
     {"id":{"name":"obj_gameObject","path":"objects/obj_gameObject/obj_gameObject.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_tileManager","path":"objects/obj_tileManager/obj_tileManager.yy",},},
@@ -60,6 +61,7 @@
     {"id":{"name":"spr_tileGuide","path":"sprites/spr_tileGuide/spr_tileGuide.yy",},},
     {"id":{"name":"spr_tileGuideFrames","path":"sprites/spr_tileGuideFrames/spr_tileGuideFrames.yy",},},
     {"id":{"name":"spr_tileGuideFramesTEMPLATE","path":"sprites/spr_tileGuideFramesTEMPLATE/spr_tileGuideFramesTEMPLATE.yy",},},
+    {"id":{"name":"spr_vignetteRough","path":"sprites/spr_vignetteRough/spr_vignetteRough.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
