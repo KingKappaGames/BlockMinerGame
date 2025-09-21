@@ -79,6 +79,7 @@
     {"id":{"name":"script_createBlockParticles","path":"scripts/script_createBlockParticles/script_createBlockParticles.yy",},},
     {"id":{"name":"script_explodeTiles","path":"scripts/script_explodeTiles/script_explodeTiles.yy",},},
     {"id":{"name":"script_getTileEntitiesInside","path":"scripts/script_getTileEntitiesInside/script_getTileEntitiesInside.yy",},},
+    {"id":{"name":"script_loadStructure","path":"scripts/script_loadStructure/script_loadStructure.yy",},},
     {"id":{"name":"script_moveCollide","path":"scripts/script_moveCollide/script_moveCollide.yy",},},
     {"id":{"name":"script_placeTile","path":"scripts/script_placeTile/script_placeTile.yy",},},
     {"id":{"name":"script_saveLoad","path":"scripts/script_saveLoad/script_saveLoad.yy",},},

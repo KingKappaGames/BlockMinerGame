@@ -235,3 +235,9 @@ var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * 
 camera_set_view_pos(cam, _camX, _camY);
 global.tileManager.updateScreen(_camX, _camY);
 #endregion
+
+
+
+if(keyboard_check_released(vk_insert)) {
+	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "exampleStructure.txt");
+}

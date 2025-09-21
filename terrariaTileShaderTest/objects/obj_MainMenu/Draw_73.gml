@@ -8,7 +8,7 @@ if(!loadNextFrame) {
 		if(_iterator == optionPosition) {
 			_textColor = c_yellow;
 		}
-		draw_text_transformed_color(x + menuWidth / 2 + menuTextOffset, y + menuBorder + _iterator * optionHeight, options[optionGroup][_iterator], 1.5, 2, 0, _textColor, _textColor, _textColor, _textColor, 1);
+		draw_text_transformed_color(x + menuWidth / 2 + menuTextOffset, y + menuBorder + _iterator * optionHeight, options[optionGroup][_iterator], 1, 1, 0, _textColor, _textColor, _textColor, _textColor, 1);
 	}
 	
 	if(optionGroup == 4) { // custom draw groups

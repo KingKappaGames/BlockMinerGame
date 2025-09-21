@@ -124,29 +124,33 @@ generateWorld = function(type = "normal") {
 		
 		for (var _worldX = 2; _worldX < tileRangeWorld - 2; _worldX++) {
 			for (var _worldY = 2; _worldY < tileRangeWorld - 2; _worldY++) {
-				if(irandom(2) == 0){ // just kinda don't 2/3 of the time.. (dont place grass)
-					if(tiles[_worldX][_worldY] == tileTypes.grass) {
-						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
-							tiles[_worldX][_worldY - 1] = tileTypes.decGrass; // place grass above all empty grass blocks
+				if(irandom(10000) == 0) { // spawning structures randomly through the world   STRUCTURES
+					script_loadStructure(_worldX, _worldY, "exampleStructure.txt");
+				} else { // DECORATION TILES
+					if(irandom(2) == 0){ // just kinda don't 2/3 of the time.. (dont place grass)
+						if(tiles[_worldX][_worldY] == tileTypes.grass) {
+							if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+								tiles[_worldX][_worldY - 1] = tileTypes.decGrass; // place grass above all empty grass blocks
+							}
 						}
-					}
-				} else if(irandom(9) == 0) {
-					if(tiles[_worldX][_worldY] > 1) { // some kind of non grass for now..
-						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
-							tiles[_worldX][_worldY - 1] = tileTypes.decRock; // place grass above all empty grass blocks
+					} else if(irandom(9) == 0) {
+						if(tiles[_worldX][_worldY] > 1) { // some kind of non grass for now..
+							if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+								tiles[_worldX][_worldY - 1] = tileTypes.decRock; // place grass above all empty grass blocks
+							}
 						}
-					}
-				} else if(irandom(8) == 0) {
-					if(tiles[_worldX][_worldY] == tileTypes.dirt) { // some kind of non grass for now..
-						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
-							tiles[_worldX][_worldY - 1] = tileTypes.decMushroom; // place grass above all empty grass blocks
+					} else if(irandom(8) == 0) {
+						if(tiles[_worldX][_worldY] == tileTypes.dirt) { // some kind of non grass for now..
+							if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+								tiles[_worldX][_worldY - 1] = tileTypes.decMushroom; // place grass above all empty grass blocks
+							}
 						}
 					}
 				}
 			}
 		}
 		
-		//END OF ALL
+		//END OF ALL ##############################################################################################################################################
 	} else if(type == "normal") {
 		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
 			tiles[_worldX] = array_create(tileRangeWorld);
