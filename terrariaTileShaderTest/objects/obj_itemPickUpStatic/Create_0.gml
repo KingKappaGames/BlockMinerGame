@@ -1,6 +1,6 @@
 event_inherited();
 
-sprite_index = spr_pickaxeBlue;
+sprite_index = spr_pickaxeLong;
 
 pickUpRange = 32;
 available = false; // whether it can be picked up
@@ -17,7 +17,7 @@ depth += 10;
 pickUp = function() {
 	var _player = global.player;
 	
-	_player.setPickaxe(spr_pickaxeBlue);
+	_player.setPickaxe(spr_pickaxeLong, 140, 90);
 	
 	part_particles_create_color(sys, x, y, explosionPart, #ffffaa, 50);
 	

@@ -4,8 +4,8 @@ cam = view_camera[0];
 
 #region tile grid set up for world and screen/camera
 #macro tileSize 16
-#macro tileRangeWorld 2000
-#macro worldSizePixels 32000 // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
+#macro tileRangeWorld 1000
+#macro worldSizePixels 16000 // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
 #macro screenBorder 3
 #macro spawnX tileSize * tileRangeWorld * .5
 #macro spawnY tileSize * tileRangeWorld * .125
@@ -76,7 +76,78 @@ updateScreenStatic = function() {
 #endregion
 
 generateWorld = function(type = "normal") {
-	if(type == "normal") {
+	show_debug_message("GENERATING WORLD");
+	if(type == "overworld") {
+		var _tileType = 0;
+		var _worldXNormal = 0;
+		var _worldYNormal = 0; // init hold values
+		var _posX = 0;
+		var _posY = 0;
+		var _noise = 0;
+		var _caveNoise = 0;
+		
+		//CORE LOOP OF FIRST PASS (BASE TERRAIN STRUCTURES)
+		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
+			tiles[_worldX] = array_create(tileRangeWorld); // CREATE SECOND DIMENSION (ABSOLUTELY NECESSARY HERE, because the array isn't initialized til here)
+			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+				
+				//ESTABLISH WORLD VALUES FOR POSITION AND SUCH (normals and otherwise)
+				
+				_worldXNormal = _worldX / tileRangeWorld;
+				_worldYNormal = _worldY / tileRangeWorld;
+				
+				_posX = _worldXNormal * 55.0;
+				_posY = _worldYNormal * 140.0;
+				
+				
+				//########################### GENERATING VALUES START ################################### (literally all arbitrary, I made this in shader toy just eyeballing all the values and ported them over here. Redo it in shadertoy if you're editing, don't try to update them here in game maker, that's folly)
+		
+				_noise = (-.8 + _worldYNormal * 5.) + sin(_worldXNormal * 23.1) * .07 + sin(_worldXNormal * 73.7) * .03 + sin(_worldXNormal * 317.3) * .015; // this is free for all, on either side it will clamp and compress to an index or set up basic values
+		
+			    _caveNoise = power((perlin(_posX * .61, _posY * .61) + perlin(_posX * 1.7, _posY * 1.7) * .5 + perlin(_posX * 2.9, _posY * 2.9) * .166) * .58, .67); //  + perlin(_posX * 2.5, _posY * 2.5)
+			
+			    if(_caveNoise > .63 + power(1.0 - _worldYNormal, 1.5) * .3) { // how dense stuff is, completely arbitrary  (replace 1.5!!)
+			        _noise = 0.0;
+			    } else {
+			        _noise += ((-.35 + _caveNoise) * 4.) * power(max(0, _worldYNormal - 0.23), .5);
+			    }
+				
+				_tileType = clamp(round(_noise), 0, 4);
+		
+				//########################### GENERATING VALUES DONE ####################################
+				
+				tiles[_worldX][_worldY] = _tileType;
+			}
+		}
+		
+		//POST MODIFICATION TO GENERATED BASE (second pass)
+		
+		for (var _worldX = 2; _worldX < tileRangeWorld - 2; _worldX++) {
+			for (var _worldY = 2; _worldY < tileRangeWorld - 2; _worldY++) {
+				if(irandom(2) == 0){ // just kinda don't 2/3 of the time.. (dont place grass)
+					if(tiles[_worldX][_worldY] == tileTypes.grass) {
+						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+							tiles[_worldX][_worldY - 1] = tileTypes.decGrass; // place grass above all empty grass blocks
+						}
+					}
+				} else if(irandom(9) == 0) {
+					if(tiles[_worldX][_worldY] > 1) { // some kind of non grass for now..
+						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+							tiles[_worldX][_worldY - 1] = tileTypes.decRock; // place grass above all empty grass blocks
+						}
+					}
+				} else if(irandom(8) == 0) {
+					if(tiles[_worldX][_worldY] == tileTypes.dirt) { // some kind of non grass for now..
+						if(tiles[_worldX][_worldY - 1] == tileTypes.empty) {
+							tiles[_worldX][_worldY - 1] = tileTypes.decMushroom; // place grass above all empty grass blocks
+						}
+					}
+				}
+			}
+		}
+		
+		//END OF ALL
+	} else if(type == "normal") {
 		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
 			tiles[_worldX] = array_create(tileRangeWorld);
 			
@@ -119,4 +190,4 @@ generateWorld = function(type = "normal") {
 	}
 }
 
-generateWorld("normal");
+generateWorld("overworld");

@@ -6,13 +6,18 @@ draw_sprite_ext(sprite_index, image_index, x, y, directionFacing * image_xscale,
 
 if(usingPickaxeNotSpell) {
 	if(!flying) {
-		draw_sprite_ext(pickaxeSprite, 0, chestX - 2 * directionFacing, chestY, 2, 2, pickaxeAngle, c_white, 1);
+		draw_sprite_ext(pickaxeSprite, 0, chestX - 2 * directionFacing, chestY, 1, 1, pickaxeAngle, c_white, 1);
 	}
 } else {
 	draw_sprite_ext(spr_talisman, 0, chestX + 3 * directionFacing + spellXOff, chestY + spellYOff, 1, 1, 60 + dsin(current_time * .15) * 15, c_white, 1);
 }
 
-//draw_circle_color(chestX, chestY, 4, c_red, c_red, true);
+if(pickaxeMineTileLine && pickaxeTimer > 0) {
+	var _range = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
+	draw_set_alpha(pickaxeTimer * .01);
+	draw_circle_color(chestX + dcos(dirToMouse) * _range, chestY - dsin(dirToMouse) * _range, 2, c_yellow, c_yellow, true);
+	draw_set_alpha(1);
+}
 
 //
 //var _id = collision_rectangle(mouse_x - 50, mouse_y - 50, mouse_x + 50, mouse_y + 50, obj_player, false, false);

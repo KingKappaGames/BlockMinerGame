@@ -21,8 +21,8 @@ function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = f
 	
 	var _oldTile = global.worldTiles[worldTileX][worldTileY];
 	if(_oldTile != 0) {
-		if(replaceExisting) {
-			script_breakTileAtPos(worldTileX, worldTileY, true);
+		if(replaceExisting || _oldTile < 0) { // always break decoration tiles whne placed-over
+			script_breakTile(worldTileX, worldTileY, true, false);
 		} else {
 			return;
 		}

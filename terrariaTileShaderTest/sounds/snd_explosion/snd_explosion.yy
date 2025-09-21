@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"snd_explosion",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
   },
   "bitDepth":1,
   "bitRate":128,

@@ -1,8 +1,7 @@
-sys = global.sys;
-sysUnder = global.sysUnder;
+event_inherited();
+
 breakPart = global.breakPart; // localizing globals... Hm
 
-cam = view_camera[0];
 
 inWorld = false;
 

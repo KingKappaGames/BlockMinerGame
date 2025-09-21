@@ -1,0 +1,1 @@
+draw_circle_color(x, y, irandom_range(radius * .75, radius * 1.2 + 5), image_blend, image_blend, false);

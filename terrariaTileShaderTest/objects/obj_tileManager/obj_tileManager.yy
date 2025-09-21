@@ -10,8 +10,8 @@
   "name":"obj_tileManager",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"obj_group_execs",
+    "path":"folders/Objects/obj_group_execs.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -8,7 +8,7 @@ function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, an
 		_angle += irandom_range(angleIncrementMin, angleIncrementMax);
 		_xx = xx + dcos(_angle) * _dist + irandom_range(-tileSize, tileSize);
 		_yy = yy - dsin(_angle) * _dist + irandom_range(-tileSize, tileSize);
-		script_breakTileAtPos(_xx, _yy, doBrokenTileSounds);
+		script_breakTileAtPos(_xx, _yy, doBrokenTileSounds, false);
 		//instance_create_layer(_xx, _yy, "Instances", obj_debugMark);
 	}
 	
@@ -19,4 +19,6 @@ function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, an
 	if(doSound) {
 		audio_play_sound_at(snd_explosion, xx, yy, 0, audioRefLoud, audioMaxLoud, 1, 0, 1, 2);
 	}
+	
+	global.tileManager.updateScreenStatic();
 }

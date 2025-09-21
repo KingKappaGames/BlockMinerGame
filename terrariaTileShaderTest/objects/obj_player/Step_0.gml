@@ -2,14 +2,20 @@ event_inherited();
 
 timer++;
 
+dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
+
 #region movement checks and forces
 if(keyboard_check_released(ord("X"))) {
-	flying = true;
-	yChange -= 1; // you should only be able to fly during nightime or something like that, some kind of thematic use case for flying so that it's more interesting. That or a harsh "fuel" perhaps even some kind of *kill to fuel your flight* kind of model where you have to kill enemies or harvest resources or something.
-	y -= 1;
+	if(flying) {
+		flying = false;
+	} else {
+		flying = true;
+		yChange -= 1; // you should only be able to fly during nightime or something like that, some kind of thematic use case for flying so that it's more interesting. That or a harsh "fuel" perhaps even some kind of *kill to fuel your flight* kind of model where you have to kill enemies or harvest resources or something.
+		y -= 1;
+	}
 }
 
-var _tileStanding = inWorld ? global.worldTiles[x div tileSize][(y + 1) div tileSize] : 0;
+var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 
 if(!flying) {
 	if(keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space)) {
@@ -110,23 +116,30 @@ if(mouse_check_button(mb_left)) {
 	if(usingPickaxeNotSpell) {
 		if(!flying) {
 			if(pickaxeTimer <= 0) {
-				if(point_distance(x, y, mouse_x, mouse_y) < pickaxeRange) {
+				if(pickaxeMineTileLine) {
+					var _dist = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
+					var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
+					for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
+						if(script_breakTileAtPos(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
+							break;
+						}
+					}
+					
+				} else if(point_distance(x, y, mouse_x, mouse_y) < pickaxeRange) {
 					script_breakTileAtPos(mouse_x, mouse_y);
-					
-					pickaxeAngleChange -= directionFacing * 40;
-					
-					pickaxeTimer = pickaxeTimerDelay;
 				}
+				
+				pickaxeAngleChange -= directionFacing * 65 * pickaxeSwingAngleAddMult;
+					
+				pickaxeTimer = pickaxeTimerDelay;
 			}
 		}
 	} else { // spell
 		if(spellTimer <= 0) {
 			castSpell(mouse_x, mouse_y);
 			
-			var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
-			
-			spellXChange = dcos(_dirToMouse) * 5.2;
-			spellYChange = -dsin(_dirToMouse) * 4.4;
+			spellXChange = dcos(dirToMouse) * 5.2;
+			spellYChange = -dsin(dirToMouse) * 4.4;
 			
 			spellTimer = spellTimerDelay;
 		}
@@ -141,18 +154,16 @@ if(mouse_check_button(mb_left)) {
 		if(point_distance(x, y, mouse_x, mouse_y) < blockPlacementRange) {
 			script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex);
 			
-			var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
-			heldResourceXChange = dcos(_dirToMouse) * 5.2;
-			heldResourceYChange = -dsin(_dirToMouse) * 4.4;
+			heldResourceXChange = dcos(dirToMouse) * 5.2;
+			heldResourceYChange = -dsin(dirToMouse) * 4.4;
 			
 			heldResourceTimer = heldResourceTimerDelay;
 		}
 	}
 } else if(mouse_check_button_released(mb_middle)) {
-	var _dirToMouse = point_direction(x, y, mouse_x, mouse_y);
 	var _bomb = instance_create_layer(x, y - 10, "Instances", obj_bomb);
-	_bomb.xChange = dcos(_dirToMouse) * 3.1;
-	_bomb.yChange = -dsin(_dirToMouse) * 3.1;
+	_bomb.xChange = dcos(dirToMouse) * 3.1;
+	_bomb.yChange = -dsin(dirToMouse) * 3.1;
 }
 
 if(keyboard_check_released(ord("T"))) {
@@ -168,8 +179,20 @@ if(keyboard_check_released(ord("R"))) {
 	heldResourceArrayPos = (heldResourceArrayPos + 1) % array_length(heldMaterialsUnlocked);
 	heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
 }
+
 if(keyboard_check_released(ord("Q"))) {
+	spellArrayPos = (spellArrayPos + 1) % array_length(spellsUnlocked);
+	spell = spellsUnlocked[spellArrayPos];
+	
+	equipSpell();
+}
+
+if(keyboard_check_released(vk_shift)) {
 	usingPickaxeNotSpell = !usingPickaxeNotSpell; // toggle between pick and spell
+}
+
+if(keyboard_check_released(ord("N"))) {
+	pickaxeMineTileLine = !pickaxeMineTileLine;
 }
 
 pickaxeTimer--;
@@ -178,12 +201,13 @@ spellTimer--;
 
 
 if(usingPickaxeNotSpell) {
-	pickaxeAngleChange += (pickaxeAngleBase - pickaxeAngle) * .015;
+	pickaxeAngleChange += (pickaxeAngleBase - pickaxeAngle) * pickaxeAngleApproachMult * .02;
 
-	pickaxeAngleChange *= .85;
+	pickaxeAngleChange *= 1 - .15 * pickaxeSpeedDecayMult;
 	
 	pickaxeAngle += pickaxeAngleChange;
-	pickaxeAngle = lerp(pickaxeAngle, pickaxeAngleBase, .03); // if you'd also like to force the angle along with the acceleration to the goal
+	
+	pickaxeAngle = lerp(pickaxeAngle, pickaxeAngleBase, pickAxeFlatApproachMult * .033); // if you'd also like to force the angle along with the acceleration to the goal
 } else {
 	spellXOff *= .88;
 	spellYOff *= .88; // position and speed can both be culled back to 0 to avoid springing and distance/dir calculations (plus the rigid lerp is more arcade-y)

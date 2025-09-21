@@ -25,7 +25,7 @@ glimmerPart = global.itemGlimmerPart;
 pickUp = function() {
 	var _player = global.player;
 	
-	_player.setPickaxe(spr_pickaxeBlue);
+	_player.setPickaxe(spr_pickaxeBlue, 72, 10);
 	
 	part_particles_create_color(sys, x, y, explosionPart, #ffffaa, 50);
 	

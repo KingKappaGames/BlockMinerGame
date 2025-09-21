@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_MenuBlip",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.053265307,
+  "name":"snd_MenuBlip",
+  "parent":{
+    "name":"snd_group_menu",
+    "path":"folders/Sounds/snd_group_menu.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_MenuBlip.wav",
+  "type":0,
+  "volume":1.0,
+}
