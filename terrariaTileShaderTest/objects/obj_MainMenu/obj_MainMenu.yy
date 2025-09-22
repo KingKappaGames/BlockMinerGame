@@ -16,7 +16,10 @@
     "name":"obj_group_execs",
     "path":"folders/Objects/obj_group_execs.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_execParent",
+    "path":"objects/obj_execParent/obj_execParent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

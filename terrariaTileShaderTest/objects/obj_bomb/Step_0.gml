@@ -15,7 +15,7 @@ xChange *= speedDecay;
 
 duration--;
 if(duration <= 0) {
-	script_explodeTiles(x, y, 220, .2,,, true, true, true);
+	script_explodeTiles(x, y, 220, .2,,, true, true, .6);
 	
 	//part_particles_create_color(sys, x, y, explosionPart, image_blend, 120);
 	

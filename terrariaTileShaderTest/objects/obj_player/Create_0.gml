@@ -4,8 +4,6 @@ global.player = id;
 
 timer = 0;
 
-trailPart = global.thickTrail;
-
 audio_listener_set_position(0, x, y, 0);
 audio_listener_orientation(0, 1, 0, 0, 0, 1);
 audio_falloff_set_model(audio_falloff_linear_distance);
@@ -30,6 +28,8 @@ speedDecayAir = .96;
 speedDecayFly = .94;
 
 depth -= 10;
+
+essential = true;
 
 directionFacing = 1;
 dirToMouse = 0;

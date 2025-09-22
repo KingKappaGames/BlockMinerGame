@@ -1,10 +1,11 @@
+event_inherited();
+
 sprite_index = spr_pickaxeBlue;
+
+essential = true;
 
 pickUpRange = 32;
 available = false; // whether it can be picked up
-
-sys = global.sys;
-sysUnder = global.sysUnder;
 
 //parts
 

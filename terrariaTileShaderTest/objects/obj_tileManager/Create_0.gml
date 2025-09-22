@@ -63,6 +63,8 @@ updateScreen = function(rightX = undefined, topY = undefined) {
 		for (var _i = 0; _i < tileScreenWidth; _i++) {
 			array_copy(tilesScreen[_i], 0, tiles[screenWorldTileX + _i], screenWorldTileY, tileScreenHeight); // fills 2d array of screen with world sections at this position [x][y]
 		}
+		
+		script_spawnAmbientCreatures();
 	}
 }
 
@@ -125,7 +127,11 @@ generateWorld = function(type = "normal") {
 		for (var _worldX = 2; _worldX < tileRangeWorld - 2; _worldX++) {
 			for (var _worldY = 2; _worldY < tileRangeWorld - 2; _worldY++) {
 				if(irandom(10000) == 0) { // spawning structures randomly through the world   STRUCTURES
-					script_loadStructure(_worldX, _worldY, "exampleStructure.txt");
+					if(tiles[_worldX][_worldY] == 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
+						if(tiles[_worldX][_worldY + 2] > 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
+						script_loadStructure(_worldX, _worldY, "exampleStructure.txt");
+						}
+					}
 				} else { // DECORATION TILES
 					if(irandom(2) == 0){ // just kinda don't 2/3 of the time.. (dont place grass)
 						if(tiles[_worldX][_worldY] == tileTypes.grass) {

@@ -37,6 +37,6 @@ if(inGame) {
 			draw_set_alpha(1);
 		}
 		
-		splashIntroProgress += .005;
+		splashIntroProgress += .03;
 	}
 }

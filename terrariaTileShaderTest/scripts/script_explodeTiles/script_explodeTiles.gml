@@ -1,4 +1,4 @@
-function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, angleIncrementMin = 20, angleIncrementMax = 70, doParticles = false, doSound = false, doBrokenTileSounds = false) { // LOCAL SCOPE
+function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, angleIncrementMin = 20, angleIncrementMax = 70, doParticles = false, doSound = false, brokenTileSoundVolume = 0) { // LOCAL SCOPE
 	var _angle = 0;
 	var _dist = tileSize;
 	var _xx = 0;
@@ -8,7 +8,7 @@ function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, an
 		_angle += irandom_range(angleIncrementMin, angleIncrementMax);
 		_xx = xx + dcos(_angle) * _dist + irandom_range(-tileSize, tileSize);
 		_yy = yy - dsin(_angle) * _dist + irandom_range(-tileSize, tileSize);
-		script_breakTileAtPos(_xx, _yy, doBrokenTileSounds, false);
+		script_breakTileAtPos(_xx, _yy, brokenTileSoundVolume, false);
 		//instance_create_layer(_xx, _yy, "Instances", obj_debugMark);
 	}
 	

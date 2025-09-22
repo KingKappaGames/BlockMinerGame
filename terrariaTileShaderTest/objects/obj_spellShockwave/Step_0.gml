@@ -1,11 +1,15 @@
 event_inherited();
 
-radius *= 1.165;
+radius *= radiusMult;
 
 var _angle = 0;
-repeat(radius * .5 + 8) {
-	_angle += 16.73;
-	script_breakTileAtPos(x + dcos(_angle) * radius * .9 + irandom_range(-15, 15), y - dsin(_angle) * radius * .9 + irandom_range(-15, 15),, false);
+repeat((radius * .5 + 8) * strength) {
+	_angle += 138.508;
+	if(materialType == 0) {
+		script_breakTileAtPos(x + dcos(_angle) * radius * .9 + irandom_range(-15, 15), y - dsin(_angle) * radius * .9 + irandom_range(-15, 15), .15, false);
+	} else {
+		script_placeTileAtPos(x + dcos(_angle) * radius * .9 + irandom_range(-15, 15), y - dsin(_angle) * radius * .9 + irandom_range(-15, 15), materialType, true);
+	}
 	
 	global.tileManager.updateScreenStatic();
 }

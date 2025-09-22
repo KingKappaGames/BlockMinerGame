@@ -15,12 +15,20 @@ if(keyboard_check_released(ord("X"))) {
 	}
 }
 
+if(inWorld) {
+	script_moveCollide();
+} else {
+	x += xChange;
+	y += yChange;
+}
+
+
 var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 
 if(!flying) {
 	if(keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space)) {
 		if(_tileStanding != 0) {
-			yChange -= jumpSpeed;
+			yChange = -jumpSpeed;
 			_tileStanding = 0;
 		}
 	}
@@ -47,7 +55,7 @@ if(!flying) {
 	}
 } else {
 	if(_tileStanding == 0) {
-		part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), trailPart, #251030, 1);
+		part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
 	}
 	
 	if(keyboard_check(ord("A"))) {
@@ -86,13 +94,6 @@ if(_tileStanding != 0) {
 		
 		image_angle += angle_difference(point_direction(0, 0, xChange, yChange - 3.5) - 90, image_angle) * .08;
 	}
-}
-
-if(inWorld) {
-	script_moveCollide();
-} else {
-	x += xChange;
-	y += yChange;
 }
 
 if(flying) { // argggggg flying checks redundant
@@ -234,9 +235,15 @@ var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * 
 
 camera_set_view_pos(cam, _camX, _camY);
 global.tileManager.updateScreen(_camX, _camY);
+
+if(timer % 60 == 0) { // delete or disable all far enemies
+	script_refreshActivations();
+}
 #endregion
 
-
+if(irandom(1000) == 0) {
+	instance_create_layer(x, y, "Instances", obj_pixie);
+}
 
 if(keyboard_check_released(vk_insert)) {
 	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "exampleStructure.txt");

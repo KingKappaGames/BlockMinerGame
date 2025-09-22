@@ -14,7 +14,10 @@
     "name":"GMLive",
     "path":"folders/Extensions/GMLive.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_execParent",
+    "path":"objects/obj_execParent/obj_execParent.yy",
+  },
   "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

@@ -27,6 +27,8 @@ enum tileTypes {
 	wood = 4,
 }
 
+#macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
+
 #macro tileSprites [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood]
 #macro tileColors [c_black, c_green, c_aqua, #884411, #cbb29f]
 #macro tileSpritesDecorative [spr_pickaxe, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesRockDecoration, spr_tileGuideFramesMushroomDecoration, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesGrassDecoration]
@@ -181,11 +183,14 @@ startGameWorld = function() {
 	
 	global.tileManager.updateScreen();
 	
-	repeat(5) {
+	repeat(3) {
 		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
 	}
-	repeat(10) {
+	repeat(5) {
 		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_itemPickUpStatic);
+	}
+	repeat(5) {
+		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_materialOrbNode);
 	}
 	
 	inGame = true;

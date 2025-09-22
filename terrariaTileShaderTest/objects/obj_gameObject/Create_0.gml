@@ -1,8 +1,5 @@
 event_inherited();
 
-breakPart = global.breakPart; // localizing globals... Hm
-
-
 inWorld = false;
 
 xChange = 0;

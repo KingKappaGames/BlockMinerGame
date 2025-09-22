@@ -1,0 +1,1 @@
+draw_circle_color(x, y, radius - 1 + irandom(2), merge_color(c_white, image_blend, .5), image_blend, false);
