@@ -28,8 +28,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"spr_group_menuAssets",
-    "path":"folders/Sprites/spr_group_guiAssets/spr_group_menuAssets.yy",
+    "name":"spr_group_guiAssets",
+    "path":"folders/Sprites/spr_group_guiAssets.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -1,3 +1,5 @@
+if (live_call()) return live_result;
+
 draw_sprite_tiled_ext(spr_starryNight, 0, 0, -current_time * .03, .5, .5, c_white, 1);
 
 if(loadNextFrame) {

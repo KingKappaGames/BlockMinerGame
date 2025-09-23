@@ -1,4 +1,4 @@
-//if (live_call()) return live_result;
+if (live_call()) return live_result;
 
 if(!loadNextFrame) {
 	draw_set_halign(menuAlign);
@@ -32,23 +32,33 @@ if(!loadNextFrame) {
 		draw_text_transformed(x + 185, y + 105, string(gameScreenShakeDisplayOptions[gameScreenShakeSelected]), 1, 1.5, 0);
 		draw_text_transformed(x + 185, y + 145, gameGoreDisplayOptions[gameGoreSelected], 1, 1.5, 0);
 	} else if(optionGroup == 6) { // map gen option screen
-		draw_set_halign(fa_left)
+		draw_set_halign(fa_left);
 		draw_text_transformed(x + 185, y + 65, worldOptionGenerationTypeOptions[worldOptionGenerationTypeSelected], 1, 1.5, 0);
 		draw_text_transformed(x + 185, y + 105, string(worldOptionSizeOptions[worldOptionSizeSelected]), 1, 1.5, 0);
 		draw_text_transformed(x + 185, y + 145, string(worldOptionStructureMultOptions[worldOptionStructureMultSelected]), 1, 1.5, 0);
 		draw_text_transformed(x + 185, y + 185, string(worldOptionFlatOptions[worldOptionFlatSelected]), 1, 1.5, 0);
 	} else if(optionGroup == 7) { // map select screen
+		var _map1Frame = 0;
+		var _map2Frame = 0;
+		var _map3Frame = 0;
 		if(map1) {
-			draw_sprite(spr_mapIconSprite, 0, x + 40, y + 140);
+			_map1Frame = 1;
+			draw_sprite_ext(spr_deleteWorldIcons, map1DeletePrompt ? 1 : 0, x + 51, y + 222, 1, 1, 0, optionPosition == 4 ? c_yellow : c_white, 1);
 		}
 		if(map2) {
-			draw_sprite(spr_mapIconSprite, 0, x + 160, y + 140);
+			_map2Frame = 1;
+			draw_sprite_ext(spr_deleteWorldIcons, map2DeletePrompt ? 1 : 0, x + 120, y + 222, 1, 1, 0, optionPosition == 5 ? c_yellow : c_white, 1);
 		}
 		if(map3) {
-			draw_sprite(spr_mapIconSprite, 0, x + 280, y + 140);
+			_map3Frame = 1;
+			draw_sprite_ext(spr_deleteWorldIcons, map3DeletePrompt ? 1 : 0, x + 188, y + 222, 1, 1, 0, optionPosition == 6 ? c_yellow : c_white, 1);
 		}
-		
+		draw_sprite_ext(spr_mapIconSprite, _map1Frame, x + 52, y + 125, 1, 1, 0, optionPosition == 1 ? c_yellow : c_white, 1);
+		draw_sprite_ext(spr_mapIconSprite, _map2Frame, x + 120, y + 125, 1, 1, 0, optionPosition == 2 ? c_yellow : c_white, 1);
+		draw_sprite_ext(spr_mapIconSprite, _map3Frame, x + 188, y + 125, 1, 1, 0, optionPosition == 3 ? c_yellow : c_white, 1); 
 	}
+	
+	draw_text(mouse_x, mouse_y, $"{mouse_x - x}/{mouse_y - y}");
 	
 	draw_set_halign(fa_left);
 }

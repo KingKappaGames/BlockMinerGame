@@ -10,6 +10,9 @@ mapSelected = 0;
 map1 = file_exists("worldSave1.txt");
 map2 = file_exists("worldSave2.txt");
 map3 = file_exists("worldSave3.txt");
+map1DeletePrompt = false;
+map2DeletePrompt = false;
+map3DeletePrompt = false;
 
 options[0][0] = "START";
 options[0][1] = "OPTIONS";
@@ -261,6 +264,33 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 			} else {
 				menuSwitchOptionGroup(6);
 			}
+		} else if(optionPosition == 4) {
+			if(map1) {
+				if(map1DeletePrompt) {
+					file_delete("worldSave1.txt");
+					map1 = false;
+				} else {
+					map1DeletePrompt = true;
+				}
+			}
+		} else if(optionPosition == 5) {
+			if(map2) {
+				if(map2DeletePrompt) {
+					file_delete("worldSave2.txt");
+					map2 = false;
+				} else {
+					map2DeletePrompt = true;
+				}
+			}
+		} else if(optionPosition == 6) {
+			if(map3) {
+				if(map3DeletePrompt) {
+					file_delete("worldSave3.txt");
+					map3 = false;
+				} else {
+					map3DeletePrompt = true;
+				}
+			}
 		}
 	}
 }
@@ -320,9 +350,10 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
 		} else if(newOptionGroup == 7) { // map select
 			menuAlign = fa_right;
-			menuWidth = 310;
+			menuWidth = 240;
 			menuTextOffset = 20;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight + 50;
+			menuHeight = menuBorder * 2 + optionAmount * optionHeight + 75;
+			optionHeight = 80;
 		}
 	}
 
