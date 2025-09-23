@@ -2,7 +2,10 @@ event_inherited();
 
 moveSpeed = 0;
 
-Health = 10;
+HealthMax = 10;
+Health = HealthMax;
+
+directionFacing = 1;
 
 hit = function() {
 	

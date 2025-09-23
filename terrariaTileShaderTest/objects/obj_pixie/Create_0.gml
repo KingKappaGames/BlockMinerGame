@@ -1,6 +1,7 @@
 event_inherited();
 
 radius = irandom_range(3, 6);
+partRadius = radius * .7;
 
 moveDir = irandom(360);
 moveSpeed = .13;

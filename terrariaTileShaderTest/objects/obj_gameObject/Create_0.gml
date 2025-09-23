@@ -11,6 +11,6 @@ speedDecayAir = 1;
 horizontalBounce = 0;
 verticalBounce = 0;
 
-hitGround = function() { // does various bounce and fall damage related things?
+hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall damage related things?
 	
 }

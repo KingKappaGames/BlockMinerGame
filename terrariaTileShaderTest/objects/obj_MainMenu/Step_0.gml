@@ -1,8 +1,17 @@
 //if (live_call()) return live_result;
 
 if(global.manager.splashIntroProgress >= 1) {
-	if(loadNextFrame) {
-		global.manager.startGameWorld();
+	if(loadNextFrame != 0) {
+		var _exists = false;
+		if(loadNextFrame == 1) {
+			_exists = map1;
+		} else if(loadNextFrame == 2) {
+			_exists = map2;
+		} else if(loadNextFrame == 3) {
+			_exists = map3;
+		}
+		global.manager.worldCurrent = mapSelected;
+		global.manager.startGameWorld(loadNextFrame, _exists);
 	} else {
 		var _horizontalInput = keyboard_check_released(ord("S")) - keyboard_check_released(ord("W"));
 		var _verticalInput = keyboard_check_released(ord("D")) - keyboard_check_released(ord("A"));

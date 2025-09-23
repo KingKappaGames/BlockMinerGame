@@ -25,7 +25,7 @@ function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen 
 		
 		_worldTiles[worldTileX][worldTileY] = 0;
 		
-		if(_worldTiles[worldTileX][worldTileY - 1] < 0) { // decoration
+		if(worldTileY > 0 && _worldTiles[worldTileX][worldTileY - 1] < 0) { // decoration
 			script_breakTile(worldTileX, worldTileY - 1, soundVolume, false); // try to only update the screen once per "action" so multiple blocks breaking at once only needs to update the screen once
 		}
 			
@@ -40,6 +40,6 @@ function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen 
 }
 
 function script_breakTileAtPos(worldX, worldY, soundVolume = 1, updateScreen = true) {
-	//gml_pragma("forceinline");
+	gml_pragma("forceinline");
 	return script_breakTile(worldX div tileSize, worldY div tileSize, soundVolume); // wrapper for coords instead of tile index
 }

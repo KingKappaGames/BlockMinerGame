@@ -1,4 +1,4 @@
-function script_moveCollide(){
+function script_moveCollide() {
 	var _tileOnX = global.worldTiles[(x + xChange) div tileSize][y div tileSize];
 	
 	if(_tileOnX > 0) {
@@ -19,9 +19,7 @@ function script_moveCollide(){
 			y += tileSize - .2; // push to top or bottom edge of tile if hitting wall in that direction (vertically)
 		}
 		
-		if(yChange > 2) {
-			hitGround(yChange);
-		}
+		hitGround(yChange, _tileOnY);
 		
 		yChange *= verticalBounce;
 	}

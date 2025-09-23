@@ -1,6 +1,8 @@
 event_inherited();
 
-part_particles_create_color(sys, x + xChange + irandom_range(-radius, radius), y + yChange + irandom_range(-radius, radius), thickTrailPart, image_blend, 1);
+if(irandom(2) == 0) {
+	part_particles_create_color(sys, x + xChange + irandom_range(-partRadius, partRadius), y + yChange + irandom_range(-partRadius, partRadius), thickTrailPart, image_blend, 1);
+}
 
 x += xChange;
 y += yChange;

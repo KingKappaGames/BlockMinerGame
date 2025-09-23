@@ -35,7 +35,13 @@ if(inGame) {
 	
 	//show_debug_message($"CamX/Y: {camera_get_view_x(cam)}/{camera_get_view_y(cam)}   AND updateX/Y: {screenWorldX}/{screenWorldY}");
 	
-	
+	if(keyboard_check_released(vk_escape)) {
+		script_saveWorld("worldSave" + string(worldCurrent) + ".txt");
+		
+		exitGameWorld();
+		
+		initMainMenuScreen();
+	}
 	
 	//SAVE GAME
 	if(keyboard_check_released(vk_end)) { 

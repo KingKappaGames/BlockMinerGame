@@ -77,7 +77,7 @@ updateScreenStatic = function() {
 
 #endregion
 
-generateWorld = function(type = "normal") {
+generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat = false) { // size doesn't do anything atm (since I'd prefer to keep size as a macro for speed..)
 	show_debug_message("GENERATING WORLD");
 	if(type == "overworld") {
 		var _tileType = 0;
@@ -104,7 +104,11 @@ generateWorld = function(type = "normal") {
 				
 				//########################### GENERATING VALUES START ################################### (literally all arbitrary, I made this in shader toy just eyeballing all the values and ported them over here. Redo it in shadertoy if you're editing, don't try to update them here in game maker, that's folly)
 		
-				_noise = (-.8 + _worldYNormal * 5.) + sin(_worldXNormal * 23.1) * .07 + sin(_worldXNormal * 73.7) * .03 + sin(_worldXNormal * 317.3) * .015; // this is free for all, on either side it will clamp and compress to an index or set up basic values
+				if(flat) {
+					_noise = 0; // I do believe that this is where the up and down terrain of the map comes from..?
+				} else {
+					_noise = (-.8 + _worldYNormal * 5.) + sin(_worldXNormal * 23.1) * .07 + sin(_worldXNormal * 73.7) * .03 + sin(_worldXNormal * 317.3) * .015; // this is free for all, on either side it will clamp and compress to an index or set up basic values
+				}
 		
 			    _caveNoise = power((perlin(_posX * .61, _posY * .61) + perlin(_posX * 1.7, _posY * 1.7) * .5 + perlin(_posX * 2.9, _posY * 2.9) * .166) * .58, .67); //  + perlin(_posX * 2.5, _posY * 2.5)
 			
@@ -126,10 +130,10 @@ generateWorld = function(type = "normal") {
 		
 		for (var _worldX = 2; _worldX < tileRangeWorld - 2; _worldX++) {
 			for (var _worldY = 2; _worldY < tileRangeWorld - 2; _worldY++) {
-				if(irandom(10000) == 0) { // spawning structures randomly through the world   STRUCTURES
+				if(irandom(10000 / structureMult) == 0) { // spawning structures randomly through the world   STRUCTURES
 					if(tiles[_worldX][_worldY] == 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
 						if(tiles[_worldX][_worldY + 2] > 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
-						script_loadStructure(_worldX, _worldY, "exampleStructure.txt");
+							script_loadStructure(_worldX, _worldY, "STRUCTUREDATA/exampleStructure.txt");
 						}
 					}
 				} else { // DECORATION TILES
@@ -199,5 +203,3 @@ generateWorld = function(type = "normal") {
 		}
 	}
 }
-
-generateWorld("overworld");

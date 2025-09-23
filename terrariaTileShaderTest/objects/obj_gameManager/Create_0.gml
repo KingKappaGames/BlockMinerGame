@@ -5,6 +5,7 @@ global.manager = id;
 splashIntroProgress = 0; // 0-1 representing black to icon to black to menu (fading between each)
 
 inGame = false;
+worldCurrent = 0;
 
 #region macros and enums set up
 
@@ -12,11 +13,13 @@ enum spells {
 	none = 0,
 	bolt = 1,
 	shockwave = 2,
-	hold1 = 3,
+	bananaShimmer = 3,
 	hold2 = 4
 }
 
-enum tileTypes {
+//RENAME THESE WITH THE E_ PREFIX SO THAT YOU CAN NOT CALL THEM TYPE AND BE CONFUSED, E_ GIVES YOU A BASE TO SEE YOUR OPTIONS, REMEMBER???
+
+enum tileTypes { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
 	decMushroom = -3,
 	decRock = -2,
 	decGrass = -1,
@@ -25,14 +28,36 @@ enum tileTypes {
 	diamond = 2,
 	dirt = 3,
 	wood = 4,
+	flesh = 5,
+	banana = 6,
+}
+
+enum robeType {
+	basicPurple = 0,
+	superRed = 1,
+	teleporterWhite = 2,
+	bananaYellow = 3,
+	materialGrass = 4,
+}
+
+enum pickaxeType {
+	basicRed = 0,
+	blue = 1,
+	long = 2,
+	banana = 3,
 }
 
 #macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
 
-#macro tileSprites [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood]
-#macro tileColors [c_black, c_green, c_aqua, #884411, #cbb29f]
+#macro tileSprites [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood, spr_tileGuideFramesFlesh, spr_tileGuideFramesFlesh]
+#macro tileColors [c_black, c_green, c_aqua, #884411, #cbb29f, #ff8888, #ffff00]
 #macro tileSpritesDecorative [spr_pickaxe, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesRockDecoration, spr_tileGuideFramesMushroomDecoration, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesGrassDecoration]
 #macro tileColorsDecorative [c_black, c_green, c_ltgray, c_red, #bba280]
+
+#macro tileFallDamage [0, .6, 2, .8, 1.2, .5, .75]
+#macro tileStepSounds [snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone]
+#macro tileFallSounds [snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_stepSoundStone, snd_stepSoundStone]
+
 #macro grav .13
 
 #region audio fall off values both for convenience and because the manual is very confusing and I want to stop screwing this up when I stop using audio stuff for a few months and come back to screw it up again
@@ -96,17 +121,17 @@ sysUnder = part_system_create();
 part_system_depth(sysUnder, depth + 250); // under everything else (not background tho)
 global.sysUnder = sysUnder;
 
-#region
+#region PARTICLE definitions
 global.breakPart = part_type_create();
 var _break = global.breakPart;
 part_type_life(_break, 27, 45);
 part_type_shape(_break, pt_shape_square);
 part_type_size(_break, .07, .105, -.002, 0);
 part_type_alpha2(_break, 1, 0);
-part_type_speed(_break, .3, 1.2, 0, 0);
+part_type_speed(_break, .25, 1.05, 0, 0);
 part_type_direction(_break, 0, 360, 0, 0);
 part_type_orientation(_break, 0, 360, 3, 5, false);
-part_type_gravity(_break, .04, 270);
+part_type_gravity(_break, .032, 270);
 
 global.explosionPart = part_type_create();
 var _explosionPart = global.explosionPart;
@@ -119,13 +144,40 @@ part_type_speed(_explosionPart, 1.6, 4.8, -.18, 0);
 part_type_direction(_explosionPart, 0, 360, 0, 0);
 part_type_orientation(_explosionPart, 0, 360, 3, 5, false);
 
+global.starPart = part_type_create();
+var _star = global.starPart;
+part_type_life(_star, 150, 180);
+part_type_sprite(_star, spr_starShape, false, false, false);
+part_type_size(_star, .15, .5, -.0025, 0); // limiting factor hopefully
+part_type_speed(_star, 1.6, 4.8, -.18, 0); // do override this when you want though, should be set per effect in game
+part_type_direction(_star, 0, 360, 0, 0);
+part_type_orientation(_star, 0, 360, 3, 5, false);
+
+global.roundTrail = part_type_create();
+var _roundTrail = global.roundTrail;
+part_type_life(_roundTrail, 45, 55);
+part_type_shape(_roundTrail, pt_shape_square);
+part_type_size(_roundTrail, .05, .05, -.001, 0);
+part_type_alpha2(_roundTrail, 1, .3);
+part_type_speed(_roundTrail, 0, .4, -.004, 0);
+part_type_direction(_roundTrail, 0, 360, 0, 0);
+part_type_orientation(_roundTrail, 0, 0, 1.7, 0, 0);
+part_type_color1(_roundTrail, c_yellow)
+
+global.overwrittenTrailerPart = part_type_create(); // no visuals?
+var _trailerPart = global.overwrittenTrailerPart;
+part_type_life(_trailerPart, 25, 90);
+part_type_direction(_trailerPart, 0, 360, 0, 0); // over write speed per particle use case in code, no default
+part_type_gravity(_trailerPart, .04, 270);
+part_type_step(_trailerPart, 1, _roundTrail);
+
 global.smokeTrailPart = part_type_create();
 var _smokeTrail = global.smokeTrailPart;
 part_type_life(_smokeTrail, 75, 110);
 part_type_shape(_smokeTrail, pt_shape_square);
 part_type_size(_smokeTrail, .02, .02, .001, 0);
 part_type_alpha2(_smokeTrail, 1, 0);
-part_type_speed(_smokeTrail, 0.2, .5, -.004, 0);
+part_type_speed(_smokeTrail, 0.15, .3, -.008, 0);
 part_type_direction(_smokeTrail, 0, 360, 0, 0);
 part_type_gravity(_smokeTrail, -.01, 270);
 
@@ -138,6 +190,14 @@ part_type_speed(_thickTrail, 0.0, .2, -.002, 0);
 part_type_direction(_thickTrail, 0, 360, 0, 0);
 part_type_orientation(_thickTrail, 0, 360, 0, 0, false);
 part_type_gravity(_thickTrail, -.01, 270);
+
+global.rushPart = part_type_create();
+var _rushPart = global.rushPart;
+part_type_life(_rushPart, 62, 85);
+part_type_shape(_rushPart, pt_shape_square);
+part_type_size(_rushPart, .15, .21, -.002, 0);
+part_type_orientation(_rushPart, 0, 360, 0, 0, false);
+part_type_gravity(_rushPart, .04, 270);
 
 global.itemGlimmerPart = part_type_create();
 var _itemGlimmer = global.itemGlimmerPart;
@@ -162,24 +222,30 @@ abyssParams = fx_get_parameters(abyssFilter);
 vignetteEffectRange = [.25, 1]; // normalized depth of world for this effect to range over
 #endregion
 
-startGameWorld = function() {
-	instance_destroy(obj_MainMenu); // hm
-	
+startGameWorld = function(worldIndex, exists = false) {
 	var _tileManager = instance_create_layer(0, 0, "Instances", obj_tileManager);
-	
 	var _player = instance_create_layer(0, 0, "Instances", obj_player);
 	
-	var _worldTiles = global.worldTiles;
-	var _px = _player.x;
-	var _py = _player.y;
-	for(var _i = 0; _i < tileRangeWorld; _i += 5) {
-		if(_worldTiles[_px div tileSize][_py div tileSize + _i] > 0) {
-			_player.y = _player.y + _i * tileSize - tileSize;
-			break;
+	if(exists) {
+		var _fileName = "worldSave" + string(worldCurrent) + ".txt";
+		
+		script_loadWorld(_fileName);
+	} else {
+		var _menu = obj_MainMenu.id;
+		_tileManager.generateWorld(_menu.worldOptionGenerationTypeOptions[_menu.worldOptionGenerationTypeSelected], _menu.worldOptionSizeOptions[_menu.worldOptionSizeSelected], _menu.worldOptionStructureMultOptions[_menu.worldOptionStructureMultSelected], _menu.worldOptionFlatOptions[_menu.worldOptionFlatSelected]);
+	}
+	
+	instance_destroy(obj_MainMenu); // hm
+	
+	with(_player) {
+		x = irandom_range(100, worldSizePixels - 100);
+		y = script_findGroundBelow(x, 0, 5, false, tileRangeWorld * .9); // find that mfing ground
+		if(y == -1) {
+			y = 1000; 
 		}
 	}
 	
-	camera_set_view_pos(cam, _player.x - camera_get_view_width(cam) * .5, _player.y - camera_get_view_height(cam) * .5);
+	script_centerCameraOnPlayer();
 	
 	global.tileManager.updateScreen();
 	
@@ -194,6 +260,19 @@ startGameWorld = function() {
 	}
 	
 	inGame = true;
+	worldCurrent = worldIndex;
+	
+	if(!exists) {
+		script_saveWorld("worldSave" + string(worldCurrent) + ".txt"); // save newly generated world
+	}
+}
+
+exitGameWorld = function() {
+	instance_activate_all();
+	instance_destroy(obj_entity, false);
+	instance_destroy(obj_tileManager);
+	
+	inGame = false;
 }
 
 initMainMenuScreen = function() {

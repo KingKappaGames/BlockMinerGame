@@ -36,17 +36,21 @@ if(!flying) {
 	if(keyboard_check(ord("A"))) {
 		if(_tileStanding != 0) {
 			xChange -= moveSpeed;
+			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+				audio_play_sound(tileStepSounds[_tileStanding], 0, 0);
+			}
 		} else {
 			xChange -= moveSpeedAir;
 		}
 		
 		directionFacing = -1;
 		pickaxeAngleBase = 90 + 30 * directionFacing;
-	}
-	
-	if(keyboard_check(ord("D"))) {
+	} else if(keyboard_check(ord("D"))) {
 		if(_tileStanding != 0) {
 			xChange += moveSpeed;
+			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+				audio_play_sound(tileStepSounds[_tileStanding], 0, 0);
+			}
 		} else {
 			xChange += moveSpeedAir;
 		}
@@ -54,9 +58,7 @@ if(!flying) {
 		pickaxeAngleBase = 90 + 30 * directionFacing;
 	}
 } else {
-	if(_tileStanding == 0) {
-		part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
-	}
+	part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
 	
 	if(keyboard_check(ord("A"))) {
 		xChange -= moveSpeedFly;
@@ -109,7 +111,7 @@ audio_listener_set_position(0, x, y, 0);
 
 #region item use controls
 if(mouse_check_button(mb_left)) {
-	directionFacing = sign(mouse_x - x);
+	directionFacing = sign(mouse_x - chestX);
 	if(directionFacing == 0) {
 		directionFacing = 1;
 	}
@@ -121,13 +123,13 @@ if(mouse_check_button(mb_left)) {
 					var _dist = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
 					var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
 					for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
-						if(script_breakTileAtPos(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
+						if(miningFunc(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
 							break;
 						}
 					}
 					
-				} else if(point_distance(x, y, mouse_x, mouse_y) < pickaxeRange) {
-					script_breakTileAtPos(mouse_x, mouse_y);
+				} else if(point_distance(chestX, chestY, mouse_x, mouse_y) < pickaxeRange) {
+					miningFunc(mouse_x, mouse_y);
 				}
 				
 				pickaxeAngleChange -= directionFacing * 65 * pickaxeSwingAngleAddMult;
@@ -152,7 +154,7 @@ if(mouse_check_button(mb_left)) {
 	}
 	
 	if(heldResourceTimer <= 0) {
-		if(point_distance(x, y, mouse_x, mouse_y) < blockPlacementRange) {
+		if(point_distance(x, y - chestOff, mouse_x, mouse_y) < blockPlacementRange) {
 			script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex);
 			
 			heldResourceXChange = dcos(dirToMouse) * 5.2;
@@ -162,9 +164,9 @@ if(mouse_check_button(mb_left)) {
 		}
 	}
 } else if(mouse_check_button_released(mb_middle)) {
-	var _bomb = instance_create_layer(x, y - 10, "Instances", obj_bomb);
-	_bomb.xChange = dcos(dirToMouse) * 3.1;
-	_bomb.yChange = -dsin(dirToMouse) * 3.1;
+	var _bomb = instance_create_layer(chestX, chestY, "Instances", obj_bananaBomb);
+	_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
+	_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
 }
 
 if(keyboard_check_released(ord("T"))) {
@@ -246,5 +248,5 @@ if(irandom(1000) == 0) {
 }
 
 if(keyboard_check_released(vk_insert)) {
-	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "exampleStructure.txt");
+	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "STRUCTUREDATA/exampleStructure.txt");
 }

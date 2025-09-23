@@ -7,6 +7,9 @@ essential = true;
 pickUpRange = 32;
 available = false; // whether it can be picked up
 
+pickupType = "pickaxe";
+pickupIndex = pickaxeType.blue;
+
 //parts
 
 image_angle = choose(45, 135, 225, 315) + irandom_range(-8, 8); // i just prefer the diagonals
@@ -14,7 +17,19 @@ image_xscale = 2;
 image_yscale = 2;
 
 pickUp = function() {
+	var _player = global.player;
 	
+	if(pickupType == "pickaxe") {
+		_player.setPickaxe(pickupIndex);
+	} else if(pickupType == "robe") {
+		_player.setRobe(id);
+	}
+	
+	part_particles_create_color(sys, x, y, explosionPart, #ffffaa, 50);
+	
+	//sound and particles
+	
+	instance_destroy();
 }
 
 

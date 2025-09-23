@@ -19,6 +19,8 @@ if(pickaxeMineTileLine && pickaxeTimer > 0) {
 	draw_set_alpha(1);
 }
 
+//draw_text(x, y - 50, Health);
+
 //
 //var _id = collision_rectangle(mouse_x - 50, mouse_y - 50, mouse_x + 50, mouse_y + 50, obj_player, false, false);
 //

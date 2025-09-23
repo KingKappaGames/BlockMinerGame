@@ -3,13 +3,13 @@ function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, an
 	var _dist = tileSize;
 	var _xx = 0;
 	var _yy = 0;
+	
 	repeat(breakTries) {
 		_dist = _dist + distAdd;
 		_angle += irandom_range(angleIncrementMin, angleIncrementMax);
 		_xx = xx + dcos(_angle) * _dist + irandom_range(-tileSize, tileSize);
 		_yy = yy - dsin(_angle) * _dist + irandom_range(-tileSize, tileSize);
 		script_breakTileAtPos(_xx, _yy, brokenTileSoundVolume, false);
-		//instance_create_layer(_xx, _yy, "Instances", obj_debugMark);
 	}
 	
 	if(doParticles) {

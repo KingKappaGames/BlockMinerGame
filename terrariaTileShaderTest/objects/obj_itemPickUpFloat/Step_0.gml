@@ -1,6 +1,6 @@
 event_inherited();
 
-var _goalX = originX + dcos(current_time * bobTimeScale * 2.37) * bobRange * .45; // 8.7 just random modifier
+var _goalX = originX + dcos(current_time * bobTimeScale * 2.37) * bobRange * bobRangeXMult; // 8.7 just random modifier
 var _goalY = originY + dsin(current_time * bobTimeScale) * bobRange;
 
 var _dirToGoal = point_direction(x, y, _goalX, _goalY)
@@ -17,6 +17,7 @@ yChange *= speedDecay;
 if(available) {
 	if(keyboard_check_pressed(ord("E"))) {
 		pickUp();
+		keyboard_clear(ord("E"));
 	}
 }
 

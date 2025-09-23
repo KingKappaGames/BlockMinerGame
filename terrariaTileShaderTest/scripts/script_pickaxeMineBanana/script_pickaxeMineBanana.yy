@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_pickaxeMineBanana",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_pickaxeMineBanana",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

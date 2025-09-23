@@ -6,6 +6,11 @@ cam = view_camera[0];
 menuWidth = 500;
 menuHeight = 440;
 
+mapSelected = 0;
+map1 = file_exists("worldSave1.txt");
+map2 = file_exists("worldSave2.txt");
+map3 = file_exists("worldSave3.txt");
+
 options[0][0] = "START";
 options[0][1] = "OPTIONS";
 options[0][2] = "CREDITS";
@@ -34,6 +39,18 @@ options[5][1] = "DIFFICULTY";
 options[5][2] = "SCREEN SHAKE";
 options[5][3] = "GORE";
 
+options[6][0] = "RETURN";
+options[6][1] = "GENERATION TYPE";
+options[6][2] = "SIZE";
+options[6][3] = "STRUCTURE MULTIPLIER";
+options[6][4] = "FLAT";
+options[6][5] = "CREATE!";
+
+options[7][0] = "RETURN";
+options[7][1] = "";
+options[7][2] = ""; // no titles
+options[7][3] = "";
+
 optionPosition = 0;
 optionGroup = 0;
 optionAmount = 4;
@@ -44,7 +61,7 @@ menuAlign = fa_middle;
 menuTextOffset = 0;
 
 mouseSelecting = false;
-loadNextFrame = false;
+loadNextFrame = 0; // 0 or map index for which to load next frame
 
 x = room_width / 2 - menuWidth / 2;
 y = room_height / 2 - menuHeight / 2;
@@ -73,6 +90,18 @@ gameEffectVolume = global.gameEffectVolume;
 gameMusicVolume = global.gameMusicVolume;
 gameAmbientVolume = global.gameAmbientVolume;
 
+worldOptionSizeSelected = 3;
+worldOptionSizeOptions = [100, 250, 500, 1000, 1500, 2000, 3000, 4000, 5000, 8000];
+
+worldOptionGenerationTypeSelected = 0;
+worldOptionGenerationTypeOptions = ["overworld", "normal", "layers", "random"];
+
+worldOptionStructureMultSelected = 4;
+worldOptionStructureMultOptions = [0, .1, .25, .5, 1, 1.25, 1.5, 2, 3, 5, 10, 25];
+
+worldOptionFlatSelected = 0;
+worldOptionFlatOptions = [false, true];
+
 #region initialize menu
 initializeMenu = function(){
 	window_set_size(gameWindowResolutionOptions[gameWindowResolutionSelected][0], gameWindowResolutionOptions[gameWindowResolutionSelected][1]);
@@ -88,7 +117,7 @@ initializeMenu = function(){
 #endregion
 
 #region menu change field
-menuChangeField = function(fieldChange){
+menuChangeField = function(fieldChange) {
 	if(fieldChange != 0) {
 		audio_play_sound(snd_MenuBeep, 100, false);
 		if(optionGroup == 2) {
@@ -131,7 +160,17 @@ menuChangeField = function(fieldChange){
 			} if(optionPosition == 3) {
 				gameGoreSelected = clamp(gameGoreSelected + fieldChange, 0, 2);
 			}
-		} // so on for more option groups
+		} else if(optionGroup == 6) { // world gen options
+			if(optionPosition == 1) {
+				worldOptionGenerationTypeSelected = clamp(worldOptionGenerationTypeSelected + fieldChange, 0, array_length(worldOptionGenerationTypeOptions) - 1);
+			} else if(optionPosition == 2) {
+				worldOptionSizeSelected = clamp(worldOptionSizeSelected + fieldChange, 0, array_length(worldOptionSizeOptions) - 1);
+			} else if(optionPosition == 3) {
+				worldOptionStructureMultSelected = clamp(worldOptionStructureMultSelected + fieldChange, 0, array_length(worldOptionStructureMultOptions) - 1);
+			} else if(optionPosition == 4) {
+				worldOptionFlatSelected = clamp(worldOptionFlatSelected + fieldChange, 0, array_length(worldOptionFlatOptions) - 1);
+			}
+		}
 	}
 }
 #endregion
@@ -141,7 +180,7 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 	if(optionGroup == 0) {
 		if(optionPosition == 0) {
 			audio_play_sound(snd_MenuBeep, 100, false);
-			loadNextFrame = true;
+			menuSwitchOptionGroup(7, 1);
 		} else if(optionPosition == 1) {
 			menuSwitchOptionGroup(1);
 		} else if(optionPosition == 2) {
@@ -187,6 +226,41 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 			menuSwitchOptionGroup(1);
 		} else {
 			menuChangeField(intent);
+		}
+	} else if(optionGroup == 6) { // map generation config
+		if(optionPosition == 0) {
+			menuSwitchOptionGroup(7, 1);
+		} else if(optionPosition == optionAmount - 1) { // last one idk
+			loadNextFrame = mapSelected;
+		} else {
+			menuChangeField(intent);
+		}
+	} else if(optionGroup == 7) { // map select screen
+		if(optionPosition == 0) {
+			mapSelected = 0;
+			menuSwitchOptionGroup(0);
+		} else if(optionPosition == 1) {
+			mapSelected = 1;
+			if(map1) {
+				loadNextFrame = 1;
+			} else {
+				menuSwitchOptionGroup(6);
+			}
+			//if world1 exists then play it, otherwise go to create screen
+		} else if(optionPosition == 2) {
+			mapSelected = 2;
+			if(map2) {
+				loadNextFrame = 2; // on map 1..?
+			} else {
+				menuSwitchOptionGroup(6);
+			}
+		} else if(optionPosition == 3) {
+			mapSelected = 3;
+			if(map3) {
+				loadNextFrame = 3; // on map 1..?
+			} else {
+				menuSwitchOptionGroup(6);
+			}
 		}
 	}
 }
@@ -239,6 +313,16 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 			menuWidth = 310;
 			menuTextOffset = 20;
 			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
+		} else if(newOptionGroup == 6) { // map gen options
+			menuAlign = fa_right;
+			menuWidth = 310;
+			menuTextOffset = 20;
+			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
+		} else if(newOptionGroup == 7) { // map select
+			menuAlign = fa_right;
+			menuWidth = 310;
+			menuTextOffset = 20;
+			menuHeight = menuBorder * 2 + optionAmount * optionHeight + 50;
 		}
 	}
 

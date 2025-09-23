@@ -1,18 +1,18 @@
-function script_saveWorld() {
+function script_saveWorld(filename) {
 	var _saveData = [variable_clone(global.worldTiles), global.player.x, global.player.y];
 	var _jsonWorld = json_stringify(_saveData);
 	
     var _worldSavebuffer = buffer_create(string_byte_length(_jsonWorld) + 1, buffer_fixed, 1);
 	
     buffer_write(_worldSavebuffer, buffer_string, _jsonWorld);
-    buffer_save(_worldSavebuffer, "worldSave.txt");
+    buffer_save(_worldSavebuffer, filename);
     buffer_delete(_worldSavebuffer);
 }
 
-function script_loadWorld() {
+function script_loadWorld(filename) {
 	global.worldTiles = []; // not necessary but nice feeling
 	
-	var _worldLoadBuffer = buffer_load("worldSave.txt");
+	var _worldLoadBuffer = buffer_load(filename);
 	
 	var _worldLoadData = buffer_read(_worldLoadBuffer, buffer_string);
 	
@@ -28,5 +28,4 @@ function script_loadWorld() {
 	var _tileManager = global.tileManager;
 	
 	_tileManager.tiles = global.worldTiles; // tile manager holding onto ref to old world, cut it loose into the void
-	_tileManager.updateScreenStatic();
 }
