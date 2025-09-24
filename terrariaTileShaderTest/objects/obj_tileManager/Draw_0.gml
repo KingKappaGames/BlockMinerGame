@@ -4,11 +4,11 @@ var _tileY = 0;
 var _color = c_white;
 var _tileFrameIndex = 0;
 
-var _tSprite = tileSprites;
-var _tCol = tileColors;
+var _tSprite = global.tileSprites;
+var _tCol = global.tileColors;
 
-var _tSpriteDec = tileSpritesDecorative;
-var _tColDec = tileColorsDecorative;
+var _tSpriteDec = global.tileSpritesDecorative;
+var _tColDec = global.tileColorsDecorative;
 
 //maybe add functions to the tile index so like, tile index 6 could have a smoke effect and tile index 3 could have smoke and glow and hurting you know? It could be stored as a ref to index data
 

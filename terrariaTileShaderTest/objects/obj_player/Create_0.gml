@@ -93,9 +93,9 @@ spellYChange = 0;
 
 hitGround = function(fallSpeed, tileIndex) {
 	if(fallSpeed > 3.5) {
-		audio_play_sound(tileFallSounds[tileIndex], 0, 0, .25);
+		audio_play_sound(global.tileFallSounds[tileIndex], 0, 0, .25);
 		if(fallSpeed > 6) {
-			hit((power(fallSpeed - 5, 1.75) - 1) * 2 * tileFallDamage[tileIndex]);
+			hit((power(fallSpeed - 5, 1.75) - 1) * 2 * global.tileFallDamage[tileIndex]);
 			
 			audio_play_sound(snd_breakBlockCrystal, 0, 0, .5);
 		}

@@ -47,16 +47,18 @@ enum E_pickaxe {
 	banana = 3,
 }
 
+//bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?
+
 #macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
 
-#macro tileSprites [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood, spr_tileGuideFramesFlesh, spr_tileGuideFramesFlesh]
-#macro tileColors [c_black, c_green, c_aqua, #884411, #cbb29f, #ff8888, #ffff00]
-#macro tileSpritesDecorative [spr_pickaxe, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesRockDecoration, spr_tileGuideFramesMushroomDecoration, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesGrassDecoration]
-#macro tileColorsDecorative [c_black, c_green, c_ltgray, c_red, #bba280]
+global.tileSprites = [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood, spr_tileGuideFramesFlesh, spr_tileGuideFramesFlesh];
+global.tileColors = [c_black, c_green, c_aqua, #884411, #cbb29f, #ff8888, #ffff00];
+global.tileSpritesDecorative = [spr_pickaxe, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesRockDecoration, spr_tileGuideFramesMushroomDecoration, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesGrassDecoration];
+global.tileColorsDecorative = [c_black, c_green, c_ltgray, c_red, #bba280];
 
-#macro tileFallDamage [0, .6, 2, .8, 1.2, .5, .75]
-#macro tileStepSounds [snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone]
-#macro tileFallSounds [snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_stepSoundStone, snd_stepSoundStone]
+global.tileFallDamage = [0, .6, 2, .8, 1.2, .5, .75];
+global.tileStepSounds = [snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone];
+global.tileFallSounds = [snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_stepSoundStone, snd_stepSoundStone];
 
 #macro grav .13
 

@@ -44,7 +44,7 @@ if(!flying) {
 		if(_tileStanding != 0) {
 			xChange -= moveSpeed;
 			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
-				audio_play_sound(tileStepSounds[_tileStanding], 0, 0);
+				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
 			xChange -= moveSpeedAir;
@@ -56,7 +56,7 @@ if(!flying) {
 		if(_tileStanding != 0) {
 			xChange += moveSpeed;
 			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
-				audio_play_sound(tileStepSounds[_tileStanding], 0, 0);
+				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
 			xChange += moveSpeedAir;

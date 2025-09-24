@@ -1,5 +1,5 @@
 if(!flying) {
-	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 3 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, tileColors[heldResourceIndex], 1);
+	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 3 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, global.tileColors[heldResourceIndex], 1);
 }
 
 event_inherited();

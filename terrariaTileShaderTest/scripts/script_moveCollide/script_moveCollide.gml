@@ -1,5 +1,7 @@
 function script_moveCollide() {
-	var _tileOnX = global.worldTiles[(x + xChange) div tileSize][y div tileSize];
+	var _worldTiles = global.worldTiles;
+	
+	var _tileOnX = _worldTiles[(x + xChange) div tileSize][y div tileSize];
 	
 	if(_tileOnX > 0) {
 		x = x - (x % tileSize) + .1;
@@ -11,7 +13,7 @@ function script_moveCollide() {
 	
 	x += xChange;
 	
-	var _tileOnY = global.worldTiles[x div tileSize][(y + yChange) div tileSize];
+	var _tileOnY = _worldTiles[x div tileSize][(y + yChange) div tileSize];
 	
 	if(_tileOnY > 0) {
 		y = y - (y % tileSize) + .1;
