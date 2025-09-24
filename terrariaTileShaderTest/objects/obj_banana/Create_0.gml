@@ -14,15 +14,13 @@ verticalBounce = -.8;
 spinSpeed = random_range(-15, 15);
 
 hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall damage related things?
-	xChange *= random_range(-.8, 1.) + random_range(-3.2, 3.2);
-	
-	yChange -= random(1);
+	xChange *= random_range(-.8, 1.4) + random_range(-1.2, 1.2);
 	
 	spinSpeed = spinSpeed * .9 + random_range(-7, 7);
 	
 	audio_play_sound(snd_banana, 0, 0);
 	
-	duration = duration * .85 - 10;
+	duration = duration * .75 - 12;
 }
 
 depth += choose(-10, 10);

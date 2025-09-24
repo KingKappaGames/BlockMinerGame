@@ -15,6 +15,6 @@ speedDecay = .99;
 spinSpeed = random_range(-3, 3);
 
 horizontalBounce = -.8;
-verticalBounce = -.65;
+verticalBounce = -.77;
 
 depth -= 10;

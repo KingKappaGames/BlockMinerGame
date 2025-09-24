@@ -8,7 +8,7 @@ pickUpRange = 32;
 available = false; // whether it can be picked up
 
 pickupType = "pickaxe";
-pickupIndex = pickaxeType.blue;
+pickupIndex = E_pickaxe.blue;
 
 //parts
 

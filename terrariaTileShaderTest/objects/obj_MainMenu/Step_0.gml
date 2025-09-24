@@ -41,23 +41,23 @@ if(global.manager.splashIntroProgress >= 1) {
 					
 					var _relativeX = mouse_x - x;
 					var _relativeY = mouse_y - y; // nice but jesus man
-					if(_relativeX > 57 && _relativeX < 171 && _relativeY > 13 && _relativeY < 47) {
+					if(_relativeX > 57 && _relativeX < 171 && _relativeY > 13 && _relativeY < 67) {
 						optionPosition = 0;
-					} else if(_relativeX > 23 && _relativeX < 78 && _relativeY > 47 && _relativeY < 200) {
+					} else if(_relativeX > 23 && _relativeX < 78 && _relativeY > 67 && _relativeY < 216) {
 						optionPosition = 1;
-					} else if(_relativeX > 91 && _relativeX < 146 && _relativeY > 47 && _relativeY < 200) {
+					} else if(_relativeX > 91 && _relativeX < 146 && _relativeY > 67 && _relativeY < 216) {
 						optionPosition = 2;
-					} else if(_relativeX > 159 && _relativeX < 214 && _relativeY > 47 && _relativeY < 200) {
+					} else if(_relativeX > 159 && _relativeX < 214 && _relativeY > 67 && _relativeY < 216) {
 						optionPosition = 3;
-					} else if(point_distance(_relativeX, _relativeY, 50, 222) < 18) {
+					} else if(point_distance(_relativeX, _relativeY, 50, 242) < 18) {
 						if(map1) {
 							optionPosition = 4;
 						}
-					} else if(point_distance(_relativeX, _relativeY, 119, 222) < 18) {
+					} else if(point_distance(_relativeX, _relativeY, 119, 242) < 18) {
 						if(map2) {
 							optionPosition = 5;
 						}
-					} else if(point_distance(_relativeX, _relativeY, 188, 222) < 18) {
+					} else if(point_distance(_relativeX, _relativeY, 188, 242) < 18) {
 						if(map3) {
 							optionPosition = 6;
 						}

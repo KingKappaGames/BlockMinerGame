@@ -13,7 +13,7 @@ image_yscale = 2;
 depth += 10;
 
 pickupType = "pickaxe";
-pickupIndex = pickaxeType.long;
+pickupIndex = E_pickaxe.long;
 sprite_index = spr_pickaxeLong;
 
 //pickUp = function() {

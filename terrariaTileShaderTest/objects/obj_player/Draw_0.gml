@@ -2,7 +2,7 @@ if(!flying) {
 	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 3 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, tileColors[heldResourceIndex], 1);
 }
 
-draw_sprite_ext(sprite_index, image_index, x, y, directionFacing * image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+event_inherited();
 
 if(usingPickaxeNotSpell) {
 	if(!flying) {

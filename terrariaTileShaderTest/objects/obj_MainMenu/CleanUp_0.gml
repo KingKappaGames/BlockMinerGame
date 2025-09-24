@@ -9,5 +9,5 @@ global.gameEffectVolume = gameEffectVolume;
 global.gameMusicVolume = gameMusicVolume;
 global.gameAmbientVolume = gameAmbientVolume;
 
-//draw_set_font(fnt_gameplayGeneral);
+draw_set_font(fnt_gameplayGeneral);
 //audio_stop_sound(snd_BackgroundMenuCrafts);

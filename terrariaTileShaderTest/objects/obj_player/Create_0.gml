@@ -15,7 +15,7 @@ HealthMax = 10;
 Health = HealthMax;
 essential = true;
 
-robeIndex = robeType.basicPurple;
+robeIndex = E_robe.basicPurple;
 robePreviousId = noone; // id of last robe pick up (the one that's left behind when you assume a new one) to return to when you die ( if you die multiple times it should just keep you in the same robe after the first)
 
 chestOff = 9;
@@ -79,7 +79,7 @@ heldResourceXChange = 0;
 heldResourceYChange = 0;
 
 //spell values
-spellsUnlocked = [1, 2, 3, 4];
+spellsUnlocked = [1, 2];
 spellArrayPos = 0;
 spell = spellsUnlocked[spellArrayPos];
 
@@ -95,21 +95,23 @@ hitGround = function(fallSpeed, tileIndex) {
 	if(fallSpeed > 3.5) {
 		audio_play_sound(tileFallSounds[tileIndex], 0, 0, .25);
 		if(fallSpeed > 6) {
-			takeDamage(power((fallSpeed - 5) - 1, 1.75) * 2 * tileFallDamage[tileIndex]);
+			hit((power(fallSpeed - 5, 1.75) - 1) * 2 * tileFallDamage[tileIndex]);
 			
 			audio_play_sound(snd_breakBlockCrystal, 0, 0, .5);
 		}
 	}
 }
 
-takeDamage = function(damage) {
+hit = function(damage) {
 	Health -= damage;
 	
 	if(Health <= 0) {
 		die();
+	} else {
+		hitFlash = 7;
 	}
 	
-	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .6, 1.5) * 2);
+	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
 }
 
 die = function() {
@@ -127,7 +129,7 @@ die = function() {
 		robePreviousId = noone;
 	} else {
 		x = irandom_range(worldSizePixels * .33, worldSizePixels * .66);
-		y = script_findGroundBelow(x, 1500, 4, false, 140);
+		y = script_findGroundBelow(x, 1500, 5, false, 300);
 		if(y == -1) {
 			y = 1000; 
 		}
@@ -146,22 +148,22 @@ refreshCondition = function() {
 setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = undefined, angleFlatApproachMult = undefined, angleSpeedDecay = undefined) {
 	pickaxeIndex = index;
 	
-	if(index == pickaxeType.basicRed) {
+	if(index == E_pickaxe.basicRed) {
 		pickaxeSprite = spr_pickaxe;
 		pickaxeRange = 70;
 		pickaxeTimerDelay = 24;
 		miningFunc = script_pickaxeMineNormal;
-	} else if(index == pickaxeType.blue) {
+	} else if(index == E_pickaxe.blue) {
 		pickaxeSprite = spr_pickaxeBlue;
 		pickaxeRange = 50;
 		pickaxeTimerDelay = 10;
 		miningFunc = script_pickaxeMineNormal;
-	} else if(index == pickaxeType.long) {
+	} else if(index == E_pickaxe.long) {
 		pickaxeSprite = spr_pickaxeLong;
 		pickaxeRange = 140;
 		pickaxeTimerDelay = 90;
 		miningFunc = script_pickaxeMineNormal;
-	} else if(index == pickaxeType.banana) {
+	} else if(index == E_pickaxe.banana) {
 		pickaxeSprite = spr_pickaxeBanana;
 		pickaxeRange = 90;
 		pickaxeTimerDelay = 40;
@@ -181,10 +183,10 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 
 setRobe = function(newRobeId, moveToNew = true) {
 	if(instance_exists(newRobeId)) {
-		if(robeIndex == robeType.basicPurple) { // removing values based on taken off robe
+		if(robeIndex == E_robe.basicPurple) { // removing values based on taken off robe
 			
-		} else if(robeIndex == robeType.bananaYellow) {
-			removeSpell(spells.bananaShimmer);
+		} else if(robeIndex == E_robe.bananaYellow) {
+			removeSpell(E_spell.bananaShimmer);
 		} else {
 			
 		}
@@ -198,14 +200,13 @@ setRobe = function(newRobeId, moveToNew = true) {
 			y = newRobeId.y;
 		}
 		
-		if(robeIndex == robeType.basicPurple) { // load new robe values
-			
-		//} else if(_robeIndex == robeType.) {
-		//} else if(_robeIndex == robeType.) {
-		} else if(robeIndex == robeType.bananaYellow) {
-			sprite_index = spr_playerBanana;
-			array_push(spellsUnlocked, spells.bananaShimmer);
-		//} else if(_robeIndex == robeType.) {
+		sprite_index = script_getRobeSprite(robeIndex);
+		if(robeIndex == E_robe.basicPurple) { // load new robe values
+		//} else if(_robeIndex == E_robe.) {
+		//} else if(_robeIndex == E_robe.) {
+		} else if(robeIndex == E_robe.bananaYellow) {
+			array_push(spellsUnlocked, E_spell.bananaShimmer);
+		//} else if(_robeIndex == E_robe.) {
 			
 		} 
 		
@@ -214,38 +215,43 @@ setRobe = function(newRobeId, moveToNew = true) {
 }
 
 equipSpell = function() {
-	if(spell == spells.none) {
+	if(spell == E_spell.none) {
 		spellTimerDelay = 12;
-	} else if(spell == spells.bolt) {
+	} else if(spell == E_spell.bolt) {
 		spellTimerDelay = 15;
-	} else if(spell == spells.shockwave) {
+	} else if(spell == E_spell.shockwave) {
 		spellTimerDelay = 70;
-	} else if(spell == spells.bananaShimmer) {
+	} else if(spell == E_spell.bananaShimmer) {
 		spellTimerDelay = 12;
 	}
 }
 
 removeSpell = function(index) {
 	array_delete(spellsUnlocked, array_get_index(spellsUnlocked, index), 1);
+	
+	if(spell == index) { // if removing the spell you're currently holding..
+		spell = spellsUnlocked[0];
+		spellArrayPos = 0;
+	}
 }
 
 castSpell = function(targetX, targetY) {
 	if(spell == 0)  {
 		// none
-	} else if(spell == spells.bolt) {
+	} else if(spell == E_spell.bolt) {
 		var _castX = x + spellXOff;
 		var _castY = y + spellYOff - 10;
-		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY);
+		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-2, 2);
 		
 		var _spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
 		_spell.xChange = dcos(_dir) * 11.5;
 		_spell.yChange = -dsin(_dir) * 11.5;
-	} else if(spell == spells.shockwave) {
+	} else if(spell == E_spell.shockwave) {
 		var _spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
-	} else if(spell == spells.bananaShimmer) {
+	} else if(spell == E_spell.bananaShimmer) {
 		var _castX = x + spellXOff;
 		var _castY = y + spellYOff - 10;
-		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY);
+		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-4, 4);
 		
 		var _bomb = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
 		_bomb.xChange = dcos(_dir) * 3.2;
@@ -253,4 +259,4 @@ castSpell = function(targetX, targetY) {
 	}
 }
 
-setPickaxe(pickaxeType.basicRed);
+setPickaxe(E_pickaxe.basicRed);

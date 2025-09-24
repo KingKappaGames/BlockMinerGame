@@ -1,4 +1,6 @@
-//draw_set_font(fnt_MenuText);
+if (live_call()) return live_result;
+
+draw_set_font(fnt_menuText);
 //global.soundManager.songStart(snd_BackgroundMenuCrafts, false, 2.4);
 
 cam = view_camera[0];
@@ -121,6 +123,8 @@ initializeMenu = function(){
 
 #region menu change field
 menuChangeField = function(fieldChange) {
+	live_auto_call
+	
 	if(fieldChange != 0) {
 		audio_play_sound(snd_MenuBeep, 100, false);
 		if(optionGroup == 2) {
@@ -180,6 +184,8 @@ menuChangeField = function(fieldChange) {
 
 #region menu select option
 menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none, 1 for increase (this is a way to pass through mouse clicks instead of left and right to change values
+	live_auto_call
+	
 	if(optionGroup == 0) {
 		if(optionPosition == 0) {
 			audio_play_sound(snd_MenuBeep, 100, false);
@@ -298,10 +304,13 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 
 #region menu switch option group
 menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true){
+	live_auto_call
+	
 	optionGroup = newOptionGroup;
 	optionPosition = 0;
 	menuAlign = fa_middle;
 	menuTextOffset = 0;
+	menuBorder = 20;
 	
 	if(newOptionGroup == 0) {
 		optionHeight = 35;
@@ -311,50 +320,44 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 	
 	//basic references
 	optionAmount = array_length(options[optionGroup]);
-	if(hardCoded != 1) {
-		//resize menu
-		var _maxOptionWidth = 0;
-		var _holdWidth = 0;
-		for(var optionIterator = 0; optionIterator < optionAmount; optionIterator++) {
-			_holdWidth = 1.5 * string_width(options[optionGroup][optionIterator]);
-			if(_holdWidth > _maxOptionWidth) {
-				_maxOptionWidth = _holdWidth;
-			}
+	var _maxOptionWidth = 0;
+	var _holdWidth = 0;
+	for(var optionIterator = 0; optionIterator < optionAmount; optionIterator++) {
+		_holdWidth = 1 * string_width(options[optionGroup][optionIterator]);
+		if(_holdWidth > _maxOptionWidth) {
+			_maxOptionWidth = _holdWidth;
 		}
-		menuWidth = menuBorder * 2 + _maxOptionWidth;
-		menuHeight = menuBorder * 2 + optionAmount * optionHeight;
-	} else {
-		if(newOptionGroup == 4) {
-			menuAlign = fa_middle;
-			menuWidth = 400;
-			menuHeight = 240;
-		} else if(newOptionGroup == 2) {
-			menuAlign = fa_right;
-			menuWidth = 300;
-			menuTextOffset = 50;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
-		} else if(newOptionGroup == 3) {
-			menuAlign = fa_right;
-			menuWidth = 300;
-			menuTextOffset = 20;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
-		} else if(newOptionGroup == 5) {
-			menuAlign = fa_right;
-			menuWidth = 310;
-			menuTextOffset = 20;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
-		} else if(newOptionGroup == 6) { // map gen options
-			menuAlign = fa_right;
-			menuWidth = 310;
-			menuTextOffset = 20;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight;
-		} else if(newOptionGroup == 7) { // map select
-			menuAlign = fa_right;
-			menuWidth = 240;
-			menuTextOffset = 20;
-			menuHeight = menuBorder * 2 + optionAmount * optionHeight + 75;
-			optionHeight = 80;
-		}
+	}
+	menuWidth = menuBorder * 2 + _maxOptionWidth + 10;
+	menuHeight = menuBorder * 2 + optionAmount * optionHeight;
+	
+	if(newOptionGroup == 2) {
+		menuAlign = fa_right;
+		menuWidth = 400;
+		menuTextOffset = 40;
+	} else if(newOptionGroup == 3) {
+		menuAlign = fa_right;
+		menuWidth = 350;
+		menuTextOffset = -8;
+	} else if(newOptionGroup == 4) {
+		menuAlign = fa_middle;
+		menuWidth = 400;
+		menuHeight = 240;
+	} else if(newOptionGroup == 5) {
+		menuAlign = fa_right;
+		menuWidth = 370;
+		menuTextOffset = 20;
+	} else if(newOptionGroup == 6) { // map gen options
+		menuAlign = fa_right;
+		menuWidth = 540;
+		menuTextOffset = 51	;
+	} else if(newOptionGroup == 7) { // map select
+		menuAlign = fa_center;
+		menuWidth = 240;
+		menuHeight = 300;
+		menuBorder = 25;
+		menuTextOffset = 0;
+		optionHeight = 90;
 	}
 
 	x = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) / 2 - menuWidth / 2;

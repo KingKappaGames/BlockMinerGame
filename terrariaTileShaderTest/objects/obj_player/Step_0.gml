@@ -22,6 +22,13 @@ if(inWorld) {
 	y += yChange;
 }
 
+var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y - 1) div tileSize], 0) : 0;
+
+if(_tileInside) {
+	if(timer % 50 == 0) {
+		hit(1);
+	}
+}
 
 var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 

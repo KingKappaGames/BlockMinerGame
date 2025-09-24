@@ -9,7 +9,7 @@ worldCurrent = 0;
 
 #region macros and enums set up
 
-enum spells {
+enum E_spell {
 	none = 0,
 	bolt = 1,
 	shockwave = 2,
@@ -19,7 +19,7 @@ enum spells {
 
 //RENAME THESE WITH THE E_ PREFIX SO THAT YOU CAN NOT CALL THEM TYPE AND BE CONFUSED, E_ GIVES YOU A BASE TO SEE YOUR OPTIONS, REMEMBER???
 
-enum tileTypes { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
+enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
 	decMushroom = -3,
 	decRock = -2,
 	decGrass = -1,
@@ -32,7 +32,7 @@ enum tileTypes { // ideas, meat, bones, black crystal, hot lava rock, explosiveS
 	banana = 6,
 }
 
-enum robeType {
+enum E_robe {
 	basicPurple = 0,
 	superRed = 1,
 	teleporterWhite = 2,
@@ -40,7 +40,7 @@ enum robeType {
 	materialGrass = 4,
 }
 
-enum pickaxeType {
+enum E_pickaxe {
 	basicRed = 0,
 	blue = 1,
 	long = 2,
@@ -153,6 +153,14 @@ part_type_speed(_star, 1.6, 4.8, -.18, 0); // do override this when you want tho
 part_type_direction(_star, 0, 360, 0, 0);
 part_type_orientation(_star, 0, 360, 3, 5, false);
 
+global.radialShimmerPart = part_type_create();
+var _radialShimmer = global.radialShimmerPart;
+part_type_life(_radialShimmer, 110, 130);
+part_type_sprite(_radialShimmer, spr_roundBeamShape, false, false, false);
+part_type_size(_radialShimmer, .35, .7, -.0065, 0); // limiting factor hopefully
+part_type_speed(_radialShimmer, 1, 1.9, -.02, 0); // do override this when you want though, should be set per effect in game
+part_type_direction(_radialShimmer, 0, 360, 0, 0);
+
 global.roundTrail = part_type_create();
 var _roundTrail = global.roundTrail;
 part_type_life(_roundTrail, 45, 55);
@@ -233,17 +241,17 @@ startGameWorld = function(worldIndex, exists = false) {
 	} else {
 		var _menu = obj_MainMenu.id;
 		_tileManager.generateWorld(_menu.worldOptionGenerationTypeOptions[_menu.worldOptionGenerationTypeSelected], _menu.worldOptionSizeOptions[_menu.worldOptionSizeSelected], _menu.worldOptionStructureMultOptions[_menu.worldOptionStructureMultSelected], _menu.worldOptionFlatOptions[_menu.worldOptionFlatSelected]);
+		
+		with(_player) { // place player at random position if new world
+			x = irandom_range(100, worldSizePixels - 100);
+			y = script_findGroundBelow(x, 0, 5, false, tileRangeWorld * .9); // find that mfing ground
+			if(y == -1) {
+				y = 1000; 
+			}
+		}
 	}
 	
 	instance_destroy(obj_MainMenu); // hm
-	
-	with(_player) {
-		x = irandom_range(100, worldSizePixels - 100);
-		y = script_findGroundBelow(x, 0, 5, false, tileRangeWorld * .9); // find that mfing ground
-		if(y == -1) {
-			y = 1000; 
-		}
-	}
 	
 	script_centerCameraOnPlayer();
 	

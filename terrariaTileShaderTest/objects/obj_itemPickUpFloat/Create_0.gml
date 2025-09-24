@@ -19,7 +19,7 @@ speedDecay = .98;
 depth -= 10;
 
 pickupType = "pickaxe";
-pickupIndex = pickaxeType.banana;
+pickupIndex = E_pickaxe.banana;
 sprite_index = spr_pickaxeBanana;
 
 explosionPart = global.explosionPart;

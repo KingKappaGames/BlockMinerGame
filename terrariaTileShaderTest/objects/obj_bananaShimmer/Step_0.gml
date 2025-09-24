@@ -35,11 +35,11 @@ duration--;
 x += xChange;
 y += yChange;
 
-var _collision = collision_circle(x, y, 15 + irandom(10), obj_creature, false, false);
+var _collision = collision_circle(x, y, 12 + irandom(7), obj_creature, false, false);
 if(instance_exists(_collision) && _collision != global.player) {
-	//script_placeTileAtPos(_collision.x, _collision.y, tileTypes.banana, true);
-	//script_placeTileAtPos(_collision.x, _collision.y - 20, tileTypes.banana, true); // cursed
-	//script_placeTileAtPos(_collision.x, _collision.y - 40, tileTypes.banana, true);
+	//script_placeTileAtPos(_collision.x, _collision.y, E_tile.banana, true);
+	//script_placeTileAtPos(_collision.x, _collision.y - 20, E_tile.banana, true); // cursed
+	//script_placeTileAtPos(_collision.x, _collision.y - 40, E_tile.banana, true);
 	
 	part_particles_create_color(sys, x, y, explosionPart, c_yellow, 21);
 	
@@ -47,9 +47,9 @@ if(instance_exists(_collision) && _collision != global.player) {
 	part_particles_create_color(sys, x, y, starPart, c_white, 25);
 	
 	repeat(irandom_range(5, 7)) {
-		var _bomb = instance_create_layer(x, y, "Instances", obj_banana);
-		_bomb.xChange = random_range(-4, 4);
-		_bomb.yChange = random_range(-4, 4);
+		var _banana = instance_create_layer(x, y, "Instances", obj_banana);
+		_banana.xChange = random_range(-4, 4);
+		_banana.yChange = random_range(-4, 4);
 	}
 	
 	audio_play_sound(snd_explosion, 0, 0, .25);

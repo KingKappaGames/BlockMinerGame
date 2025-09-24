@@ -42,17 +42,17 @@ if(inGame) {
 		
 		initMainMenuScreen();
 	}
-	
-	//SAVE GAME
-	if(keyboard_check_released(vk_end)) { 
-		script_saveWorld();
-	}
-	
-	if(keyboard_check_released(vk_home)) {
-		script_loadWorld();
-	}
 }
 
 if(keyboard_check_released(ord("F"))) {
-	window_set_fullscreen(!window_get_fullscreen());
+	var _newFullScreen = !window_get_fullscreen();
+	window_set_fullscreen(_newFullScreen);
+	
+	if(!inGame) {
+		if(_newFullScreen) {
+			obj_MainMenu.gameFullscreenSelected = 1;
+		} else {
+			obj_MainMenu.gameFullscreenSelected = 0;
+		}
+	}
 }

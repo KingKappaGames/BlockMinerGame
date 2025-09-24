@@ -10,14 +10,22 @@ part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yC
 
 duration--;
 
+var _hitId = collision_circle(x, y, 5, obj_person, false, false);
+if(instance_exists(_hitId)) {
+	_hitId.hit(1, point_direction(0, 0, xChange, yChange), 1.9);
+	duration = 0;
+}
+
 x += xChange;
 y += yChange;
 
 var _tileOn = global.worldTiles[x div tileSize][y div tileSize];
 
 if(duration <= 0 || _tileOn > 0) {
-	if(irandom(25) == 0) {
-		script_breakTileAtPos(x, y, .8);
+	if(_tileOn > 0) {
+		if(irandom(25) == 0) {
+			script_breakTileAtPos(x, y, .8);
+		}
 	}
 	
 	part_particles_create_color(sys, x, y, explosionPart, image_blend, 5);

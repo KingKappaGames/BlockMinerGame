@@ -26,7 +26,7 @@ if(duration <= 0) {
 	script_explodeTiles(x, y, 25, .15,,, false, true, .6);
 	
 	repeat(irandom_range(5, 8)) {
-		script_placeTileAtPos(x + irandom_range(-90, 90) + irandom_range(-90, 90), y + irandom_range(-60, 60) + irandom_range(-60, 60), tileTypes.banana, true);
+		script_placeTileAtPos(x + irandom_range(-90, 90) + irandom_range(-90, 90), y + irandom_range(-60, 60) + irandom_range(-60, 60), E_tile.banana, true);
 	}
 	
 	part_particles_create_color(sys, x, y, explosionPart, c_green, 25);
