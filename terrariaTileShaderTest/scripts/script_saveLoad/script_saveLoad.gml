@@ -28,4 +28,7 @@ function script_loadWorld(filename) {
 	var _tileManager = global.tileManager;
 	
 	_tileManager.tiles = global.worldTiles; // tile manager holding onto ref to old world, cut it loose into the void
+	
+	global.tileRangeWorld = array_length(global.worldTiles);
+	global.worldSizePixels = global.tileRangeWorld * tileSize;
 }

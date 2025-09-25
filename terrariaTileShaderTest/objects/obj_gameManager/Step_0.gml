@@ -1,8 +1,8 @@
-if(inGame) {
-	timer++;
-	
-	if(timer % 30 == 0) {
-		cameraWorldDepth = global.player.y / worldSizePixels;
+global.timer++;
+
+if(inGame) { 
+	if(global.timer % 30 == 0) {
+		cameraWorldDepth = global.player.y / global.worldSizePixels;
 		
 		//if(irandom(100) == 0) {
 			//ef_reverb.size = cameraWorldDepth * 2;
@@ -24,13 +24,6 @@ if(inGame) {
 			layer_enable_fx(abyssLayer, false);
 		}
 		#endregion
-	}
-	
-	var _camChange = keyboard_check(vk_subtract) - keyboard_check(vk_add);
-	if(_camChange != 0) {
-		var _camScaleChange = 1 + _camChange * .01;
-		camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 2560), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 1440));
-		global.tileManager.updateScreen();
 	}
 	
 	//show_debug_message($"CamX/Y: {camera_get_view_x(cam)}/{camera_get_view_y(cam)}   AND updateX/Y: {screenWorldX}/{screenWorldY}");

@@ -1,7 +1,5 @@
 event_inherited();
 
-timer++;
-
 dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 
 #region movement checks and forces
@@ -25,7 +23,7 @@ if(inWorld) {
 var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y - 1) div tileSize], 0) : 0;
 
 if(_tileInside) {
-	if(timer % 50 == 0) {
+	if(global.timer % 50 == 0) {
 		hit(1);
 	}
 }
@@ -33,7 +31,7 @@ if(_tileInside) {
 var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 
 if(!flying) {
-	if(keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space)) {
+	if(keyboard_check(ord("W")) || keyboard_check(vk_space)) {
 		if(_tileStanding != 0) {
 			yChange = -jumpSpeed;
 			_tileStanding = 0;
@@ -43,7 +41,7 @@ if(!flying) {
 	if(keyboard_check(ord("A"))) {
 		if(_tileStanding != 0) {
 			xChange -= moveSpeed;
-			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+			if(global.timer % 30 == 0) { // if ANY step sound playing then don't play the sound
 				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
@@ -55,7 +53,7 @@ if(!flying) {
 	} else if(keyboard_check(ord("D"))) {
 		if(_tileStanding != 0) {
 			xChange += moveSpeed;
-			if(timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+			if(global.timer % 30 == 0) { // if ANY step sound playing then don't play the sound
 				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
@@ -180,7 +178,7 @@ if(keyboard_check_released(ord("T"))) {
 	x = mouse_x;
 	y = mouse_y;
 	
-	if(x < 0 || x > tileRangeWorld * tileSize - 1 || y < 0 || y > tileRangeWorld * tileSize - 1) {
+	if(x < 0 || x >= global.worldSizePixels || y < 0 || y >= global.worldSizePixels) {
 		inWorld = false;
 	}
 }
@@ -236,6 +234,12 @@ heldResourceYChange *= .84;
 #endregion
 
 #region camera and screen updates
+var _camChange = keyboard_check(vk_subtract) - keyboard_check(vk_add);
+if(_camChange != 0) {
+	var _camScaleChange = 1 + _camChange * .01;
+	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 2560), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 1440));
+}
+
 var _mousePush = 3; // inverse
 var _goalX = ((x * _mousePush) + mouse_x) / (_mousePush + 1);
 var _goalY = ((y * _mousePush) + mouse_y) / (_mousePush + 1)
@@ -243,9 +247,9 @@ var _camX = lerp(camera_get_view_x(cam), _goalX - camera_get_view_width(cam) * .
 var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * .5, .05);
 
 camera_set_view_pos(cam, _camX, _camY);
-global.tileManager.updateScreen(_camX, _camY);
+global.tileManager.updateScreen(_camX, _camY, _camChange != 0);
 
-if(timer % 60 == 0) { // delete or disable all far enemies
+if(global.timer % 60 == 0) { // delete or disable all far enemies
 	script_refreshActivations();
 }
 #endregion

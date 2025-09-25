@@ -29,13 +29,14 @@ function script_loadStructure(rightTileX, topTileY, filename) {
 	var _placeTileY = 0;
 	
 	var _worldTiles = global.worldTiles;
+	var _worldTileRange = global.tileRangeWorld;
 	
 	for (var _x = 0; _x < _sWidth; _x++) {
 		for (var _y = 0; _y < _sHeight; _y++) {
 			_placeTileX = rightTileX + _x;
 			_placeTileY = topTileY + _y;
 			
-			if(_placeTileX > 0 && _placeTileX < tileRangeWorld - 1 && _placeTileY > 0 && _placeTileY < tileRangeWorld - 1) { // bound by one
+			if(_placeTileX > 0 && _placeTileX < _worldTileRange - 1 && _placeTileY > 0 && _placeTileY < _worldTileRange - 1) { // bound by one
 				_tileWorldVal = _worldTiles[_placeTileX][_placeTileY];
 				_placeTileValue = _sTileGrid[_x][_y];
 				_clearVal = _sClearGrid[_x][_y];

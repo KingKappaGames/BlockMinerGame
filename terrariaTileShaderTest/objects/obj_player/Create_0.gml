@@ -2,14 +2,9 @@ event_inherited();
 
 global.player = id;
 
-timer = 0;
-
 audio_listener_set_position(0, x, y, 0);
 audio_listener_orientation(0, 1, 0, 0, 0, 1);
 audio_falloff_set_model(audio_falloff_linear_distance);
-
-x = spawnX;
-y = spawnY; // spawn middle
 
 HealthMax = 10;
 Health = HealthMax;
@@ -128,7 +123,7 @@ die = function() {
 		
 		robePreviousId = noone;
 	} else {
-		x = irandom_range(worldSizePixels * .33, worldSizePixels * .66);
+		x = irandom_range(global.worldSizePixels * .33, global.worldSizePixels * .66);
 		y = script_findGroundBelow(x, 1500, 5, false, 300);
 		if(y == -1) {
 			y = 1000; 

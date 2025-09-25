@@ -11,4 +11,4 @@ if(hitFlash > 0) {
 	draw_sprite_ext(sprite_index, image_index, x, y, directionFacing * image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 }
 
-draw_text(x, y - 30, hitFlash)
+//draw_text(x, y - 30, hitFlash)

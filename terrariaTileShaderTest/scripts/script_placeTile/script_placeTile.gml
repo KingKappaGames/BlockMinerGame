@@ -1,5 +1,5 @@
 function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = false, coverEntities = false) {
-	if(worldTileY < 0 || worldTileY >= tileRangeWorld || worldTileX < 0 || worldTileX >= tileRangeWorld) { // if out of world bounds completely
+	if(worldTileY < 0 || worldTileY >= global.tileRangeWorld || worldTileX < 0 || worldTileX >= global.tileRangeWorld) { // if out of world bounds completely
 		return;
 	}
 	

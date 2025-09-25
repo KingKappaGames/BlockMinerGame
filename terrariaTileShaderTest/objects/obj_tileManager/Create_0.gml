@@ -4,40 +4,38 @@ cam = view_camera[0];
 
 #region tile grid set up for world and screen/camera
 #macro tileSize 16
-#macro tileRangeWorld 1000
-#macro worldSizePixels 16000 // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
+global.tileRangeWorld = 0;
+global.worldSizePixels = 0; // make sure to update this, it won't show the value if I don't write it directly here so (tileSize * tileRangeWorld) isn't ideal.. (with the parenthesis or else it'll break the pemdas grouping which is crazy...)
 #macro screenBorder 3
-#macro spawnX tileSize * tileRangeWorld * .5
-#macro spawnY tileSize * tileRangeWorld * .125
+global.spawnX = 0;
+global.spawnY = 0;
 
-tiles = array_create(tileRangeWorld); // one dimension of the grid, generate the rest later in the generateWorld script
-global.worldTiles = tiles;
+tiles = array_create(0); // one dimension of the grid, generate the rest later in the generateWorld script
 
-tileScreenWidth = camera_get_view_width(cam) div tileSize + 2;
-tileScreenHeight = camera_get_view_height(cam) div tileSize + 2;
+tileScreenWidth = 0;
+tileScreenHeight = 0;
 tilesScreen = array_create(tileScreenWidth);
-for (var _i = 0; _i < tileScreenWidth; _i++) {
-	tilesScreen[_i] = array_create(tileScreenHeight); // 2d array of tiles 16x16 for demo purposes
-}
 
 global.screenTiles = tilesScreen;
 
-screenWorldTileX = round(tileRangeWorld * .5);
-screenWorldTileY = round(tileRangeWorld * .5);
+screenWorldTileX = 0;
+screenWorldTileY = 0;
 global.screenTileLeft = screenWorldTileX;
 global.screenTileTop = screenWorldTileY;
 
 screenWorldX = 0;
 screenWorldY = 0;
 
-updateScreen = function(rightX = undefined, topY = undefined) {
+updateScreen = function(rightX = undefined, topY = undefined, sizeChanged = false) {
 	rightX ??= camera_get_view_x(cam);
 	topY ??= camera_get_view_y(cam);
 	
-	var _screenTileX = clamp((rightX - screenBorder * tileSize) div tileSize, 0, tileRangeWorld - tileScreenWidth);
-	var _screenTileY = clamp((topY - screenBorder * tileSize) div tileSize, 0, tileRangeWorld - tileScreenHeight);
+	var _tileWorldRange = global.tileRangeWorld;
 	
-	if(_screenTileX != screenWorldTileX || _screenTileY != screenWorldTileY) {
+	var _screenTileX = clamp((rightX - screenBorder * tileSize) div tileSize, 0, _tileWorldRange - tileScreenWidth);
+	var _screenTileY = clamp((topY - screenBorder * tileSize) div tileSize, 0, _tileWorldRange - tileScreenHeight);
+	
+	if(_screenTileX != screenWorldTileX || _screenTileY != screenWorldTileY || sizeChanged) {
 		screenWorldTileX = _screenTileX;
 		screenWorldTileY = _screenTileY;
 		global.screenTileLeft = _screenTileX;
@@ -48,10 +46,10 @@ updateScreen = function(rightX = undefined, topY = undefined) {
 		
 		var _width = camera_get_view_width(cam);
 		var _height = camera_get_view_height(cam);
-		tileScreenWidth = _width div tileSize + screenBorder * 2;
-		tileScreenHeight = _height div tileSize + screenBorder * 2;
+		tileScreenWidth = min(_width div tileSize + screenBorder * 2, _tileWorldRange - _screenTileX);
+		tileScreenHeight = min(_height div tileSize + screenBorder * 2, _tileWorldRange - _screenTileY);
 		
-		if(array_length(tilesScreen) != tileScreenWidth) {
+		if(array_length(tilesScreen) != tileScreenWidth || array_length(tilesScreen[0]) != tileScreenHeight) {
 			var _prevLength = array_length(tilesScreen);
 			array_resize(tilesScreen, tileScreenWidth);
 			
@@ -79,6 +77,10 @@ updateScreenStatic = function() {
 
 generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat = false) { // size doesn't do anything atm (since I'd prefer to keep size as a macro for speed..)
 	show_debug_message("GENERATING WORLD");
+	
+	array_resize(tiles, 0); // clear to nothing
+	array_resize(tiles, size); // restack to proper size (doing it this way because breaking the ref would be super annoying!)
+	
 	if(type == "overworld") {
 		var _tileType = 0;
 		var _worldXNormal = 0;
@@ -89,14 +91,14 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 		var _caveNoise = 0;
 		
 		//CORE LOOP OF FIRST PASS (BASE TERRAIN STRUCTURES)
-		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
-			tiles[_worldX] = array_create(tileRangeWorld); // CREATE SECOND DIMENSION (ABSOLUTELY NECESSARY HERE, because the array isn't initialized til here)
-			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+		for (var _worldX = 0; _worldX < size; _worldX++) {
+			tiles[_worldX] = array_create(size); // CREATE SECOND DIMENSION (ABSOLUTELY NECESSARY HERE, because the array isn't initialized til here)
+			for (var _worldY = 0; _worldY < size; _worldY++) {
 				
 				//ESTABLISH WORLD VALUES FOR POSITION AND SUCH (normals and otherwise)
 				
-				_worldXNormal = _worldX / tileRangeWorld;
-				_worldYNormal = _worldY / tileRangeWorld;
+				_worldXNormal = _worldX / size;
+				_worldYNormal = _worldY / size;
 				
 				_posX = _worldXNormal * 55.0;
 				_posY = _worldYNormal * 140.0;
@@ -128,8 +130,8 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 		
 		//POST MODIFICATION TO GENERATED BASE (second pass)
 		
-		for (var _worldX = 2; _worldX < tileRangeWorld - 2; _worldX++) {
-			for (var _worldY = 2; _worldY < tileRangeWorld - 2; _worldY++) {
+		for (var _worldX = 2; _worldX < size - 2; _worldX++) {
+			for (var _worldY = 2; _worldY < size - 2; _worldY++) {
 				if(irandom(10000 / structureMult) == 0) { // spawning structures randomly through the world   STRUCTURES
 					if(tiles[_worldX][_worldY] == 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
 						if(tiles[_worldX][_worldY + 2] > 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
@@ -162,13 +164,13 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 		
 		//END OF ALL ##############################################################################################################################################
 	} else if(type == "normal") {
-		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
-			tiles[_worldX] = array_create(tileRangeWorld);
+		for (var _worldX = 0; _worldX < size; _worldX++) {
+			tiles[_worldX] = array_create(size);
 			
-			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+			for (var _worldY = 0; _worldY < size; _worldY++) {
 				var _tileType = 0;
 				
-				var _worldDepth = clamp(_worldY / tileRangeWorld, 0, 1);
+				var _worldDepth = clamp(_worldY / size, 0, 1);
 				
 				var _noise = _worldDepth * 4 + dsin(_worldX * 4) * .02 + dsin(_worldX * 1.3) * .04;
 				
@@ -186,20 +188,25 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 			}
 		}
 	} else if(type == "layers") {
-		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
-			tiles[_worldX] = array_create(tileRangeWorld);
+		for (var _worldX = 0; _worldX < size; _worldX++) {
+			tiles[_worldX] = array_create(size);
 			
-			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+			for (var _worldY = 0; _worldY < size; _worldY++) {
 				tiles[_worldX][_worldY] = (_worldY % 50 < 15) ? 0 : irandom(3);
 			}
 		}
 	} else if(type == "random") {
-		for (var _worldX = 0; _worldX < tileRangeWorld; _worldX++) {
-			tiles[_worldX] = array_create(tileRangeWorld);
+		for (var _worldX = 0; _worldX < size; _worldX++) {
+			tiles[_worldX] = array_create(size);
 			
-			for (var _worldY = 0; _worldY < tileRangeWorld; _worldY++) {
+			for (var _worldY = 0; _worldY < size; _worldY++) {
 				tiles[_worldX][_worldY] = irandom(3);
 			}
 		}
 	}
+	
+	global.worldTiles = tiles;
+	
+	global.tileRangeWorld = size;
+	global.worldSizePixels = size * tileSize;
 }

@@ -10,12 +10,14 @@ function script_findGroundBelow(xx, yy, precisionInTiles = 4, useTiles = false, 
 		yy = yy div tileSize;
 	}
 	
-	if(xx >= 0 && xx < tileRangeWorld && yy >= 0 && yy < tileRangeWorld) {
+	var _worldTileSize = global.tileRangeWorld;
+	
+	if(xx >= 0 && xx < _worldTileSize && yy >= 0 && yy < _worldTileSize) {
 		var _tiles = global.worldTiles;
 		
 		var _limitY = yy + tileRangeBeforeFail;
 		for (var _checkY = yy; _checkY < _limitY; _checkY += precisionInTiles) {
-			if(_checkY >= tileRangeWorld) {
+			if(_checkY >= _worldTileSize) {
 				return -1;
 			}
 			

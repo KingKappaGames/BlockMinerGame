@@ -8,5 +8,5 @@ if(inGame) {
 	
 	var _parralaxMult = -.75;
 	
-	draw_sprite_ext(spr_backgroundRepeat, 0, _camX - 128 + (_camX * _parralaxMult) % 128, max(worldSizePixels * .26, _camY - 128 + (_camY * _parralaxMult) % 128), _camW / 128 + 2, _camH / 128 + 2, 0, c_white, 1);
+	draw_sprite_ext(spr_backgroundRepeat, 0, _camX - 128 + (_camX * _parralaxMult) % 128, max(global.worldSizePixels * .26, _camY - 128 + (_camY * _parralaxMult) % 128), _camW / 128 + 2, _camH / 128 + 2, 0, c_white, 1);
 }

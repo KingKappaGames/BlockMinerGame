@@ -2,6 +2,8 @@ randomize();
 
 global.manager = id;
 
+global.timer = 0;
+
 splashIntroProgress = 0; // 0-1 representing black to icon to black to menu (fading between each)
 
 inGame = false;
@@ -87,7 +89,7 @@ audio_group_load(sndGrp_ambient);
 
 #endregion
 
-timer = 0; // count up and use for applying updates eveny n frames
+global.timer = 0; // count up and use for applying updates eveny n frames
 
 #region menu/settings values set up
 global.gameDifficultySelected = 1;
@@ -236,17 +238,24 @@ startGameWorld = function(worldIndex, exists = false) {
 	var _tileManager = instance_create_layer(0, 0, "Instances", obj_tileManager);
 	var _player = instance_create_layer(0, 0, "Instances", obj_player);
 	
+	var _worldSizePixels;
+	var _worldSizeTiles;
+	
 	if(exists) {
 		var _fileName = "worldSave" + string(worldCurrent) + ".txt";
 		
 		script_loadWorld(_fileName);
+		
+		_worldSizePixels = global.worldSizePixels;
 	} else {
 		var _menu = obj_MainMenu.id;
 		_tileManager.generateWorld(_menu.worldOptionGenerationTypeOptions[_menu.worldOptionGenerationTypeSelected], _menu.worldOptionSizeOptions[_menu.worldOptionSizeSelected], _menu.worldOptionStructureMultOptions[_menu.worldOptionStructureMultSelected], _menu.worldOptionFlatOptions[_menu.worldOptionFlatSelected]);
 		
+		_worldSizePixels = global.worldSizePixels;
+		
 		with(_player) { // place player at random position if new world
-			x = irandom_range(100, worldSizePixels - 100);
-			y = script_findGroundBelow(x, 0, 5, false, tileRangeWorld * .9); // find that mfing ground
+			x = irandom_range(100, _worldSizePixels - 100);
+			y = script_findGroundBelow(x, 0, 5, false, _worldSizePixels * .9); // find that mfing ground
 			if(y == -1) {
 				y = 1000; 
 			}
@@ -257,16 +266,16 @@ startGameWorld = function(worldIndex, exists = false) {
 	
 	script_centerCameraOnPlayer();
 	
-	global.tileManager.updateScreen();
+	global.tileManager.updateScreen(,, 1);
 	
 	repeat(3) {
-		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
+		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
 	}
 	repeat(5) {
-		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_itemPickUpStatic);
+		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpStatic);
 	}
 	repeat(5) {
-		instance_create_layer(irandom_range(200, worldSizePixels - 200), irandom_range(200, worldSizePixels - 200), "Instances", obj_materialOrbNode);
+		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_materialOrbNode);
 	}
 	
 	inGame = true;

@@ -5,7 +5,7 @@
 /// @param {bool} [updateScreen]=true Whether to update the screen after this tile, if this is part of a chain or group breaking (explosions for ex) then don't do this, the update should be wherever the thing orchestrating is
 /// @returns {bool} Whether a tile was broken, regardless of which
 function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen = true) {
-	if(worldTileX < 0 || worldTileX >= tileRangeWorld || worldTileY < 0 || worldTileY >= tileRangeWorld) {
+	if(worldTileX < 0 || worldTileX >= global.tileRangeWorld || worldTileY < 0 || worldTileY >= global.tileRangeWorld) {
 		exit;
 	}
 

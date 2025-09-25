@@ -1,8 +1,6 @@
-timer++;
-
-if(timer % 270 == 180) {
+if(global.timer % 270 == 180) {
 	var _shockwave = script_createShockwaveSpell(x, y,,,, 0, .7);
-} else if(timer % 270 == 0) {
+} else if(global.timer % 270 == 0) {
 	var _shockwave = script_createShockwaveSpell(x, y,,,, materialType, .35);
 }
 
