@@ -231,6 +231,8 @@ removeSpell = function(index) {
 }
 
 castSpell = function(targetX, targetY) {
+	var _spell;
+	
 	if(spell == 0)  {
 		// none
 	} else if(spell == E_spell.bolt) {
@@ -238,20 +240,22 @@ castSpell = function(targetX, targetY) {
 		var _castY = y + spellYOff - 10;
 		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-2, 2);
 		
-		var _spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
+		_spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
 		_spell.xChange = dcos(_dir) * 11.5;
 		_spell.yChange = -dsin(_dir) * 11.5;
 	} else if(spell == E_spell.shockwave) {
-		var _spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
+		_spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
 	} else if(spell == E_spell.bananaShimmer) {
 		var _castX = x + spellXOff;
 		var _castY = y + spellYOff - 10;
 		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-4, 4);
 		
-		var _bomb = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
-		_bomb.xChange = dcos(_dir) * 3.2;
-		_bomb.yChange = -dsin(_dir) * 3.2;
+		_spell = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
+		_spell.xChange = dcos(_dir) * 3.2;
+		_spell.yChange = -dsin(_dir) * 3.2;
 	}
+	
+	_spell.source = id;
 }
 
 setPickaxe(E_pickaxe.basicRed);

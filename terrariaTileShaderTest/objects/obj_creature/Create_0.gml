@@ -27,5 +27,8 @@ hit = function(damage, hitDir = -1, hitForce = 0) {
 }
 
 die = function() {
+	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, HealthMax * 3 + 15);
+	audio_play_sound(snd_chime, 1, 0);
 	
+	instance_destroy();
 }

@@ -1,5 +1,7 @@
 event_inherited();
 
+source = noone;
+
 smokeTrailPart = global.smokeTrailPart; // localizing globals... Hm
 explosionPart = global.explosionPart;
 

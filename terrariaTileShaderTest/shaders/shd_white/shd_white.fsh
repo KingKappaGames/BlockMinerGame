@@ -6,7 +6,5 @@ uniform float alpha;
 void main() {
     vec4 col = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 	
-	float brightness = sqrt(col.r * 0.2125 + col.g * 0.7154 + col.b * 0.0721); // force the pixels to be somewhat washed out and towards 1 / white
-	
-	gl_FragColor = vec4(brightness + .25, brightness + .25, brightness + .25, alpha * col.a);
+	gl_FragColor = vec4(alpha, alpha, alpha, col.a);
 }

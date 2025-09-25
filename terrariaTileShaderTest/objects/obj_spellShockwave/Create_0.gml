@@ -1,5 +1,7 @@
 event_inherited();
 
+source = noone;
+
 //image_blend = make_color_rgb(irandom_range(180, 255), irandom_range(180, 255), irandom_range(180, 255));
 image_blend = make_color_rgb(irandom_range(0, 35), irandom_range(0, 35), irandom_range(0, 35));
 

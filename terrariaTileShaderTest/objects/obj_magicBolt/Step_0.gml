@@ -1,17 +1,12 @@
 event_inherited();
 
-if(!inWorld) {
-	instance_destroy();
-	exit;
-}
-
 part_particles_create_color(sys, x + irandom_range(-2, 2), y + irandom_range(-2, 2), global.thickTrail, image_blend, 2);
 part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yChange * .5 + irandom_range(-2, 2), global.thickTrail, image_blend, 2);
 
 duration--;
 
-var _hitId = collision_circle(x, y, 5, obj_person, false, false);
-if(instance_exists(_hitId)) {
+var _hitId = collision_circle(x, y, 5, obj_creature, false, false);
+if(instance_exists(_hitId) && source != _hitId) {
 	_hitId.hit(1, point_direction(0, 0, xChange, yChange), 1.9);
 	duration = 0;
 }
@@ -19,7 +14,8 @@ if(instance_exists(_hitId)) {
 x += xChange;
 y += yChange;
 
-var _tileOn = global.worldTiles[x div tileSize][y div tileSize];
+
+var _tileOn = inWorld ? global.worldTiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	if(_tileOn > 0) {
