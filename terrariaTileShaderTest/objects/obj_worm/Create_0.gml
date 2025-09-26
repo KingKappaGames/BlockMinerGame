@@ -3,11 +3,11 @@ event_inherited();
 HealthMax = 25;
 Health = HealthMax;
 
-speedDecay = .96;
+speedDecay = .98;
 speedDecayAir = .98;
 
 moveDir = irandom(360);
-moveSpeed = .27;
+moveSpeed = .21;
 
 image_blend = c_random;
 

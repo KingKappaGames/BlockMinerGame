@@ -334,5 +334,8 @@ initMainMenuScreen = function() {
 
 initMainMenuScreen();
 
+shader_set_live(shd_fogDistort, true);
+shader_set_live(shd_fogDistortColor, true);
+
 
 //bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?

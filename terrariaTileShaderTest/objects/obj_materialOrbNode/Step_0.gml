@@ -1,6 +1,6 @@
-if(global.timer % 270 == 180) {
+if(global.timer % (460 + materialType) == 390) {
 	var _shockwave = script_createShockwaveSpell(x, y, shockwaveDuration,, radiusExpand, 0, .7 * strengthMult);
-} else if(global.timer % 270 == 0) {
+} else if(global.timer % (460 + materialType) == 0) {
 	var _shockwave = script_createShockwaveSpell(x, y, shockwaveDuration,, radiusExpand, materialType, .35 * strengthMult, false);
 }
 

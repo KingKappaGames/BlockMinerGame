@@ -7,8 +7,8 @@ if(parent == noone) {
 	if(alive) {
 		var _dirToPlayer = point_direction(x, y, global.player.x, global.player.y);
 		
-		xChange += dcos(_dirToPlayer) * moveSpeed * .22;
-		yChange -= dsin(_dirToPlayer) * moveSpeed * .22;
+		xChange += dcos(_dirToPlayer) * moveSpeed * .21;
+		yChange -= dsin(_dirToPlayer) * moveSpeed * .21;
 		
 		var _tileIn = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
 		
@@ -20,6 +20,10 @@ if(parent == noone) {
 		yChange *= speedDecay;
 		
 		moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
+		
+		if(collision_circle(x, y, 5, obj_player, false, false) != noone) {
+			global.player.hit(.5, _dirToPlayer, 3);
+		}
 	} else {
 		yChange += grav;
 		

@@ -1,15 +1,18 @@
 event_inherited();
 
+var _timer = global.timer;
 dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 
 #region movement checks and forces
-if(keyboard_check_released(ord("X"))) {
-	if(flying) {
-		flying = false;
-	} else {
-		flying = true;
-		yChange -= 1; // you should only be able to fly during nightime or something like that, some kind of thematic use case for flying so that it's more interesting. That or a harsh "fuel" perhaps even some kind of *kill to fuel your flight* kind of model where you have to kill enemies or harvest resources or something.
-		y -= 1;
+if(canFly) {
+	if(keyboard_check_released(ord("X"))) {
+		if(flying) {
+			flying = false;
+		} else {
+			flying = true;
+			yChange -= 1; // you should only be able to fly during nightime or something like that, some kind of thematic use case for flying so that it's more interesting. That or a harsh "fuel" perhaps even some kind of *kill to fuel your flight* kind of model where you have to kill enemies or harvest resources or something.
+			y -= 1;
+		}
 	}
 }
 
@@ -18,12 +21,20 @@ if(inWorld) {
 } else {
 	x += xChange;
 	y += yChange;
+	
+	if(!canBeInVoid) {
+		if(y > global.worldSizePixels) {
+			if(_timer % 18 == 0) {
+				hit(1, 0, 0, 0);
+			}
+		}
+	}
 }
 
 var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
 
 if(_tileInside) {
-	if(global.timer % 50 == 0) {
+	if(_timer % 50 == 0) {
 		hit(1);
 	}
 }
@@ -41,7 +52,7 @@ if(!flying) {
 	if(keyboard_check(ord("A"))) {
 		if(_tileStanding != 0) {
 			xChange -= moveSpeed;
-			if(global.timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+			if(_timer % 30 == 0) { // if ANY step sound playing then don't play the sound
 				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
@@ -53,7 +64,7 @@ if(!flying) {
 	} else if(keyboard_check(ord("D"))) {
 		if(_tileStanding != 0) {
 			xChange += moveSpeed;
-			if(global.timer % 30 == 0) { // if ANY step sound playing then don't play the sound
+			if(_timer % 30 == 0) { // if ANY step sound playing then don't play the sound
 				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
 			}
 		} else {
@@ -169,9 +180,18 @@ if(mouse_check_button(mb_left)) {
 		}
 	}
 } else if(mouse_check_button_released(mb_middle)) {
-	var _bomb = instance_create_layer(chestX, chestY, "Instances", obj_bananaBomb);
-	_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
-	_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
+	if(bombCount > 0) {
+		bombCount--;
+		
+		var _bomb = obj_bomb;
+		if(robeIndex == E_robe.bananaYellow) {
+			_bomb = obj_bananaBomb;
+		}
+		
+		var _bomb = instance_create_layer(chestX, chestY, "Instances", _bomb);
+		_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
+		_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
+	}
 }
 
 if(keyboard_check_released(ord("T"))) {
@@ -225,8 +245,8 @@ if(usingPickaxeNotSpell) {
 	spellYChange *= .84;
 }
 
-heldResourceXOff *= .88;
-heldResourceYOff *= .88; // position and speed can both be culled back to 0 to avoid springing and distance/dir calculations (plus the rigid lerp is more arcade-y)
+heldResourceXOff *= .84;
+heldResourceYOff *= .84; // position and speed can both be culled back to 0 to avoid springing and distance/dir calculations (plus the rigid lerp is more arcade-y)
 heldResourceXOff += heldResourceXChange;
 heldResourceYOff += heldResourceYChange;
 heldResourceXChange *= .84;
@@ -249,8 +269,18 @@ var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * 
 camera_set_view_pos(cam, _camX, _camY);
 global.tileManager.updateScreen(_camX, _camY, _camChange != 0);
 
-if(global.timer % 60 == 0) { // delete or disable all far enemies
+if(_timer % 60 == 0) { // delete or disable all far enemies
 	script_refreshActivations();
+	
+	mana = min(mana + round(manaRegen * (8 - global.gameDifficultySelected) * .125), manaMax);
+	
+	if(_timer % (600 + 120 * global.gameDifficultySelected) == 0) { // every ten seconds but nested here for lag yk
+		if(bombCount < bombMax) {
+			bombCount += 1;
+		}
+		
+		Health = min(Health + 1, HealthMax);
+	}
 }
 #endregion
 

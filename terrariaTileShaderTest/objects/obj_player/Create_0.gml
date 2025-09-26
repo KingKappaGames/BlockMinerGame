@@ -36,6 +36,9 @@ essential = true;
 directionFacing = 1;
 dirToMouse = 0;
 
+canFly = true;
+canBeInVoid = false;
+
 usingPickaxeNotSpell = true; // bool to use pickaxe "instead" of spell, aka toggle between those two based on this
 
 //pickaxe values
@@ -74,6 +77,11 @@ heldResourceXChange = 0;
 heldResourceYChange = 0;
 
 //spell values
+manaMax = 100;
+mana = manaMax;
+manaRegen = 3;
+spellManaCost = 3;
+
 spellsUnlocked = [1, 2];
 spellArrayPos = 0;
 spell = spellsUnlocked[spellArrayPos];
@@ -85,6 +93,9 @@ spellXOff = 0;
 spellYOff = 0;
 spellXChange = 0;
 spellYChange = 0;
+
+bombMax = 3;
+bombCount = bombMax;
 
 hitGround = function(fallSpeed, tileIndex) {
 	if(fallSpeed > 3.5) {
@@ -116,7 +127,7 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false) {
 
 die = function() {
 	//place robe pickup here
-	refreshCondition();
+	refreshCondition(true);
 	
 	if(instance_exists(robePreviousId)) {
 		script_createRobePickup(robeIndex, x, y);
@@ -129,7 +140,7 @@ die = function() {
 		robePreviousId = noone;
 	} else {
 		x = irandom_range(global.worldSizePixels * .33, global.worldSizePixels * .66);
-		y = script_findGroundBelow(x, 1500, 5, false, 300);
+		y = script_findGroundBelow(x, 200, 3, false, 300);
 		if(y == -1) {
 			y = 1000; 
 		}
@@ -140,8 +151,17 @@ die = function() {
 	part_particles_create_color(sys, x, y - 10, breakPart, c_purple, 50);
 }
 
-refreshCondition = function() {
-	Health = HealthMax;
+refreshCondition = function(useDifficulty = false) {
+	var _difficulty = global.gameDifficultySelected;
+	if(useDifficulty && _difficulty != 0) {
+		Health = HealthMax * power(.5, _difficulty);
+		mana = manaMax * power(.5, _difficulty);
+		bombCount = round(bombMax * power(.5, _difficulty));
+	} else {
+		Health = HealthMax;
+		mana = manaMax;
+		bombCount = bombMax;
+	}
 	//other stuff?
 }
 
@@ -182,6 +202,8 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 }
 
 setRobe = function(newRobeId, moveToNew = true) {
+	canFly = true; // switch in and out per robe when ready.. TODO
+	
 	if(instance_exists(newRobeId)) {
 		if(robeIndex == E_robe.basicPurple) { // removing values based on taken off robe
 			
@@ -217,12 +239,16 @@ setRobe = function(newRobeId, moveToNew = true) {
 equipSpell = function() {
 	if(spell == E_spell.none) {
 		spellTimerDelay = 12;
+		spellManaCost = 3;
 	} else if(spell == E_spell.bolt) {
 		spellTimerDelay = 15;
+		spellManaCost = 3;
 	} else if(spell == E_spell.shockwave) {
 		spellTimerDelay = 70;
+		spellManaCost = 15;
 	} else if(spell == E_spell.bananaShimmer) {
 		spellTimerDelay = 12;
+		spellManaCost = 25;
 	}
 }
 
@@ -236,31 +262,35 @@ removeSpell = function(index) {
 }
 
 castSpell = function(targetX, targetY) {
-	var _spell;
-	
-	if(spell == 0)  {
-		// none
-	} else if(spell == E_spell.bolt) {
-		var _castX = x + spellXOff;
-		var _castY = y + spellYOff - 10;
-		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-2, 2);
+	if(mana > spellManaCost) {
+		mana -= spellManaCost;
 		
-		_spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
-		_spell.xChange = dcos(_dir) * 11.5;
-		_spell.yChange = -dsin(_dir) * 11.5;
-	} else if(spell == E_spell.shockwave) {
-		_spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
-	} else if(spell == E_spell.bananaShimmer) {
-		var _castX = x + spellXOff;
-		var _castY = y + spellYOff - 10;
-		var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-4, 4);
+		var _spell;
 		
-		_spell = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
-		_spell.xChange = dcos(_dir) * 3.2;
-		_spell.yChange = -dsin(_dir) * 3.2;
+		if(spell == 0)  {
+			// none
+		} else if(spell == E_spell.bolt) {
+			var _castX = x + spellXOff;
+			var _castY = y + spellYOff - 10;
+			var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-2, 2);
+			
+			_spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
+			_spell.xChange = dcos(_dir) * 11.5;
+			_spell.yChange = -dsin(_dir) * 11.5;
+		} else if(spell == E_spell.shockwave) {
+			_spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
+		} else if(spell == E_spell.bananaShimmer) {
+			var _castX = x + spellXOff;
+			var _castY = y + spellYOff - 10;
+			var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-4, 4);
+			
+			_spell = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
+			_spell.xChange = dcos(_dir) * 3.2;
+			_spell.yChange = -dsin(_dir) * 3.2;
+		}
+		
+		_spell.source = id;
 	}
-	
-	_spell.source = id;
 }
 
 setPickaxe(E_pickaxe.basicRed);
