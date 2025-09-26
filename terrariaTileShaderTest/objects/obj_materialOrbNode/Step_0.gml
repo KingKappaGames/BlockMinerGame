@@ -1,7 +1,7 @@
 if(global.timer % 270 == 180) {
-	var _shockwave = script_createShockwaveSpell(x, y,,,, 0, .7);
+	var _shockwave = script_createShockwaveSpell(x, y, shockwaveDuration,, radiusExpand, 0, .7 * strengthMult);
 } else if(global.timer % 270 == 0) {
-	var _shockwave = script_createShockwaveSpell(x, y,,,, materialType, .35);
+	var _shockwave = script_createShockwaveSpell(x, y, shockwaveDuration,, radiusExpand, materialType, .35 * strengthMult, false);
 }
 
 part_particles_create_color(sys, x + irandom_range(-21, 21), y + irandom_range(-21, 21), breakPart, image_blend, 15);

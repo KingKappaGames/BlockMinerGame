@@ -40,9 +40,9 @@ if(duration <= 0) {
 	
 	
 	repeat(irandom_range(15, 24)) {
-		var _bomb = instance_create_layer(x, y, "Instances", obj_banana);
-		_bomb.xChange = random_range(-8, 8);
-		_bomb.yChange = random_range(-8, 8);
+		var _banana = instance_create_layer(x, y, "Instances", obj_banana);
+		_banana.xChange = random_range(-8, 8);
+		_banana.yChange = random_range(-8, 8);
 	}
 	
 	//audio_play_sound(snd_explosion, 0, 0, 2);

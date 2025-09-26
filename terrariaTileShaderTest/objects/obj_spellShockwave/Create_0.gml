@@ -14,4 +14,7 @@ strength = 1; // the multiplier on how much to try to break or place things
 
 materialType = 0; // THIS SPELL CAN MAKE OR BREAK TILES (0/clear being break)
 
+dealDamage = true;
+hitList = ds_list_create();
+
 depth -= 101; // over part over layer!

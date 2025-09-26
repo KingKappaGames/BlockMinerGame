@@ -19,21 +19,6 @@ enum E_spell {
 	hold2 = 4
 }
 
-//RENAME THESE WITH THE E_ PREFIX SO THAT YOU CAN NOT CALL THEM TYPE AND BE CONFUSED, E_ GIVES YOU A BASE TO SEE YOUR OPTIONS, REMEMBER???
-
-enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
-	decMushroom = -3,
-	decRock = -2,
-	decGrass = -1,
-	empty = 0,
-	grass = 1,
-	diamond = 2,
-	dirt = 3,
-	wood = 4,
-	flesh = 5,
-	banana = 6,
-}
-
 enum E_robe {
 	basicPurple = 0,
 	superRed = 1,
@@ -49,18 +34,35 @@ enum E_pickaxe {
 	banana = 3,
 }
 
-//bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?
+enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
+	decMushroom = -3,
+	decRock = -2,
+	decGrass = -1,
+	empty = 0,
+	grass = 1,
+	diamond = 2,
+	dirt = 3,
+	wood = 4,
+	flesh = 5,
+	banana = 6,
+	explosive = 7,
+}
 
 #macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
 
-global.tileSprites = [spr_tileGuideFrames, spr_tileGuideFrames, spr_tileGuideFramesCrystal, spr_tileGuideFrames, spr_tileGuideFramesWood, spr_tileGuideFramesFlesh, spr_tileGuideFramesFlesh];
-global.tileColors = [c_black, c_green, c_aqua, #884411, #cbb29f, #ff8888, #ffff00];
-global.tileSpritesDecorative = [spr_pickaxe, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesRockDecoration, spr_tileGuideFramesMushroomDecoration, spr_tileGuideFramesGrassDecoration, spr_tileGuideFramesGrassDecoration];
-global.tileColorsDecorative = [c_black, c_green, c_ltgray, c_red, #bba280];
+global.tileSprites =                 [spr_tile,                 spr_tile,                spr_tileCrystal,         spr_tile,                    spr_tileWood,            spr_tileFlesh,        spr_tileBanana,          spr_tileExplosive];
+global.tileColors =                  [c_black,                  c_green,                 c_aqua,                  #884411,                     #cbb29f,                 #ff8888,              #ffff00,                 #ff4014];
+global.tilePlaceSounds =             [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_placeBlockMud,           snd_placeBlock,          snd_placeBlockMud,     snd_banana,             snd_placeBlock];
+global.tileBreakSounds =             [snd_breakBlockWood,       snd_breakBlockWood,      snd_breakBlockCrystal,   snd_breakBlockMud,           snd_breakBlockWood,      snd_breakBlockWood,    snd_banana,             snd_breakBlockWood];
+global.tileStepSounds =              [snd_stepSoundStone,       snd_stepSoundStone,      snd_stepSoundStone,      snd_stepSoundStone,          snd_stepSoundStone,      snd_stepSoundStone,    snd_stepSoundStone,     snd_stepSoundStone];
+global.tileFallSounds =              [snd_explosion,            snd_explosion,           snd_explosion,           snd_fallOntoMud,             snd_explosion,           snd_fallOntoMud,       snd_explosion,          snd_explosion];
+global.tileFallDamage =              [0,                        .6,                      2,                       .8,                          1.2,                     .5,                    .75,                    .7];
 
-global.tileFallDamage = [0, .6, 2, .8, 1.2, .5, .75];
-global.tileStepSounds = [snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone, snd_stepSoundStone];
-global.tileFallSounds = [snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_explosion, snd_stepSoundStone, snd_stepSoundStone];
+global.tilePlaceSoundsDecorative =   [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_banana];                                            
+global.tileBreakSoundsDecorative =   [snd_breakBlockWood,       snd_breakBlockWood,      snd_breakBlockCrystal,   snd_banana];                                            
+global.tileSpritesDecorative =       [spr_pickaxe,              spr_tileGrassDecoration, spr_tileRockDecoration,  spr_tileMushroomDecoration];
+global.tileColorsDecorative =        [c_black,                  c_green,                 c_ltgray,                c_red,                       #bba280];
+
 
 #macro grav .13
 
@@ -174,14 +176,14 @@ part_type_alpha2(_roundTrail, 1, .3);
 part_type_speed(_roundTrail, 0, .4, -.004, 0);
 part_type_direction(_roundTrail, 0, 360, 0, 0);
 part_type_orientation(_roundTrail, 0, 0, 1.7, 0, 0);
-part_type_color1(_roundTrail, c_yellow)
+part_type_color1(_roundTrail, #ffffff)
 
 global.overwrittenTrailerPart = part_type_create(); // no visuals?
 var _trailerPart = global.overwrittenTrailerPart;
 part_type_life(_trailerPart, 25, 90);
 part_type_direction(_trailerPart, 0, 360, 0, 0); // over write speed per particle use case in code, no default
 part_type_gravity(_trailerPart, .04, 270);
-part_type_step(_trailerPart, 1, _roundTrail);
+part_type_step(_trailerPart, -2, _roundTrail);
 
 global.smokeTrailPart = part_type_create();
 var _smokeTrail = global.smokeTrailPart;
@@ -202,6 +204,14 @@ part_type_speed(_thickTrail, 0.0, .2, -.002, 0);
 part_type_direction(_thickTrail, 0, 360, 0, 0);
 part_type_orientation(_thickTrail, 0, 360, 0, 0, false);
 part_type_gravity(_thickTrail, -.01, 270);
+
+global.bloodSpurt = part_type_create();
+var _bloodSpurt = global.bloodSpurt;
+part_type_life(_bloodSpurt, 35, 70);
+part_type_shape(_bloodSpurt, pt_shape_disk);
+part_type_size(_bloodSpurt, .08, .13, -.003, 0);
+part_type_speed(_bloodSpurt, 1.5, 2.7, -.003, 0);
+part_type_gravity(_bloodSpurt, .02, 270);
 
 global.rushPart = part_type_create();
 var _rushPart = global.rushPart;
@@ -271,11 +281,20 @@ startGameWorld = function(worldIndex, exists = false) {
 	repeat(3) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
 	}
-	repeat(5) {
+	repeat(4) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpStatic);
 	}
-	repeat(5) {
-		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_materialOrbNode);
+	repeat(3) {
+		var _materialOrb = instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_materialOrbNode);
+		with(_materialOrb) {
+			materialType = irandom_range(1, 7);
+			if(materialType == E_tile.explosive || materialType == E_tile.banana) {
+				shockwaveDuration = 9; // shorter lived bursts but faster expanding, still smaller / less tiles than normal because explosives are laggy yo
+				radiusExpand = 1.2;
+				strengthMult = .3;
+			}
+			image_blend = materialType >= 0 ? global.tileColors[materialType] : global.tileColorsDecorative[abs(materialType)];
+		}
 	}
 	
 	inGame = true;
@@ -314,3 +333,6 @@ initMainMenuScreen = function() {
 }
 
 initMainMenuScreen();
+
+
+//bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?

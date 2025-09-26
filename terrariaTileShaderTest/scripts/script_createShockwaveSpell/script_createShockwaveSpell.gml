@@ -1,12 +1,19 @@
-function script_createShockwaveSpell(xx, yy, duration = 13, radiusStart = tileSize, radiusMult = 1.165, materialType = 0, strength = 1) {
+function script_createShockwaveSpell(xx, yy, durationSet = 13, radiusStart = tileSize, radiusMultSet = 1.165, materialTypeSet = 0, strengthSet = 1, dealDamageSet = true/*, caster = noone*/) {
 	var _spell = instance_create_layer(xx, yy, "Instances", obj_spellShockwave);
 	
+	with(_spell) {
+		duration = durationSet;
+		materialType = materialTypeSet;
+		radiusMult = radiusMultSet;
+		radius = radiusStart;
+		strength = strengthSet;
+		dealDamage = dealDamageSet;
+		//source = caster;
+		
+		image_blend = materialType >= 0 ? global.tileColors[materialType] : global.tileColorsDecorative[abs(materialType)];
 	
-	_spell.duration = duration;
-	_spell.materialType = materialType;
-	_spell.radiusMult = radiusMult;
-	_spell.radius = radiusStart;
-	_spell.strength = strength;
-	
+		radiusExpand = radiusMultSet;
+	}
+
 	return _spell;
 }

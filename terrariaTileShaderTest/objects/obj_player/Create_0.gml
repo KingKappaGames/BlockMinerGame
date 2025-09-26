@@ -59,7 +59,7 @@ pickaxeTimerDelay = 24;
 miningFunc = script_pickaxeMineNormal;
 
 //held material/block values
-heldMaterialsUnlocked = [1, 2, 3, 4];
+heldMaterialsUnlocked = [1, 2, 3, 4, 5, 6, 7];
 
 heldResourceArrayPos = 0;
 heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
@@ -97,12 +97,17 @@ hitGround = function(fallSpeed, tileIndex) {
 	}
 }
 
-hit = function(damage) {
+hit = function(damage = 0, dir, force = 0, destroyBody = false) {
 	Health -= damage;
 	
 	if(Health <= 0) {
 		die();
 	} else {
+		if(force != 0) {
+			xChange += dcos(dir) * force;
+			yChange -= dsin(dir) * force   + force; // hit in the direction plus a bit up because in 99% of cases that will be nice
+		}
+		
 		hitFlash = 7;
 	}
 	

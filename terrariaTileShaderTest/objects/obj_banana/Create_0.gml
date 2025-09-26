@@ -4,7 +4,7 @@ image_blend = c_white;
 
 image_angle = irandom(360);
 
-duration = 500 + irandom(60);
+duration = 350 + irandom(60);
 
 speedDecay = .99;
 

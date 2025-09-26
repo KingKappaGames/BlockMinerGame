@@ -3,8 +3,9 @@
 /// @param {real} worldTileY The tile y index
 /// @param {bool} [soundVolume]=true Whether to play the breaking sound for this tile
 /// @param {bool} [updateScreen]=true Whether to update the screen after this tile, if this is part of a chain or group breaking (explosions for ex) then don't do this, the update should be wherever the thing orchestrating is
+/// @param {bool} [doBreakEffects]=true Whether to run the break effect script that will do certain effects specific to the block, explosive blocks will blow up, terrain might spawn enemies, crystal might give some magic power.. ect
 /// @returns {bool} Whether a tile was broken, regardless of which
-function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen = true) {
+function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen = true, doBreakEffects = true) {
 	if(worldTileX < 0 || worldTileX >= global.tileRangeWorld || worldTileY < 0 || worldTileY >= global.tileRangeWorld) {
 		exit;
 	}
@@ -13,14 +14,14 @@ function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen 
 	var _tileIndex = _worldTiles[worldTileX][worldTileY];
 	
 	if(_tileIndex != 0) {
-		script_createBlockParticles(_tileIndex, worldTileX * tileSize + tileSize * .5, worldTileY * tileSize + tileSize * .5);
+		script_createBlockParticles(_tileIndex, worldTileX * tileSize + tileSize * .5, worldTileY * tileSize + tileSize * .5); // in theory each tile could store custom break visual effects (or just different particles) in the break effect script but for now I'll leave it
+		
+		if(doBreakEffects) {
+			script_tileBreakEffects(worldTileX, worldTileY, _tileIndex);
+		}
 		
 		if(soundVolume != 0) {
-			if(_tileIndex == 2) {
-				audio_play_sound_at(snd_breakBlockCrystal, x, y, 0, audioRefQuiet, audioMaxQuiet, 1, 0, 0, soundVolume);
-			} else {
-				audio_play_sound_at(snd_breakBlockWood, x, y, 0, audioRefQuiet, audioMaxQuiet, 1, 0, 0, soundVolume);
-			}
+			audio_play_sound_at(_tileIndex >= 0 ? global.tileBreakSounds[_tileIndex] : global.tileBreakSoundsDecorative[abs(_tileIndex)], worldTileX * tileSize, worldTileY * tileSize, 0, audioRefQuiet, audioMaxQuiet, 1, 0, 0, soundVolume);
 		}
 		
 		_worldTiles[worldTileX][worldTileY] = 0;

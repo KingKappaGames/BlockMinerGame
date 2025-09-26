@@ -22,11 +22,14 @@ if(parent == noone) {
 		moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 	} else {
 		yChange += grav;
+		
+		part_type_direction(bloodSpurtPart, image_angle - 20, image_angle + 20, 0, 0);
+		part_particles_create_color(sys, x, y, bloodSpurtPart, c_maroon, 2);
 	}
 	
 	image_angle = point_direction(0, 0, xChange, yChange);
 } else {
-	if(parent != noone) {
+	if(parent != noone) { // instance check when at all times clean up will set to noone so not necessary to check exists here
 		var _parentX = parent.x;
 		var _parentY = parent.y;
 		
@@ -36,5 +39,12 @@ if(parent == noone) {
 		
 		x = _parentX - dcos(_dir) * 16;
 		y = _parentY + dsin(_dir) * 16;
+		
+		if(child == noone) {
+			if(sprite_index != spr_wormTail) { // this isn't robust for other sprites of worms but... Oh well?
+				part_type_direction(bloodSpurtPart, image_angle - 200, image_angle - 160, 0, 0);
+				part_particles_create_color(sys, x, y, bloodSpurtPart, c_maroon, 2);
+			}
+		}
 	}
 }
