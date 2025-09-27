@@ -8,6 +8,6 @@ function script_getRobeSprite(index) {
 	} else if(index == E_robe.teleporterWhite) {
 		return spr_player;
 	} else if(index == E_robe.superRed) { // todo the rest of these
-		return spr_player;
+		return spr_playerRed;
 	}
 }

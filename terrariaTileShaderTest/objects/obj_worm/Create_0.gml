@@ -3,7 +3,7 @@ event_inherited();
 HealthMax = 25;
 Health = HealthMax;
 
-speedDecay = .98;
+speedDecay = .97;
 speedDecayAir = .98;
 
 moveDir = irandom(360);

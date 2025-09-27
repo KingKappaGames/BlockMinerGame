@@ -8,6 +8,10 @@ audio_falloff_set_model(audio_falloff_linear_distance);
 
 HealthMax = 10;
 Health = HealthMax;
+healthRegen = 1;
+
+knockbackMult = 1;
+
 essential = true;
 
 robeIndex = E_robe.basicPurple;
@@ -82,7 +86,7 @@ mana = manaMax;
 manaRegen = 3;
 spellManaCost = 3;
 
-spellsUnlocked = [1, 2];
+spellsUnlocked = [E_spell.bolt, E_spell.shockwave, E_spell.explosiveBolt];
 spellArrayPos = 0;
 spell = spellsUnlocked[spellArrayPos];
 
@@ -209,7 +213,7 @@ setRobe = function(newRobeId, moveToNew = true) {
 			
 		} else if(robeIndex == E_robe.bananaYellow) {
 			removeSpell(E_spell.bananaShimmer);
-		} else {
+		} else if(robeIndex == E_robe.superRed) {
 			
 		}
 		
@@ -223,16 +227,25 @@ setRobe = function(newRobeId, moveToNew = true) {
 		}
 		
 		sprite_index = script_getRobeSprite(robeIndex);
-		if(robeIndex == E_robe.basicPurple) { // load new robe values
-		//} else if(_robeIndex == E_robe.) {
-		//} else if(_robeIndex == E_robe.) {
+		
+		healthRegen = 1;
+		manaRegen = 3;
+		HealthMax = 10; // defaulting
+		manaMax = 100;
+		canBeInVoid = false;
+		
+		if(robeIndex == E_robe.basicPurple) { // load new robe values (non defaults)
+			
+		} else if(robeIndex == E_robe.superRed) {
+			HealthMax = 50;
+			healthRegen = 3;
+			manaRegen = 1;
+			canFly = false;
 		} else if(robeIndex == E_robe.bananaYellow) {
 			array_push(spellsUnlocked, E_spell.bananaShimmer);
 		//} else if(_robeIndex == E_robe.) {
 			
-		} 
-		
-		// pickup should delete itself when picked up
+		}
 	}
 }
 
@@ -242,13 +255,16 @@ equipSpell = function() {
 		spellManaCost = 3;
 	} else if(spell == E_spell.bolt) {
 		spellTimerDelay = 15;
-		spellManaCost = 3;
+		spellManaCost = 4;
 	} else if(spell == E_spell.shockwave) {
 		spellTimerDelay = 70;
-		spellManaCost = 15;
+		spellManaCost = 25;
 	} else if(spell == E_spell.bananaShimmer) {
 		spellTimerDelay = 12;
-		spellManaCost = 25;
+		spellManaCost = 30;
+	} else if(spell == E_spell.explosiveBolt) {
+		spellTimerDelay = 24;
+		spellManaCost = 15;
 	}
 }
 
@@ -265,31 +281,7 @@ castSpell = function(targetX, targetY) {
 	if(mana > spellManaCost) {
 		mana -= spellManaCost;
 		
-		var _spell;
-		
-		if(spell == 0)  {
-			// none
-		} else if(spell == E_spell.bolt) {
-			var _castX = x + spellXOff;
-			var _castY = y + spellYOff - 10;
-			var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-2, 2);
-			
-			_spell = instance_create_layer(_castX, _castY, "Instances", obj_magicBolt);
-			_spell.xChange = dcos(_dir) * 11.5;
-			_spell.yChange = -dsin(_dir) * 11.5;
-		} else if(spell == E_spell.shockwave) {
-			_spell = instance_create_layer(mouse_x, mouse_y, "Instances", obj_spellShockwave);
-		} else if(spell == E_spell.bananaShimmer) {
-			var _castX = x + spellXOff;
-			var _castY = y + spellYOff - 10;
-			var _dir = point_direction(x + spellXOff, y + spellYOff - 10, targetX, targetY) + irandom_range(-4, 4);
-			
-			_spell = instance_create_layer(_castX, _castY, "Instances", obj_bananaShimmer);
-			_spell.xChange = dcos(_dir) * 3.2;
-			_spell.yChange = -dsin(_dir) * 3.2;
-		}
-		
-		_spell.source = id;
+		var _spell = script_castSpell(spell, chestX + spellXOff, chestY + spellYOff, mouse_x, mouse_y, 1, 1);
 	}
 }
 

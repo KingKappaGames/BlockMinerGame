@@ -7,7 +7,7 @@ duration--;
 
 var _hitId = collision_circle(x, y, 5, obj_creature, false, false);
 if(instance_exists(_hitId) && source != _hitId) {
-	_hitId.hit(1, point_direction(0, 0, xChange, yChange), 1.9);
+	_hitId.hit(1, point_direction(0, 0, xChange, yChange), 1.5);
 	duration = 0;
 }
 
@@ -19,7 +19,7 @@ var _tileOn = inWorld ? global.worldTiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	if(_tileOn > 0) {
-		if(irandom(25) == 0) {
+		if(irandom(20) == 0) {
 			script_breakTileAtPos(x, y, .8);
 		}
 	}

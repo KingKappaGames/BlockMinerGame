@@ -74,6 +74,13 @@ if(!flying) {
 		pickaxeAngleBase = 90 + 30 * directionFacing;
 	}
 } else {
+	mana -= .06; 
+	if(mana <= 0) {
+		flying = false;
+		mana = 0;
+	}
+	
+	// flying costs mana
 	part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
 	
 	if(keyboard_check(ord("A"))) {
@@ -138,14 +145,28 @@ if(mouse_check_button(mb_left)) {
 				if(pickaxeMineTileLine) {
 					var _dist = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
 					var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
-					for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
-						if(miningFunc(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
-							break;
+					
+					var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
+					if(instance_exists(_hit)) {
+						_hit.hit(.5, _dir, 2);
+					} else { // line check mining
+						
+						for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
+							if(miningFunc(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
+								break;
+							}
 						}
+						
+					}
+				} else if(point_distance(chestX, chestY, mouse_x, mouse_y) < pickaxeRange) { // single mine target
+					
+					var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
+					if(instance_exists(_hit)) {
+						_hit.hit(.5, point_direction(chestX, chestY, mouse_x, mouse_y), 2);
+					} else {
+						miningFunc(mouse_x, mouse_y);
 					}
 					
-				} else if(point_distance(chestX, chestY, mouse_x, mouse_y) < pickaxeRange) {
-					miningFunc(mouse_x, mouse_y);
 				}
 				
 				pickaxeAngleChange -= directionFacing * 65 * pickaxeSwingAngleAddMult;
@@ -279,7 +300,7 @@ if(_timer % 60 == 0) { // delete or disable all far enemies
 			bombCount += 1;
 		}
 		
-		Health = min(Health + 1, HealthMax);
+		Health = min(Health + healthRegen, HealthMax);
 	}
 }
 #endregion

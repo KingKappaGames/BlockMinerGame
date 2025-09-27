@@ -16,7 +16,7 @@ enum E_spell {
 	bolt = 1,
 	shockwave = 2,
 	bananaShimmer = 3,
-	hold2 = 4
+	explosiveBolt = 4,
 }
 
 enum E_robe {

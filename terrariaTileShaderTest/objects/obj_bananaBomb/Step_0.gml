@@ -8,7 +8,7 @@ if(!inWorld) {
 }
 
 if(irandom(3) == 0) {
-	part_particles_create_color(sys, x + dcos(image_angle + 135) * 9, y - dsin(image_angle + 135) * 9, smokeTrailPart, c_yellow, 1);
+	part_particles_create_color(sys, x + dcos(image_angle + 135) * 9, y - dsin(image_angle + 135) * 9, thickTrailPart, c_yellow, 1);
 }
 
 yChange += grav; // gravity
