@@ -1,7 +1,5 @@
 event_inherited();
 
-bloodSpurtPart = global.bloodSpurt;
-
 moveSpeed = 0;
 
 HealthMax = 10;

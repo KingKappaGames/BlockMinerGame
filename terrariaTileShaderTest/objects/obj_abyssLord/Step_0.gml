@@ -3,13 +3,13 @@ if (live_call()) return live_result;
 event_inherited();
 	
 if(alive) {
-	var _dirToPlayer = point_direction(x, y, global.player.x, global.player.y);
-	var _distToPlayer = point_distance(x, y, global.player.x, global.player.y);
+	var _dirToPlayer = point_direction(x, y, player.x, player.y);
+	var _distToPlayer = point_distance(x, y, player.x, player.y);
 	
 	xChange += dcos(_dirToPlayer) * moveSpeed * .21;
 	yChange -= dsin(_dirToPlayer) * moveSpeed * .21;
 	
-	var _tileIn = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
+	var _tileIn = inWorld ? max(worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
 	
 	var _speed = .5 + dsin(current_time * .073) * .5 + dsin(current_time * .262) * .05;
 	xChange += dcos(moveDir) * moveSpeed * _speed * .1;
@@ -21,10 +21,10 @@ if(alive) {
 	moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 	
 	if(_distToPlayer < 30) {
-		global.player.hit(1, _dirToPlayer, 10);
+		player.hit(1, _dirToPlayer, 10);
 	} else if(_distToPlayer > 80 && _distToPlayer < 350) {
 		if(current_time % 3000 < 600) {
-			var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-30, 30) + irandom_range(-30, 30), y + irandom_range(-30, 30) + irandom_range(-30, 30), global.player.x + irandom_range(-10, 10), global.player.y + irandom_range(-10, 10), 1, 1);
+			var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-30, 30) + irandom_range(-30, 30), y + irandom_range(-30, 30) + irandom_range(-30, 30), player.x + irandom_range(-10, 10), global.player.y + irandom_range(-10, 10), 1, 1);
 		}
 	}
 	

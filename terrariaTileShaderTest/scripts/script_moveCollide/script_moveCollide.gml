@@ -1,5 +1,5 @@
 function script_moveCollide() {
-	var _worldTiles = global.worldTiles;
+	var _worldTiles = worldTiles;
 	
 	var _tileOnX = _worldTiles[(x + xChange) div tileSize][y div tileSize];
 	

@@ -246,7 +246,6 @@ vignetteEffectRange = [.25, 1]; // normalized depth of world for this effect to 
 
 startGameWorld = function(worldIndex, exists = false) {
 	var _tileManager = instance_create_layer(0, 0, "Instances", obj_tileManager);
-	var _player = instance_create_layer(0, 0, "Instances", obj_player);
 	
 	var _worldSizePixels;
 	var _worldSizeTiles;
@@ -260,6 +259,8 @@ startGameWorld = function(worldIndex, exists = false) {
 	} else {
 		var _menu = obj_MainMenu.id;
 		_tileManager.generateWorld(_menu.worldOptionGenerationTypeOptions[_menu.worldOptionGenerationTypeSelected], _menu.worldOptionSizeOptions[_menu.worldOptionSizeSelected], _menu.worldOptionStructureMultOptions[_menu.worldOptionStructureMultSelected], _menu.worldOptionFlatOptions[_menu.worldOptionFlatSelected]);
+		
+		var _player = instance_create_layer(0, 0, "Instances", obj_player);
 		
 		_worldSizePixels = global.worldSizePixels;
 		

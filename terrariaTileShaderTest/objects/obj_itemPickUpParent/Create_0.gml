@@ -17,9 +17,13 @@ image_xscale = 2;
 image_yscale = 2;
 
 pickUp = function() {
-	var _player = global.player;
+	var _player = player;
 	
 	if(pickupType == "pickaxe") {
+		var _droppedPickaxe = instance_create_layer(_player.x, _player.y, "Instances", object_index);
+		_droppedPickaxe.pickupIndex = _player.pickaxeIndex;
+		_droppedPickaxe.sprite_index = script_getPickaxeSprite(_player.pickaxeIndex);
+		
 		_player.setPickaxe(pickupIndex);
 	} else if(pickupType == "robe") {
 		_player.setRobe(id);

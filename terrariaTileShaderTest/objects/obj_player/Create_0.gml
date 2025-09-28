@@ -1,6 +1,6 @@
-event_inherited();
-
 global.player = id;
+
+event_inherited();
 
 audio_listener_set_position(0, x, y, 0);
 audio_listener_orientation(0, 1, 0, 0, 0, 1);
@@ -40,7 +40,8 @@ essential = true;
 directionFacing = 1;
 dirToMouse = 0;
 
-canFly = true;
+canFly = false;
+canTeleport = false;
 canBeInVoid = false;
 
 usingPickaxeNotSpell = true; // bool to use pickaxe "instead" of spell, aka toggle between those two based on this
@@ -86,7 +87,7 @@ mana = manaMax;
 manaRegen = 3;
 spellManaCost = 3;
 
-spellsUnlocked = [E_spell.bolt, E_spell.shockwave, E_spell.explosiveBolt];
+spellsUnlocked = [E_spell.bolt, E_spell.shockwave];
 spellArrayPos = 0;
 spell = spellsUnlocked[spellArrayPos];
 
@@ -134,8 +135,6 @@ die = function() {
 	refreshCondition(true);
 	
 	if(instance_exists(robePreviousId)) {
-		script_createRobePickup(robeIndex, x, y);
-		
 		var _previousRobe = robePreviousId;
 		setRobe(robePreviousId);
 		
@@ -143,6 +142,8 @@ die = function() {
 		
 		robePreviousId = noone;
 	} else {
+		setRobe(E_robe.basicPurple,, true);
+		
 		x = irandom_range(global.worldSizePixels * .33, global.worldSizePixels * .66);
 		y = script_findGroundBelow(x, 200, 3, false, 300);
 		if(y == -1) {
@@ -205,25 +206,34 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 	pickaxeSpeedDecayMult = angleSpeedDecay;
 }
 
-setRobe = function(newRobeId, moveToNew = true) {
-	canFly = true; // switch in and out per robe when ready.. TODO
-	
-	if(instance_exists(newRobeId)) {
+setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) {
+	if(instance_exists(newRobe) || useIndex) {
 		if(robeIndex == E_robe.basicPurple) { // removing values based on taken off robe
 			
 		} else if(robeIndex == E_robe.bananaYellow) {
 			removeSpell(E_spell.bananaShimmer);
 		} else if(robeIndex == E_robe.superRed) {
+			removeSpell(E_spell.explosiveBolt);
+		} else if(robeIndex == E_robe.teleporterWhite) {
 			
 		}
 		
-		robePreviousId = script_createRobePickup(robeIndex, x, y);  // leave behind item pickup for previous (taken off) robe
+		if(dropOld) {
+			robePreviousId = script_createRobePickup(robeIndex, x, y);  // leave behind item pickup for previous (taken off) robe
+			if(useIndex) {
+				robePreviousId = noone; // if using index then probably you're not moving to an old robe and thus you should be abandoning your current one (eg you died too many times to have this robe still, you needed a "lender" body and thus have lost all bodies and so don't return to this one... Do you get it????)
+			}
+		}
 		
-		robeIndex = newRobeId.robeIndex; // set current index of robe to pick up coming in
+		if(useIndex) {
+			robeIndex = newRobe;
+		} else {
+			robeIndex = newRobe.robeIndex; // set current index of robe to pick up coming in
 		
-		if(moveToNew) {
-			x = newRobeId.x;
-			y = newRobeId.y;
+			if(moveToNew) {
+				x = newRobe.x;
+				y = newRobe.y;
+			}
 		}
 		
 		sprite_index = script_getRobeSprite(robeIndex);
@@ -233,6 +243,8 @@ setRobe = function(newRobeId, moveToNew = true) {
 		HealthMax = 10; // defaulting
 		manaMax = 100;
 		canBeInVoid = false;
+		canTeleport = false;
+		canFly = false;
 		
 		if(robeIndex == E_robe.basicPurple) { // load new robe values (non defaults)
 			
@@ -240,12 +252,22 @@ setRobe = function(newRobeId, moveToNew = true) {
 			HealthMax = 50;
 			healthRegen = 3;
 			manaRegen = 1;
-			canFly = false;
+			manaMax = 50;
+			array_push(spellsUnlocked, E_spell.explosiveBolt);
 		} else if(robeIndex == E_robe.bananaYellow) {
 			array_push(spellsUnlocked, E_spell.bananaShimmer);
-		//} else if(_robeIndex == E_robe.) {
+		} else if(robeIndex == E_robe.teleporterWhite) {
+			canTeleport = true;
+			HealthMax = 8;
+			healthRegen = .5;
+			manaMax = 60;
+			knockbackMult = 2;
+		//} else if(robeIndex == E_robe.) {
 			
 		}
+		
+		mana = min(manaMax, mana);
+		Health = min(HealthMax, Health);
 	}
 }
 
@@ -269,7 +291,11 @@ equipSpell = function() {
 }
 
 removeSpell = function(index) {
-	array_delete(spellsUnlocked, array_get_index(spellsUnlocked, index), 1);
+	var _removed = array_get_index(spellsUnlocked, index);
+	if(_removed != -1) {
+		array_delete(spellsUnlocked, _removed, 1);
+	}
+	
 	
 	if(spell == index) { // if removing the spell you're currently holding..
 		spell = spellsUnlocked[0];

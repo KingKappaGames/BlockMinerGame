@@ -149,6 +149,8 @@ if(mouse_check_button(mb_left)) {
 					var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
 					if(instance_exists(_hit)) {
 						_hit.hit(.5, _dir, 2);
+						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+						part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
 					} else { // line check mining
 						
 						for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
@@ -162,7 +164,10 @@ if(mouse_check_button(mb_left)) {
 					
 					var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
 					if(instance_exists(_hit)) {
-						_hit.hit(.5, point_direction(chestX, chestY, mouse_x, mouse_y), 2);
+						var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
+						_hit.hit(.5, _dir, 2);
+						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+						part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
 					} else {
 						miningFunc(mouse_x, mouse_y);
 					}
@@ -204,23 +209,42 @@ if(mouse_check_button(mb_left)) {
 	if(bombCount > 0) {
 		bombCount--;
 		
-		var _bomb = obj_bomb;
+		var _bombType = obj_bomb;
 		if(robeIndex == E_robe.bananaYellow) {
-			_bomb = obj_bananaBomb;
+			_bombType = obj_bananaBomb;
 		}
 		
-		var _bomb = instance_create_layer(chestX, chestY, "Instances", _bomb);
+		var _bomb = instance_create_layer(chestX, chestY, "Instances", _bombType);
 		_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
 		_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
 	}
 }
 
-if(keyboard_check_released(ord("T"))) {
-	x = mouse_x;
-	y = mouse_y;
-	
-	if(x < 0 || x >= global.worldSizePixels || y < 0 || y >= global.worldSizePixels) {
-		inWorld = false;
+if(canTeleport && mana > 25) {
+	if(keyboard_check_released(ord("T"))) {
+		if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || global.worldTiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
+			mana -= 25;
+			x = mouse_x;
+			y = mouse_y;
+			
+			var _shimmer = global.radialShimmerPart;
+			repeat(25) {
+				var _spawnX = mouse_x + irandom_range(-25, 25);
+				var _spawnY = mouse_y + irandom_range(-25, 25);
+				
+				var _dir = point_direction(mouse_x, mouse_y, _spawnX, _spawnY);
+				
+				part_type_orientation(_shimmer, _dir, _dir, 0, 0, false);
+				part_type_direction(_shimmer, _dir, _dir, 0, 0);
+				part_type_speed(_shimmer, 1.7, 2.8, -.035, 0);
+				
+				part_particles_create(sys, _spawnX, _spawnY, _shimmer, 1);
+			}
+			
+			if(x < 0 || x >= global.worldSizePixels || y < 0 || y >= global.worldSizePixels) {
+				inWorld = false;
+			}
+		}
 	}
 }
 
@@ -304,10 +328,6 @@ if(_timer % 60 == 0) { // delete or disable all far enemies
 	}
 }
 #endregion
-
-if(irandom(1000) == 0) {
-	instance_create_layer(x, y, "Instances", obj_pixie);
-}
 
 if(keyboard_check_released(vk_insert)) {
 	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "STRUCTUREDATA/exampleStructure.txt");

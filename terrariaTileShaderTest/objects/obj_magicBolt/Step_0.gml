@@ -1,7 +1,7 @@
 event_inherited();
 
-part_particles_create_color(sys, x + irandom_range(-2, 2), y + irandom_range(-2, 2), global.thickTrail, image_blend, 2);
-part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yChange * .5 + irandom_range(-2, 2), global.thickTrail, image_blend, 2);
+part_particles_create_color(sys, x + irandom_range(-2, 2), y + irandom_range(-2, 2), thickTrailPart, image_blend, 2);
+part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yChange * .5 + irandom_range(-2, 2), thickTrailPart, image_blend, 2);
 
 duration--;
 
@@ -15,7 +15,7 @@ x += xChange;
 y += yChange;
 
 
-var _tileOn = inWorld ? global.worldTiles[x div tileSize][y div tileSize] : 0;
+var _tileOn = inWorld ? worldTiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	if(_tileOn > 0) {
