@@ -83,6 +83,11 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 	array_resize(tiles, 0); // clear to nothing
 	array_resize(tiles, size); // restack to proper size (doing it this way because breaking the ref would be super annoying!)
 	
+	global.worldTiles = tiles; // refs already made so this is good, and the size and range are both determined by the parameter already
+	
+	global.tileRangeWorld = size;
+	global.worldSizePixels = size * tileSize;
+	
 	if(type == "overworld") {
 		var _tileType = 0;
 		var _worldXNormal = 0;
@@ -206,9 +211,4 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 			}
 		}
 	}
-	
-	global.worldTiles = tiles;
-	
-	global.tileRangeWorld = size;
-	global.worldSizePixels = size * tileSize;
 }

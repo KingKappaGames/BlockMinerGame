@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_boneBreak",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.3769161,
+  "name":"snd_boneBreak",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_boneBreak.mp3",
+  "type":0,
+  "volume":1.0,
+}

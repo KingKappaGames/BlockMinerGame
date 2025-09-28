@@ -52,8 +52,12 @@ if(!flying) {
 	if(keyboard_check(ord("A"))) {
 		if(_tileStanding != 0) {
 			xChange -= moveSpeed;
-			if(_timer % 30 == 0) { // if ANY step sound playing then don't play the sound
-				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
+			if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
+				var _sound = global.tileStepSounds[_tileStanding];
+				if(is_array(_sound)) {
+					_sound = _sound[irandom(array_length(_sound) - 1)];
+				}
+				audio_play_sound(_sound, 0, 0, 1.25);
 			}
 		} else {
 			xChange -= moveSpeedAir;
@@ -64,8 +68,12 @@ if(!flying) {
 	} else if(keyboard_check(ord("D"))) {
 		if(_tileStanding != 0) {
 			xChange += moveSpeed;
-			if(_timer % 30 == 0) { // if ANY step sound playing then don't play the sound
-				audio_play_sound(global.tileStepSounds[_tileStanding], 0, 0);
+			if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
+				var _sound = global.tileStepSounds[_tileStanding];
+				if(is_array(_sound)) {
+					_sound = _sound[irandom(array_length(_sound) - 1)];
+				}
+				audio_play_sound(_sound, 0, 0, 1.25);
 			}
 		} else {
 			xChange += moveSpeedAir;
@@ -197,12 +205,12 @@ if(mouse_check_button(mb_left)) {
 	
 	if(heldResourceTimer <= 0) {
 		if(point_distance(x, y - chestOff, mouse_x, mouse_y) < blockPlacementRange) {
-			script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex);
-			
-			heldResourceXChange = dcos(dirToMouse) * 5.2;
-			heldResourceYChange = -dsin(dirToMouse) * 4.4;
-			
-			heldResourceTimer = heldResourceTimerDelay;
+			if(script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex)) {
+				heldResourceXChange = dcos(dirToMouse) * 5.2;
+				heldResourceYChange = -dsin(dirToMouse) * 4.4;
+				
+				heldResourceTimer = heldResourceTimerDelay;
+			}
 		}
 	}
 } else if(mouse_check_button_released(mb_middle)) {

@@ -67,7 +67,7 @@ pickaxeTimerDelay = 24;
 miningFunc = script_pickaxeMineNormal;
 
 //held material/block values
-heldMaterialsUnlocked = [1, 2, 3, 4, 5, 6, 7];
+heldMaterialsUnlocked = [1, 2, 3, 4, 5, 6, 7, 8];
 
 heldResourceArrayPos = 0;
 heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
@@ -104,11 +104,11 @@ bombCount = bombMax;
 
 hitGround = function(fallSpeed, tileIndex) {
 	if(fallSpeed > 3.5) {
-		audio_play_sound(global.tileFallSounds[tileIndex], 0, 0, .25);
+		audio_play_sound(global.tileFallSounds[tileIndex], 0, 0, .35);
 		if(fallSpeed > 6) {
 			hit((power(fallSpeed - 5, 1.75) - 1) * 2 * global.tileFallDamage[tileIndex]);
 			
-			audio_play_sound(snd_breakBlockCrystal, 0, 0, .5);
+			audio_play_sound(snd_boneBreak, 0, 0, .5);
 		}
 	}
 }

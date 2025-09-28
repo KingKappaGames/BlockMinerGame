@@ -9,6 +9,8 @@ splashIntroProgress = 0; // 0-1 representing black to icon to black to menu (fad
 inGame = false;
 worldCurrent = 0;
 
+pauseNextFrame = false;
+
 #region macros and enums set up
 
 enum E_spell {
@@ -46,17 +48,18 @@ enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSome
 	flesh = 5,
 	banana = 6,
 	explosive = 7,
+	metal = 8,
 }
 
 #macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
 
-global.tileSprites =                 [spr_tile,                 spr_tile,                spr_tileCrystal,         spr_tile,                    spr_tileWood,            spr_tileFlesh,        spr_tileBanana,          spr_tileExplosive];
-global.tileColors =                  [c_black,                  c_green,                 c_aqua,                  #884411,                     #cbb29f,                 #ff8888,              #ffff00,                 #ff4014];
-global.tilePlaceSounds =             [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_placeBlockMud,           snd_placeBlock,          snd_placeBlockMud,     snd_banana,             snd_placeBlock];
-global.tileBreakSounds =             [snd_breakBlockWood,       snd_breakBlockWood,      snd_breakBlockCrystal,   snd_breakBlockMud,           snd_breakBlockWood,      snd_breakBlockWood,    snd_banana,             snd_breakBlockWood];
-global.tileStepSounds =              [snd_stepSoundStone,       snd_stepSoundStone,      snd_stepSoundStone,      snd_stepSoundStone,          snd_stepSoundStone,      snd_stepSoundStone,    snd_stepSoundStone,     snd_stepSoundStone];
-global.tileFallSounds =              [snd_explosion,            snd_explosion,           snd_explosion,           snd_fallOntoMud,             snd_explosion,           snd_fallOntoMud,       snd_explosion,          snd_explosion];
-global.tileFallDamage =              [0,                        .6,                      2,                       .8,                          1.2,                     .5,                    .75,                    .7];
+global.tileSprites =                 [spr_tile,                 spr_tile,                spr_tileCrystal,         spr_tile,                    spr_tileWood,            spr_tileFlesh,        spr_tileBanana,          spr_tileExplosive,  spr_tileMetal];
+global.tileColors =                  [c_black,                  c_green,                 c_aqua,                  #884411,                     #cbb29f,                 #ff8888,              #ffff00,                 #ff4014,            #393939];
+global.tilePlaceSounds =             [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_placeBlockMud,           snd_placeBlock,          snd_placeBlockMud,     snd_banana,             snd_placeBlock,     snd_placeBlockMetal];
+global.tileBreakSounds =             [snd_breakBlockWood,       snd_breakBlockWood,      snd_breakBlockCrystal,   snd_breakBlockMud,           snd_breakBlockWood,      snd_breakBlockWood,    snd_banana,             snd_breakBlockWood, snd_breakBlockMetal];
+global.tileStepSounds =              [snd_stepSoundStone,[snd_stepSoundMud1, snd_stepSoundMud2],snd_stepSoundStone,snd_stepSoundDirt,      snd_stepSoundStone,[snd_stepSoundMud1, snd_stepSoundMud2],snd_banana,     snd_stepSoundStone,[snd_stepSoundMetal1, snd_stepSoundMetal2, snd_stepSoundMetal3, snd_stepSoundMetal4]];
+global.tileFallSounds =              [snd_explosion,            snd_explosion,           snd_explosion,           snd_fallOntoMud,             snd_explosion,           snd_fallOntoMud,       snd_fallOntoMud,          snd_explosion,      snd_explosion];
+global.tileFallDamage =              [0,                        .6,                      2,                       .8,                          1.2,                     .5,                    .75,                    .7,                 1.4];
 
 global.tilePlaceSoundsDecorative =   [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_banana];                                            
 global.tileBreakSoundsDecorative =   [snd_breakBlockWood,       snd_breakBlockWood,      snd_breakBlockCrystal,   snd_banana];                                            

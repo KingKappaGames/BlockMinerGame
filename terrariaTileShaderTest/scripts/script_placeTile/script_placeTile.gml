@@ -1,6 +1,6 @@
 function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = false, coverEntities = false) {
 	if(worldTileY < 0 || worldTileY >= global.tileRangeWorld || worldTileX < 0 || worldTileX >= global.tileRangeWorld) { // if out of world bounds completely
-		return;
+		return false;
 	}
 	
 	var _manager = global.tileManager;
@@ -14,7 +14,7 @@ function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = f
 		ds_list_destroy(_entities);
 		
 		if(_size != 0) {
-			return;
+			return false;
 		}
 	}
 	
@@ -23,7 +23,7 @@ function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = f
 		if(replaceExisting || _oldTile < 0) { // always break decoration tiles whne placed-over
 			script_breakTile(worldTileX, worldTileY, .5, false, false);
 		} else {
-			return;
+			return false;
 		}
 	}
 	
@@ -32,10 +32,12 @@ function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = f
 	_worldTiles[worldTileX][worldTileY] = tileIndex;
 	
 	_manager.updateScreenStatic();
+	
+	return true;
 }
 
 function script_placeTileAtPos(worldX, worldY, tileIndex, replaceExisting = false, coverEntities = false) {
 	gml_pragma("forceinline");
-	script_placeTile(worldX div tileSize, worldY div tileSize, tileIndex, replaceExisting, coverEntities); // wrapper for coords instead of tile index
+	return script_placeTile(worldX div tileSize, worldY div tileSize, tileIndex, replaceExisting, coverEntities); // wrapper for coords instead of tile index
 	
 }
