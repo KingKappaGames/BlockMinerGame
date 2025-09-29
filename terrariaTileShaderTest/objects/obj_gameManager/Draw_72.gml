@@ -1,4 +1,4 @@
-if(inGame) {
+if(inGame && !global.gamePaused) {
 	var _camX = camera_get_view_x(cam);
 	var _camY = camera_get_view_y(cam);
 	var _camW = camera_get_view_width(cam);

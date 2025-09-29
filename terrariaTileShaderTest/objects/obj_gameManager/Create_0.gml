@@ -9,7 +9,14 @@ splashIntroProgress = 0; // 0-1 representing black to icon to black to menu (fad
 inGame = false;
 worldCurrent = 0;
 
+global.pauseMenu = noone; // gets set to noone upon unpausing!
+global.gamePaused = false;
 pauseNextFrame = false;
+pauseSurfaceBuffer = buffer_create(2_073_600, buffer_fixed, 1); // 960, 540 application surface, doesn't change yo
+pauseSurface = -1;
+
+cursor_sprite = spr_cursor;
+window_set_cursor(cr_none);
 
 #region macros and enums set up
 

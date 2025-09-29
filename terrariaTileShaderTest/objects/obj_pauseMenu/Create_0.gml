@@ -1,11 +1,12 @@
 if (live_call()) return live_result;
 
+global.pauseMenu = id; // gets set to noone upon unpausing!
+
 draw_set_font(fnt_menuText);
 //global.soundManager.songStart(snd_BackgroundMenuCrafts, false, 2.4);
 
 cam = view_camera[0];
 
-pauseSurfaceBuffer = buffer_create(8294400, buffer_fixed, 1);
 pauseSurface = -1;
 
 menuWidth = 500;
@@ -49,7 +50,8 @@ menuAlign = fa_middle;
 menuTextOffset = 0;
 
 mouseSelecting = false;
-pauseNextFrame = false;
+
+gameSaved = false;
 
 x = room_width / 2 - menuWidth / 2;
 y = room_height / 2 - menuHeight / 2;
@@ -142,14 +144,23 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 	if(optionGroup == 0) {
 		if(optionPosition == 0) {
 			audio_play_sound(snd_MenuBeep, 100, false);
-			menuSwitchOptionGroup(7, 1);
+			instance_destroy();
+			script_setPauseState(false);
 		} else if(optionPosition == 1) {
 			menuSwitchOptionGroup(1);
 		} else if(optionPosition == 2) {
 			audio_play_sound(snd_MenuBeep, 100, false);
-			//room_goto(rm_credits);
+			
+			script_saveWorld("worldSave" + string(global.manager.worldCurrent) + ".txt");
+			
+			gameSaved = true;
 		} else if(optionPosition == 3) {
-			game_end();
+			instance_destroy();
+			
+			script_setPauseState(false); // unpause while moving to main menu
+			
+			global.manager.exitGameWorld();
+			global.manager.initMainMenuScreen();
 		}
 	} else if(optionGroup == 1) { // options
 		if(optionPosition == 0) {

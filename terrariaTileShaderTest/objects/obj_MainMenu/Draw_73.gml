@@ -53,11 +53,11 @@ if(!loadNextFrame) {
 			draw_sprite_ext(spr_deleteWorldIcons, map1DeletePrompt ? 1 : 0, x + 51, y + 242, 1, 1, 0, optionPosition == 4 ? c_yellow : c_white, 1);
 		}
 		if(map2) {
-			_map2Frame = 1;
+			_map2Frame = 2;
 			draw_sprite_ext(spr_deleteWorldIcons, map2DeletePrompt ? 1 : 0, x + 120, y + 242, 1, 1, 0, optionPosition == 5 ? c_yellow : c_white, 1);
 		}
 		if(map3) {
-			_map3Frame = 1;
+			_map3Frame = 3;
 			draw_sprite_ext(spr_deleteWorldIcons, map3DeletePrompt ? 1 : 0, x + 188, y + 242, 1, 1, 0, optionPosition == 6 ? c_yellow : c_white, 1);
 		}
 		draw_sprite_ext(spr_mapIconSprite, _map1Frame, x + 52, y + 142, 1, 1, 0, optionPosition == 1 ? c_yellow : c_white, 1);

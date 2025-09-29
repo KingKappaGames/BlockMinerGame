@@ -108,7 +108,7 @@ worldOptionFlatSelected = 0;
 worldOptionFlatOptions = [false, true];
 
 #region initialize menu
-initializeMenu = function(){
+initializeMenu = function() {
 	window_set_size(gameWindowResolutionOptions[gameWindowResolutionSelected][0], gameWindowResolutionOptions[gameWindowResolutionSelected][1]);
 	window_center();
 	
