@@ -33,9 +33,9 @@ if(optionGroup == 4) { // custom draw groups
 	if(window_get_fullscreen()) {
 		_fullscreenVar = "*";
 	}
-	draw_text_transformed(x + 180, y + 59, string(gameWindowResolutionOptions[gameWindowResolutionSelected][0]) + ", " + string(gameWindowResolutionOptions[gameWindowResolutionSelected][1]) + _fullscreenVar, 1, 1, 0);
-	draw_text_transformed(x + 180, y + 98, string(gameFullscreenDisplayOptions[gameFullscreenSelected]), 1, 1, 0);
-	draw_text_transformed(x + 180, y + 139, gameColorFilterDisplayOptions[gameColorFilterSelected], 1, 1, 0);
+	draw_text_transformed(x + 220, y + 59, string(gameWindowResolutionOptions[gameWindowResolutionSelected][0]) + ", " + string(gameWindowResolutionOptions[gameWindowResolutionSelected][1]) + _fullscreenVar, 1, 1, 0);
+	draw_text_transformed(x + 220, y + 98, string(gameFullscreenDisplayOptions[gameFullscreenSelected]), 1, 1, 0);
+	draw_text_transformed(x + 220, y + 139, gameColorFilterDisplayOptions[gameColorFilterSelected], 1, 1, 0);
 } else if(optionGroup == 5) {
 	draw_set_halign(fa_left)
 	draw_text_transformed(x + 215, y + 60, string(gameDifficultyDisplayOptions[gameDifficultySelected]), 1, 1, 0);

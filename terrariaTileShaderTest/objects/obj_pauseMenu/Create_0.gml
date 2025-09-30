@@ -74,7 +74,7 @@ gameFullscreenOptions = [false, true];
 gameFullscreenDisplayOptions = ["windowed", "Fullscreen"];
 
 gameColorFilterSelected = global.gameColorFilterSelected;
-gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "vibrant"];
+gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "vibrant", "computer lab"];
 
 gameEffectVolume = global.gameEffectVolume;
 gameMusicVolume = global.gameMusicVolume;
@@ -117,14 +117,8 @@ menuChangeField = function(fieldChange) {
 				window_set_fullscreen(gameFullscreenOptions[gameFullscreenSelected]);
 			} else if(optionPosition == 3) {
 				//change color profile, ex color blind mode
-				gameColorFilterSelected = clamp(gameColorFilterSelected + fieldChange, 0, 3);
-				if(gameColorFilterSelected == 0) {
-					//set filter normal?
-				} else if(gameColorFilterSelected == 1) {
-					//set filter color blind mode
-				} else if(gameColorFilterSelected == 2) {
-					//set filter grey scale
-				}
+				gameColorFilterSelected = clamp(gameColorFilterSelected + fieldChange, 0, 4);
+				global.gameColorFilterSelected = gameColorFilterSelected;
 			}
 		} else if(optionGroup == 5) {
 			if(optionPosition == 1) {
@@ -239,7 +233,7 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 		menuTextOffset = 40;
 	} else if(newOptionGroup == 3) {
 		menuAlign = fa_right;
-		menuWidth = 350;
+		menuWidth = 420;
 		menuTextOffset = -8;
 	} else if(newOptionGroup == 4) {
 		menuAlign = fa_middle;

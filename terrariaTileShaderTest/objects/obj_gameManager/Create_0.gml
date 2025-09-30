@@ -18,6 +18,8 @@ pauseSurface = -1;
 cursor_sprite = spr_cursor;
 window_set_cursor(cr_none);
 
+application_surface_draw_enable(false);
+
 #region macros and enums set up
 
 enum E_spell {
