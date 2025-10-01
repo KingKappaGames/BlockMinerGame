@@ -83,7 +83,6 @@ gameAmbientVolume = global.gameAmbientVolume;
 #region initialize menu
 initializeMenu = function(){
 	window_set_size(gameWindowResolutionOptions[gameWindowResolutionSelected][0], gameWindowResolutionOptions[gameWindowResolutionSelected][1]);
-	window_center();
 	
 	x = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) / 2 - menuWidth / 2;
 	y = camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2 - menuHeight / 2;
@@ -93,7 +92,7 @@ initializeMenu = function(){
 #region menu change field
 menuChangeField = function(fieldChange) {
 	if(fieldChange != 0) {
-		audio_play_sound(snd_MenuBeep, 100, false);
+		audio_play_sound(snd_click1, 100, false);
 		if(optionGroup == 2) {
 			if(optionPosition == 1) {
 				gameEffectVolume = clamp(gameEffectVolume + fieldChange, 0, 10);
@@ -137,13 +136,13 @@ menuChangeField = function(fieldChange) {
 menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none, 1 for increase (this is a way to pass through mouse clicks instead of left and right to change values	
 	if(optionGroup == 0) {
 		if(optionPosition == 0) {
-			audio_play_sound(snd_MenuBeep, 100, false);
+			audio_play_sound(snd_click1, 100, false);
 			instance_destroy();
 			script_setPauseState(false);
 		} else if(optionPosition == 1) {
 			menuSwitchOptionGroup(1);
 		} else if(optionPosition == 2) {
-			audio_play_sound(snd_MenuBeep, 100, false);
+			audio_play_sound(snd_click1, 100, false);
 			
 			script_saveWorld("worldSave" + string(global.manager.worldCurrent) + ".txt");
 			
@@ -250,7 +249,7 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 	
 	//play sound for switching screen thing
 	if(playSound) {
-		audio_play_sound(snd_MenuBeep, 100, false);
+		audio_play_sound(snd_click1, 100, false);
 	}
 }
 #endregion
@@ -259,7 +258,7 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 menuSwitchPosition = function(positionChange) {
 	if(positionChange != 0) {
 		optionPosition = clamp(optionPosition + positionChange, 0, optionAmount - 1);
-		audio_play_sound(snd_MenuBlip, 100, false);
+		audio_play_sound(snd_click3, 100, false);
 	}
 }
 #endregion

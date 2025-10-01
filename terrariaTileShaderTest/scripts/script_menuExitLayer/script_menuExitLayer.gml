@@ -7,7 +7,7 @@ function script_menuExitLayer() {
 			optionPosition = 0;
 			obj_MainMenu.menuSelectOption();
 		} else {
-			audio_play_sound(snd_MenuBeep, 100, false);
+			audio_play_sound(snd_click1, 100, false);
 		}
 	}
 }

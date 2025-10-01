@@ -11,5 +11,11 @@ if(deathTimer > 0) {
 		draw_set_alpha(power(_timer / deathTimerMax, .4));
 		draw_circle_color((x - camera_get_view_x(cam)) * (view_wport[0] / camera_get_view_width(cam)), (y - camera_get_view_y(cam)) * (view_hport[0] / camera_get_view_height(cam)), 1200 * power(max(0, _timer / deathTimerMax - .2) * 1.5, 3), c_white, c_white, false);
 		draw_set_alpha(_timer / deathTimerMax);
+		
+		if(deathTimer == round(deathTimerMax * .7)) { // frame before switch
+			var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
+			_cutscene.setCutscene("boss");
+			script_setPauseState(true);
+		}
 	}
 }

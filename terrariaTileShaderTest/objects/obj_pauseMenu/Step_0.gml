@@ -21,7 +21,13 @@ if(mouseSelecting || window_mouse_get_delta_x() != 0 || window_mouse_get_delta_y
 	if((mouse_x > x && mouse_x < x + menuWidth) && (mouse_y > y + menuBorder && mouse_y < y + menuBorder + optionAmount * optionHeight)) {		
 		mouseSelecting = true;
 		
+		var _prevOption = optionPosition;
+		
 		optionPosition = clamp((mouse_y - (y + menuBorder)) div optionHeight, 0, optionAmount - 1);
+		
+		if(_prevOption != optionPosition) {
+			audio_play_sound(choose(snd_click1, snd_click2, snd_click3), 0, 0, .5);
+		}
 		
 		if(mouse_check_button_released(mb_left)) {
 			menuSelectOption(1); // whatever is current under mouse selection

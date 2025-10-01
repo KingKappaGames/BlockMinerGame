@@ -11,7 +11,7 @@ worldCurrent = 0;
 
 global.pauseMenu = noone; // gets set to noone upon unpausing!
 global.gamePaused = false;
-pauseNextFrame = false;
+pauseNextFrame = noone;
 pauseSurfaceBuffer = buffer_create(2_073_600, buffer_fixed, 1); // 960, 540 application surface, doesn't change yo
 pauseSurface = -1;
 
@@ -315,6 +315,10 @@ startGameWorld = function(worldIndex, exists = false) {
 	
 	if(!exists) {
 		script_saveWorld("worldSave" + string(worldCurrent) + ".txt"); // save newly generated world
+		var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
+		_cutscene.startedByManager = true;
+		_cutscene.setCutscene("intro");
+		script_setPauseState(true);
 	}
 }
 
@@ -347,8 +351,7 @@ initMainMenuScreen = function() {
 
 initMainMenuScreen();
 
-shader_set_live(shd_fogDistort, true);
-shader_set_live(shd_fogDistortColor, true);
-
+//shader_set_live(shd_fogDistort, true);
+//shader_set_live(shd_fogDistortColor, true);
 
 //bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?

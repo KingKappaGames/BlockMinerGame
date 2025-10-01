@@ -126,7 +126,7 @@ menuChangeField = function(fieldChange) {
 	live_auto_call
 	
 	if(fieldChange != 0) {
-		audio_play_sound(snd_MenuBeep, 100, false);
+		audio_play_sound(snd_click1, 100, false);
 		if(optionGroup == 2) {
 			if(optionPosition == 1) {
 				gameEffectVolume = clamp(gameEffectVolume + fieldChange, 0, 10);
@@ -182,12 +182,12 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 	
 	if(optionGroup == 0) {
 		if(optionPosition == 0) {
-			audio_play_sound(snd_MenuBeep, 100, false);
+			audio_play_sound(snd_click1, 100, false);
 			menuSwitchOptionGroup(7, 1);
 		} else if(optionPosition == 1) {
 			menuSwitchOptionGroup(1);
 		} else if(optionPosition == 2) {
-			audio_play_sound(snd_MenuBeep, 100, false);
+			audio_play_sound(snd_click1, 100, false);
 			//room_goto(rm_credits);
 		} else if(optionPosition == 3) {
 			game_end();
@@ -267,6 +267,7 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 		} else if(optionPosition == 4) {
 			if(map1) {
 				if(map1DeletePrompt) {
+					audio_play_sound(snd_smokePoof, 1, 0, 2);
 					file_delete("worldSave1.txt");
 					map1 = false;
 				} else {
@@ -276,6 +277,7 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 		} else if(optionPosition == 5) {
 			if(map2) {
 				if(map2DeletePrompt) {
+					audio_play_sound(snd_smokePoof, 1, 0, 2);
 					file_delete("worldSave2.txt");
 					map2 = false;
 				} else {
@@ -285,6 +287,7 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 		} else if(optionPosition == 6) {
 			if(map3) {
 				if(map3DeletePrompt) {
+					audio_play_sound(snd_smokePoof, 1, 0, 2);
 					file_delete("worldSave3.txt");
 					map3 = false;
 				} else {
@@ -359,7 +362,7 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 	
 	//play sound for switching screen thing
 	if(playSound) {
-		audio_play_sound(snd_MenuBeep, 100, false);
+		audio_play_sound(snd_click1, 100, false);
 	}
 }
 #endregion
@@ -368,7 +371,7 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 menuSwitchPosition = function(positionChange) {
 	if(positionChange != 0) {
 		optionPosition = clamp(optionPosition + positionChange, 0, optionAmount - 1);
-		audio_play_sound(snd_MenuBlip, 100, false);
+		audio_play_sound(snd_click3, 100, false);
 	}
 }
 #endregion

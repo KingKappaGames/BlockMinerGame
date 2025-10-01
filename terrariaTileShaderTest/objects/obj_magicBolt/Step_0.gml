@@ -26,7 +26,10 @@ if(duration <= 0 || _tileOn > 0) {
 	
 	part_particles_create_color(sys, x, y, explosionPart, image_blend, 5);
 	
-	//audio_play_sound(snd_explosion, 0, 0, 2);
+	part_type_speed(starPart, 1.2, 1.7, -.05, 0);
+	part_particles_create_color(sys, x, y, starPart, c_white, 3); // STARS
+	
+	audio_play_sound(snd_smokePoof, 0, 0, 1);
 	
 	instance_destroy();
 } else if(_tileOn < 0) {

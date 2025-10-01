@@ -34,10 +34,12 @@ if(global.manager.splashIntroProgress >= 1) {
 			if((mouse_x > x && mouse_x < x + menuWidth) && (mouse_y > y + menuBorder && mouse_y < y + menuBorder + optionAmount * optionHeight)) {		
 				mouseSelecting = true;
 				
+				var _prevOption = optionPosition;
+				
 				if(optionGroup != 7) { // map selection
 					optionPosition = clamp((mouse_y - (y + menuBorder)) div optionHeight, 0, optionAmount - 1);
 				} else {
-					var _prevOption = optionPosition;
+					
 					
 					var _relativeX = mouse_x - x;
 					var _relativeY = mouse_y - y; // nice but jesus man
@@ -68,6 +70,10 @@ if(global.manager.splashIntroProgress >= 1) {
 						map2DeletePrompt = false;
 						map3DeletePrompt = false; // im sure there are better ways to reset the sure prompts but whatever bro
 					}
+				}
+				
+				if(_prevOption != optionPosition) {
+					audio_play_sound(choose(snd_click1, snd_click2, snd_click3), 0, 0, .5);
 				}
 				
 				if(mouse_check_button_released(mb_left)) {

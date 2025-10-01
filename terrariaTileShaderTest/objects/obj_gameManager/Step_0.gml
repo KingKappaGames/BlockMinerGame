@@ -1,11 +1,11 @@
 global.timer++;
 
 if(inGame) { 
-	if(pauseNextFrame) {
-		var _pauseMenu = instance_create_layer(x, y, "Instances", obj_pauseMenu);
-		_pauseMenu.pauseSurface = pauseSurface;
+	if(pauseNextFrame != noone) {
+		var _pauseObject = instance_create_layer(x, y, "Instances", pauseNextFrame);
+		_pauseObject.pauseSurface = pauseSurface;
 		script_setPauseState(true);
-		pauseNextFrame = false;
+		pauseNextFrame = noone;
 	} else {
 		if(global.timer % 30 == 0) {
 			cameraWorldDepth = global.player.y / global.worldSizePixels;
@@ -35,7 +35,9 @@ if(inGame) {
 		//show_debug_message($"CamX/Y: {camera_get_view_x(cam)}/{camera_get_view_y(cam)}   AND updateX/Y: {screenWorldX}/{screenWorldY}");
 		
 		if(keyboard_check_released(vk_escape)) {
-			pauseNextFrame = true;
+			pauseNextFrame = obj_pauseMenu;
+		} else if(keyboard_check_released(vk_backspace)) {
+			pauseNextFrame = obj_cutscene;
 		}
 	}
 }

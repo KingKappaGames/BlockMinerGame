@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_click2",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.095918365,
+  "name":"snd_click2",
+  "parent":{
+    "name":"snd_group_menu",
+    "path":"folders/Sounds/snd_group_menu.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_click2.mp3",
+  "type":0,
+  "volume":1.0,
+}
