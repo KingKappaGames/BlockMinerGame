@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":-1.0,
+  "duration":0.28147393,
   "name":"snd_stepSoundMud2",
   "parent":{
     "name":"Sounds",

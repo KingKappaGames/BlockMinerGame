@@ -316,8 +316,8 @@ if(_camChange != 0) {
 var _mousePush = 3; // inverse
 var _goalX = ((x * _mousePush) + mouse_x) / (_mousePush + 1);
 var _goalY = ((y * _mousePush) + mouse_y) / (_mousePush + 1)
-var _camX = lerp(camera_get_view_x(cam), _goalX - camera_get_view_width(cam) * .5, .05);
-var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * .5, .05);
+var _camX = lerp(camera_get_view_x(cam), _goalX - camera_get_view_width(cam) * .5, .065);
+var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * .5, .065);
 
 camera_set_view_pos(cam, _camX, _camY);
 global.tileManager.updateScreen(_camX, _camY, _camChange != 0);

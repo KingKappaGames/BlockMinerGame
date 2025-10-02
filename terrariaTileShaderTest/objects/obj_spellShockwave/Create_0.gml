@@ -18,3 +18,5 @@ dealDamage = true;
 hitList = ds_list_create();
 
 depth -= 101; // over part over layer!
+
+audio_play_sound_at(snd_staticBlast, x, y, 0, audioRefMedium, audioMaxMedium, 1, 0, 0, 1, undefined, random_range(.95, 1.05));

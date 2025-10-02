@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":-1.0,
+  "duration":0.9470068,
   "name":"snd_stepSoundMetal4",
   "parent":{
     "name":"Sounds",

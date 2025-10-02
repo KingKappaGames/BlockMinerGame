@@ -75,8 +75,12 @@ global.tileBreakSoundsDecorative =   [snd_breakBlockWood,       snd_breakBlockWo
 global.tileSpritesDecorative =       [spr_pickaxe,              spr_tileGrassDecoration, spr_tileRockDecoration,  spr_tileMushroomDecoration];
 global.tileColorsDecorative =        [c_black,                  c_green,                 c_ltgray,                c_red,                       #bba280];
 
-
 #macro grav .13
+
+//terrain testing macros for readability, I know it's jank but it works fine so idc
+#macro isClear <= 0
+#macro isSolid > 0
+#macro isEmpty == 0
 
 #region audio fall off values both for convenience and because the manual is very confusing and I want to stop screwing this up when I stop using audio stuff for a few months and come back to screw it up again
 #macro audioRefTiny 75
@@ -353,5 +357,6 @@ initMainMenuScreen();
 
 //shader_set_live(shd_fogDistort, true);
 //shader_set_live(shd_fogDistortColor, true);
+shader_set_live(shd_mosaic, true);
 
 //bench mark initial with macro arrays and whatnot usually (60%) of the time holding barely 6000, so you see 5s and 4s but mostly low 6000s, got it?

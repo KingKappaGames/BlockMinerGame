@@ -13,3 +13,5 @@ draw_set_font(fnt_gameplayGeneral);
 //audio_stop_sound(snd_BackgroundMenuCrafts);
 
 global.pauseMenu = noone;
+
+camera_set_view_size(cam, originalCamWidth, originalCamHeight);

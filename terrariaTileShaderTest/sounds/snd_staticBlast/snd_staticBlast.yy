@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_MenuBeep",
+  "%Name":"snd_staticBlast",
   "audioGroupId":{
     "name":"sndGrp_sfx",
     "path":"audiogroups/sndGrp_sfx",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.08229025,
-  "name":"snd_MenuBeep",
+  "duration":0.98133785,
+  "name":"snd_staticBlast",
   "parent":{
-    "name":"snd_group_menu",
-    "path":"folders/Sounds/snd_group_menu.yy",
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_MenuBeep.wav",
+  "soundFile":"snd_staticBlast.mp3",
   "type":0,
   "volume":1.0,
 }

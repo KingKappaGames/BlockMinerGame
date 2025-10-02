@@ -7,6 +7,11 @@ draw_set_font(fnt_menuText);
 
 cam = view_camera[0];
 
+originalCamWidth = camera_get_view_width(cam);
+originalCamHeight = camera_get_view_height(cam);
+
+camera_set_view_size(cam, 640, 360);
+
 pauseSurface = -1;
 
 menuWidth = 500;
@@ -74,7 +79,7 @@ gameFullscreenOptions = [false, true];
 gameFullscreenDisplayOptions = ["windowed", "Fullscreen"];
 
 gameColorFilterSelected = global.gameColorFilterSelected;
-gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "vibrant", "computer lab"];
+gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "muted", "vibrant", "computer lab", "mosaic dots", "mosaic tiles", "pure pixel ):"];
 
 gameEffectVolume = global.gameEffectVolume;
 gameMusicVolume = global.gameMusicVolume;
@@ -116,7 +121,7 @@ menuChangeField = function(fieldChange) {
 				window_set_fullscreen(gameFullscreenOptions[gameFullscreenSelected]);
 			} else if(optionPosition == 3) {
 				//change color profile, ex color blind mode
-				gameColorFilterSelected = clamp(gameColorFilterSelected + fieldChange, 0, 4);
+				gameColorFilterSelected = clamp(gameColorFilterSelected + fieldChange, 0, array_length(gameColorFilterDisplayOptions) - 1);
 				global.gameColorFilterSelected = gameColorFilterSelected;
 			}
 		} else if(optionGroup == 5) {
