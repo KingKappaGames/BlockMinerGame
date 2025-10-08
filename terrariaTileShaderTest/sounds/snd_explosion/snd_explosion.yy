@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":1.1715646,
+  "duration":3.0480046,
   "name":"snd_explosion",
   "parent":{
     "name":"Sounds",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"snd_explosion.mp3",
   "type":0,
-  "volume":1.0,
+  "volume":0.61,
 }

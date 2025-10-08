@@ -1,9 +1,35 @@
 if (live_call()) return live_result;
 
 var _visualOption = global.gameColorFilterSelected;
+var _brightness = global.gameBrightnessSelected;
 
 var _windowW = window_get_width();
 var _windowH = window_get_height();
+
+if(!surface_exists(ppxSurface)) { // and surface size == current size?
+	ppxSurface = surface_create(_windowW, _windowH);
+	//if() { // wrong size
+		//surface_resize(_windowW, _windowH);
+	//}
+}
+
+if(_brightness != 6) { // neutral is 3
+	surface_set_target(ppxSurface);
+	
+	shader_set(shd_brightness);
+	
+	shader_set_uniform_f(shader_get_uniform(shd_brightness, "strength"), (_brightness - 5) * .19); // -1 to 1
+	
+	draw_surface_stretched(application_surface, 0, 0, _windowW, _windowH); // draw brightened app surface to ppx surface hold
+	
+	shader_reset();
+	
+	surface_reset_target();
+} else {
+	surface_set_target(ppxSurface);
+	draw_surface_stretched(application_surface, 0, 0, _windowW, _windowH);
+	surface_reset_target();
+}
 
 if(_visualOption == 5) {
 	computer_lab_nineteen_eighty_and_six();
@@ -41,7 +67,7 @@ if(_visualOption != 0) {
 		shader_set_uniform_f(shader_get_uniform(shd_pixelate, "resolution"), 320, 180);
 	}
 }
-draw_surface_stretched(application_surface, 0, 0, _windowW, _windowH);
+draw_surface_stretched(ppxSurface, 0, 0, _windowW, _windowH); // draw final layer
 
 if(_visualOption != 0) {
 	shader_reset();

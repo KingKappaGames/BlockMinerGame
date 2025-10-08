@@ -50,7 +50,7 @@ if(inWorld) {
 										xChange = directionFacing * 1.8;
 									} else {
 										var _depth = script_checkDepthAtTile(_tX + directionFacing, _tFootY + 1, 2);
-										show_debug_message($"depth: {_depth}")
+										//show_debug_message($"depth: {_depth}")
 										var _depthLim = _depth == -1 ? min(2, global.tileRangeWorld - (_tFootY + 1)) : _depth;
 										for(var _addY = 0; _addY < _depthLim - _tFootY - 1; _addY++) {
 											array_push(debugTileDraw, [_tX + directionFacing, _tFootY + 1 + _addY]);
@@ -123,7 +123,7 @@ if(inWorld) {
 	die();
 }
 
-//added states from here, jump two tiles if too big of gap, jump 3 tiles up, and jump up an optional jump if player higher than enemy and lower if lower i guess?
+//added states from here, jump two tiles if too big of gap, jump 3 tiles up, and jump up an optional jump if player higher than enemy and lower if lower i guess? (if one ahead blocked, stop early and jump up an overhang)
 
 /*
 Simple ai for jumping up tiles, check the 4 tiles horizontally in the direction you want to move and if there's any blocks blocking you within the first two go up from there one or two blocks and if you find a gap within two blocks do a hard coded jump to land on that 1/2 block distant tile and repeat. 

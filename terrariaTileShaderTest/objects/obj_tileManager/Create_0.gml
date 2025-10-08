@@ -62,7 +62,7 @@ updateScreen = function(rightX = undefined, topY = undefined, sizeChanged = fals
 			array_copy(tilesScreen[_i], 0, tiles[screenWorldTileX + _i], screenWorldTileY, tileScreenHeight); // fills 2d array of screen with world sections at this position [x][y]
 		}
 		
-		if(irandom(40) == 0) {
+		if(irandom(50) == 0) {
 			script_spawnAmbientCreatures();
 		}
 	}

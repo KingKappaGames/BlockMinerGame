@@ -9,7 +9,7 @@ function script_spawnAmbientCreatures() {
 	
 	if(_spawnX < tileSize || _spawnY < tileSize || _spawnX >= global.worldSizePixels - tileSize || _spawnY >= global.worldSizePixels - tileSize) { exit; } // don't spawn outside of the map... (maybe it depends on the enemy?)
 	
-	if(irandom(25) == 0) {
+	if(irandom(40) == 0) {
 		if(irandom(1) == 0) {
 			script_createWorm(_spawnX, _spawnY, 20);
 		} else {

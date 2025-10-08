@@ -15,6 +15,8 @@ pauseNextFrame = noone;
 pauseSurfaceBuffer = buffer_create(2_073_600, buffer_fixed, 1); // 960, 540 application surface, doesn't change yo
 pauseSurface = -1;
 
+ppxSurface = -1;
+
 cursor_sprite = spr_cursor;
 window_set_cursor(cr_none);
 
@@ -116,6 +118,7 @@ global.gameGoreSelected = 2;
 global.gameWindowResolutionSelected = 2;
 global.gameFullscreenSelected = 0;
 global.gameColorFilterSelected = 0;
+global.gameBrightnessSelected = 6;
 
 global.gameEffectVolume = 5;
 global.gameMusicVolume = 5

@@ -4,6 +4,7 @@ global.gameGoreSelected = gameGoreSelected;
 global.gameWindowResolutionSelected = gameWindowResolutionSelected;
 global.gameFullscreenSelected = gameFullscreenSelected;
 global.gameColorFilterSelected = gameColorFilterSelected;
+global.gameBrightnessSelected = gameBrightnessSelected;
 
 global.gameEffectVolume = gameEffectVolume;
 global.gameMusicVolume = gameMusicVolume;

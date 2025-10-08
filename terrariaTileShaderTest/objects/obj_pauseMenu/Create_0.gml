@@ -37,6 +37,7 @@ options[3][0] = "RETURN";
 options[3][1] = "RESOLUTION";
 options[3][2] = "WINDOW";
 options[3][3] = "COLORS";
+options[3][4] = "BRIGHTNESS";
 
 options[4][0] = "RETURN";
 
@@ -81,6 +82,9 @@ gameFullscreenDisplayOptions = ["windowed", "Fullscreen"];
 gameColorFilterSelected = global.gameColorFilterSelected;
 gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "muted", "vibrant", "computer lab", "mosaic dots", "mosaic tiles", "pure pixel ):"];
 
+gameBrightnessSelected = global.gameBrightnessSelected;
+gameBrightnessOptions = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; // 3 being neutral, all others being increments of brighter or darker in .2 for now, might change tho
+
 gameEffectVolume = global.gameEffectVolume;
 gameMusicVolume = global.gameMusicVolume;
 gameAmbientVolume = global.gameAmbientVolume;
@@ -123,6 +127,10 @@ menuChangeField = function(fieldChange) {
 				//change color profile, ex color blind mode
 				gameColorFilterSelected = clamp(gameColorFilterSelected + fieldChange, 0, array_length(gameColorFilterDisplayOptions) - 1);
 				global.gameColorFilterSelected = gameColorFilterSelected;
+			} else if(optionPosition == 4) {
+				//change color profile, ex color blind mode
+				gameBrightnessSelected = clamp(gameBrightnessSelected + fieldChange, 0, array_length(gameBrightnessOptions) - 1);
+				global.gameBrightnessSelected = gameBrightnessSelected;
 			}
 		} else if(optionGroup == 5) {
 			if(optionPosition == 1) {

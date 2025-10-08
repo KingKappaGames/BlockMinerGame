@@ -18,7 +18,7 @@ hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall d
 	
 	spinSpeed = spinSpeed * .9 + random_range(-7, 7);
 	
-	audio_play_sound(snd_banana, 0, 0);
+	audio_play_sound_at(snd_banana, 0, 0, 0, audioRefQuiet, audioMaxQuiet, 2, false, 0);
 	
 	duration = duration * .75 - 12;
 }

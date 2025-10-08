@@ -124,6 +124,7 @@
     {"id":{"name":"kawase_down","path":"shaders/kawase_down/kawase_down.yy",},},
     {"id":{"name":"kawase_up","path":"shaders/kawase_up/kawase_up.yy",},},
     {"id":{"name":"shd_blur","path":"shaders/shd_blur/shd_blur.yy",},},
+    {"id":{"name":"shd_brightness","path":"shaders/shd_brightness/shd_brightness.yy",},},
     {"id":{"name":"shd_fogDistort","path":"shaders/shd_fogDistort/shd_fogDistort.yy",},},
     {"id":{"name":"shd_fogDistortColor","path":"shaders/shd_fogDistortColor/shd_fogDistortColor.yy",},},
     {"id":{"name":"shd_mosaic","path":"shaders/shd_mosaic/shd_mosaic.yy",},},

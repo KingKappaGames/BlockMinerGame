@@ -61,8 +61,8 @@ function computer_lab_nineteen_eighty_and_six() {
 	static ping = undefined;
 	static pong = undefined;
 	
-	var source_width = surface_get_width(application_surface);
-	var source_height = surface_get_height(application_surface);
+	var source_width = surface_get_width(ppxSurface);
+	var source_height = surface_get_height(ppxSurface);
 	
 	var half_width = source_width div 2;
 	var half_height = source_height div 2;
@@ -89,7 +89,7 @@ function computer_lab_nineteen_eighty_and_six() {
         shader_set_uniform_f(blue_bleed_uniform, -dcos(bleed_blue_direction), dsin(bleed_blue_direction), bleed_blue_amount);
         shader_set_uniform_f(texel_dimension_bleed_uniform, 1 / source_width, 1 / source_height);
         
-        draw_surface(application_surface, 0, 0);
+        draw_surface(ppxSurface, 0, 0);
         
         shader_reset();
         
@@ -138,7 +138,7 @@ function computer_lab_nineteen_eighty_and_six() {
         shader_set_uniform_f(blue_bleed_uniform, -dcos(abberate_blue_direction), dsin(abberate_blue_direction), abberate_blue_amount);
         shader_set_uniform_f(texel_dimension_bleed_uniform, 1 / source_width, 1 / source_height);
         
-        draw_surface(application_surface, 0, 0);
+        draw_surface(ppxSurface, 0, 0);
         
         shader_reset();
         
@@ -147,7 +147,7 @@ function computer_lab_nineteen_eighty_and_six() {
 	}
 	
 	
-	surface_set_target(application_surface) {
+	surface_set_target(ppxSurface) {
         
         shader_set(composite_render);
         shader_set_uniform_f(composite_surface_dimensions_uniform, source_width, source_height);
