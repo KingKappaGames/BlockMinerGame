@@ -1,3 +1,5 @@
+if (live_call()) return live_result;
+
 if(keyboard_check(vk_f1)) {
 	draw_text_transformed(view_wport[0] * .5, 10, fps_real, 3, 3, 0);
 	draw_text_transformed(view_wport[0] * .5, 50, camera_get_view_x(cam), 3, 3, 0);
@@ -5,6 +7,11 @@ if(keyboard_check(vk_f1)) {
 	draw_text_transformed(view_wport[0] * .5, 130, camera_get_view_width(cam), 3, 3, 0);
 	draw_text_transformed(view_wport[0] * .5, 170, camera_get_view_height(cam), 3, 3, 0);
 }
+
+draw_text(300, 20, musicCurrentLayer);
+draw_text(300, 50, musicDepthTracks);
+draw_text(300, 80, cameraWorldDepth);
+draw_text(300, 110, cameraWorldDepthPrevious);
 
 //var _camX = camera_get_view_x(cam);
 //var _camY = camera_get_view_y(cam);

@@ -78,6 +78,7 @@ global.tileSpritesDecorative =       [spr_pickaxe,              spr_tileGrassDec
 global.tileColorsDecorative =        [c_black,                  c_green,                 c_ltgray,                c_red,                       #bba280];
 
 #macro grav .13
+#macro surfaceEffectsUpdateTick 30
 
 //terrain testing macros for readability, I know it's jank but it works fine so idc
 #macro isClear <= 0
@@ -106,6 +107,19 @@ global.tileColorsDecorative =        [c_black,                  c_green,        
 audio_group_load(sndGrp_sfx);
 audio_group_load(sndGrp_music);
 audio_group_load(sndGrp_ambient);
+
+enum E_musicLayer {
+	sky = 0,
+	surface = 1,
+	underground = 2,
+	abyssCeiling = 3,
+	abyssDepths = 4,
+	musicLayerCount = 5
+}
+
+musicCurrentLayer = E_musicLayer.surface; // surface
+musicDepthRef = [-.05, .42, .93, 1.05, 99];
+musicDepthTracks = [0, 0, 0, 0, 0]; // sound ids for tracks of surface, depth, and underworld and either the song id (playing or ended) or a number representing a break in frames, eg 300 would mean count down 300 frames before starting the next track at that layer
 
 #endregion
 
@@ -252,8 +266,9 @@ part_type_gravity(_itemGlimmer, -.003, 270);
 
 #endregion
 
-#region filter layer things
+#region filter layer things (and music depths)
 cameraWorldDepth = .5;
+cameraWorldDepthPrevious = cameraWorldDepth;
 
 abyssEffectRange = [.65, 1]; // normalized depth of world for this effect to range over
 abyssLayer = layer_get_id("EffectAbyss");
@@ -297,6 +312,11 @@ startGameWorld = function(worldIndex, exists = false) {
 	script_centerCameraOnPlayer();
 	
 	global.tileManager.updateScreen(,, 1);
+	
+	cameraWorldDepth = global.player.y / global.worldSizePixels;
+	updateDepthEffects();
+	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 0, 0);
+	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 1, 10000);
 	
 	repeat(3) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
@@ -354,6 +374,60 @@ initMainMenuScreen = function() {
 	fx_set_parameters(abyssFilter, abyssParams)
 	
 	instance_create_layer(x, y, "Instances", obj_MainMenu);
+}
+
+updateDepthEffects = function() {
+	cameraWorldDepthPrevious = cameraWorldDepth;
+	cameraWorldDepth = global.player.y / global.worldSizePixels;
+	
+	//if(irandom(100) == 0) {
+		//ef_reverb.size = cameraWorldDepth * 2;
+		//ef_reverb.mix = 0.3;
+		//audio_bus_main.effects[0] = ef_reverb;
+	//}
+	
+	var _abyssStrength = min((cameraWorldDepth - abyssEffectRange[0]) / (abyssEffectRange[1] - abyssEffectRange[0]), 1.0);
+	if(_abyssStrength > 0) {
+		layer_enable_fx(abyssLayer, true);
+		abyssParams.g_Distort1Amount = 2.5 * sqr(_abyssStrength);
+		abyssParams.g_Distort2Amount = 1.15 * sqr(_abyssStrength);
+		abyssParams.g_GlintCol = [.075 * _abyssStrength, .07 * _abyssStrength, .145 * _abyssStrength, 1]; // push towards black to make disappear
+		abyssParams.g_TintCol = [lerp(1, .27, _abyssStrength), 1 - _abyssStrength * .9, lerp(1, .5, _abyssStrength), 1]; // (push towards white to make disappear
+		
+		fx_set_parameters(abyssFilter, abyssParams);
+	} else {
+		layer_enable_fx(abyssLayer, false);
+	}
+	
+	var _previousLayer = script_getMusicLayerFromDepth(cameraWorldDepthPrevious);
+	musicCurrentLayer = script_getMusicLayerFromDepth(cameraWorldDepth);
+	if(_previousLayer != musicCurrentLayer) {
+		var _currentSong = musicDepthTracks[musicCurrentLayer];
+		var _previousSong = musicDepthTracks[_previousLayer];
+		if(_currentSong > 50000 && audio_is_playing(_currentSong)) { // idk how else to test audio viability, these songs are supposed to be sound indexs and so have ids in the hundreds of thousands? (400,000 seemingly) So i guess I'll just magnitude check it??
+			audio_sound_gain(_currentSong, 1, 7000);
+		}
+		if(_previousSong > 50000 && audio_is_playing(_previousSong)) {
+			audio_sound_gain(_previousSong, 0, 7000);
+		}
+	}
+	
+	for(var _i = E_musicLayer.musicLayerCount - 1; _i >= 0; _i--) {
+		if(musicDepthTracks[_i] < 50000) { // timer not asset
+			musicDepthTracks[_i] -= surfaceEffectsUpdateTick; // actually a timer..
+			if(musicDepthTracks[_i] <= 0) {
+				if(_i == musicCurrentLayer) {
+					musicDepthTracks[_i] = audio_play_sound(script_getSongAtLayer(_i), 999, false);
+				} else {
+					musicDepthTracks[_i] = irandom_range(400, 800); // retry in 20 to 100 seconds i guess
+				}
+			}
+		} else {
+			if(!audio_is_playing(musicDepthTracks[_i])) {
+				musicDepthTracks[_i] = 0; // ready to be set to something else
+			}
+		}
+	}
 }
 
 initMainMenuScreen();

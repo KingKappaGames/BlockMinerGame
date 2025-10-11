@@ -21,6 +21,13 @@ function script_setPauseState(pauseState){
 		
 		audio_pause_all();
 		
+		var _musicSet = global.manager.musicDepthTracks;
+		for(var _i = array_length(_musicSet) - 1; _i >= 0; _i--) { // unpause music
+			if(audio_exists(_musicSet[_i])) {
+				audio_resume_sound(_musicSet[_i]);
+			}
+		}
+		
 		part_system_automatic_update(global.sys, false);
 		part_system_automatic_update(global.sysUnder, false);
 		part_system_automatic_draw(global.sys, false);

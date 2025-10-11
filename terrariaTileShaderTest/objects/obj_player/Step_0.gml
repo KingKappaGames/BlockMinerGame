@@ -156,9 +156,9 @@ if(mouse_check_button(mb_left)) {
 					
 					var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
 					if(instance_exists(_hit)) {
-						_hit.hit(.5, _dir, 2);
 						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
 						part_particles_create_color(sys, _hit.x, _hit.y, bloodSpurtPart, c_maroon, 7);
+						_hit.hit(.5, _dir, 2);
 					} else { // line check mining
 						
 						for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
@@ -173,9 +173,9 @@ if(mouse_check_button(mb_left)) {
 					var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
 					if(instance_exists(_hit)) {
 						var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
-						_hit.hit(.5, _dir, 2);
 						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
 						part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
+						_hit.hit(.5, _dir, 2);
 					} else {
 						miningFunc(mouse_x, mouse_y);
 					}

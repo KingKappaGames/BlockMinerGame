@@ -33,6 +33,8 @@ function script_pickaxeMineBanana(xx, yy) {
 			}
 			
 			audio_play_sound(snd_chime, 1, 0);
+			
+			return true;
 		}
 		
 		return false;

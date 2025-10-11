@@ -28,7 +28,25 @@ if(alive) {
 		}
 	}
 	
-	
+	if(global.timer % 10 == 0) {
+		var _tileX = x div tileSize;
+		var _tileY = y div tileSize;
+		script_breakTile(_tileX, _tileY, 1, 0, 1);
+		script_breakTile(_tileX + 1, _tileY, 1, 0, 1);
+		script_breakTile(_tileX - 1, _tileY, 1, 0, 1);
+		script_breakTile(_tileX, _tileY + 1, 1, 0, 1);
+		script_breakTile(_tileX, _tileY - 1, 1, 0, 1);
+		script_breakTile(_tileX + 1, _tileY + 1, 1, 0, 1);
+		script_breakTile(_tileX + 1, _tileY - 1, 1, 0, 1);
+		script_breakTile(_tileX - 1, _tileY - 1, 1, 0, 1);
+		script_breakTile(_tileX - 1, _tileY + 1, 1, 0, 1);
+		script_breakTile(_tileX + 2, _tileY, 1, 0, 1);
+		script_breakTile(_tileX - 2, _tileY, 1, 0, 1);
+		script_breakTile(_tileX, _tileY + 2, 1, 0, 1);
+		script_breakTile(_tileX, _tileY - 2, 1, 0, 1);
+		
+		global.tileManager.updateScreenStatic();
+	}
 } else {
 	xChange *= .9;
 	yChange *= .9;
@@ -52,26 +70,6 @@ if(alive) {
 	
 	if(deathTimer >= deathTimerMax) {
 		instance_destroy();
-	}
-	
-	if(global.timer % 10 == 0) {
-		var _tileX = x div tileSize;
-		var _tileY = y div tileSize;
-		script_breakTile(_tileX, _tileY, 1, 0, 1);
-		script_breakTile(_tileX + 1, _tileY, 1, 0, 1);
-		script_breakTile(_tileX - 1, _tileY, 1, 0, 1);
-		script_breakTile(_tileX, _tileY + 1, 1, 0, 1);
-		script_breakTile(_tileX, _tileY - 1, 1, 0, 1);
-		script_breakTile(_tileX + 1, _tileY + 1, 1, 0, 1);
-		script_breakTile(_tileX + 1, _tileY - 1, 1, 0, 1);
-		script_breakTile(_tileX - 1, _tileY - 1, 1, 0, 1);
-		script_breakTile(_tileX - 1, _tileY + 1, 1, 0, 1);
-		script_breakTile(_tileX + 2, _tileY, 1, 0, 1);
-		script_breakTile(_tileX - 2, _tileY, 1, 0, 1);
-		script_breakTile(_tileX, _tileY + 2, 1, 0, 1);
-		script_breakTile(_tileX, _tileY - 2, 1, 0, 1);
-		
-		global.tileManager.updateScreenStatic();
 	}
 }
 
