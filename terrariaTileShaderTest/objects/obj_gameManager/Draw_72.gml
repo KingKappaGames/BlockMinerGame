@@ -1,3 +1,5 @@
+if (live_call()) return live_result;
+
 if(inGame && !global.gamePaused) {
 	var _camX = camera_get_view_x(cam);
 	var _camY = camera_get_view_y(cam);

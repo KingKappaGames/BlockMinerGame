@@ -38,6 +38,9 @@ enum E_robe {
 	teleporterWhite = 2,
 	bananaYellow = 3,
 	materialGrass = 4,
+	materialCrystal = 5,
+	materialFlesh = 6, 
+	materialMetal = 7
 }
 
 enum E_pickaxe {
@@ -117,6 +120,7 @@ enum E_musicLayer {
 	musicLayerCount = 5
 }
 
+menuMusic = -1;
 musicCurrentLayer = E_musicLayer.surface; // surface
 musicDepthRef = [-.05, .42, .93, 1.05, 99];
 musicDepthTracks = [0, 0, 0, 0, 0]; // sound ids for tracks of surface, depth, and underworld and either the song id (playing or ended) or a number representing a break in frames, eg 300 would mean count down 300 frames before starting the next track at that layer
@@ -316,7 +320,8 @@ startGameWorld = function(worldIndex, exists = false) {
 	cameraWorldDepth = global.player.y / global.worldSizePixels;
 	updateDepthEffects();
 	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 0, 0);
-	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 1, 10000);
+	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 1, 20000);
+	audio_stop_sound(menuMusic);
 	
 	repeat(3) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
@@ -353,6 +358,14 @@ exitGameWorld = function() {
 	instance_activate_all();
 	instance_destroy(obj_entity, false);
 	instance_destroy(obj_tileManager);
+	
+	for(var _i = 0; _i < E_musicLayer.musicLayerCount; _i++) {
+		if(script_isSoundPlaying(musicDepthTracks[_i])) {
+			audio_sound_gain(musicDepthTracks[_i], 0, 5000); // these will keep playing yes but the songs are short and don't loop so just send them to the background and move on i guess?
+		}
+		
+		musicDepthTracks[_i] = 0; // break the song ref... those who history forgot type craft
+	}
 	
 	inGame = false;
 }
@@ -404,11 +417,11 @@ updateDepthEffects = function() {
 	if(_previousLayer != musicCurrentLayer) {
 		var _currentSong = musicDepthTracks[musicCurrentLayer];
 		var _previousSong = musicDepthTracks[_previousLayer];
-		if(_currentSong > 50000 && audio_is_playing(_currentSong)) { // idk how else to test audio viability, these songs are supposed to be sound indexs and so have ids in the hundreds of thousands? (400,000 seemingly) So i guess I'll just magnitude check it??
-			audio_sound_gain(_currentSong, 1, 7000);
+		if(script_isSoundPlaying(_currentSong)) { // idk how else to test audio viability, these songs are supposed to be sound indexs and so have ids in the hundreds of thousands? (400,000 seemingly) So i guess I'll just magnitude check it??
+			audio_sound_gain(_currentSong, 1, 8000);
 		}
-		if(_previousSong > 50000 && audio_is_playing(_previousSong)) {
-			audio_sound_gain(_previousSong, 0, 7000);
+		if(script_isSoundPlaying(_previousSong)) {
+			audio_sound_gain(_previousSong, 0, 8000);
 		}
 	}
 	
@@ -418,8 +431,10 @@ updateDepthEffects = function() {
 			if(musicDepthTracks[_i] <= 0) {
 				if(_i == musicCurrentLayer) {
 					musicDepthTracks[_i] = audio_play_sound(script_getSongAtLayer(_i), 999, false);
+					audio_sound_gain(musicDepthTracks[_i], 0, 0);
+					audio_sound_gain(musicDepthTracks[_i], 1, 5000);
 				} else {
-					musicDepthTracks[_i] = irandom_range(400, 800); // retry in 20 to 100 seconds i guess
+					musicDepthTracks[_i] = irandom_range(3600, 14400);
 				}
 			}
 		} else {

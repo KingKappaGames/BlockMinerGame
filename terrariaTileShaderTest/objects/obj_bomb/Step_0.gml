@@ -19,7 +19,7 @@ duration--;
 if(duration <= 0) {
 	audio_play_sound_at(snd_explosion, x, y, 0, audioRefLoud, audioMaxLoud, 1, false, 0);
 		
-	script_createShockwaveSpell(x, y, 3, tileSize * 1.5, 1.26,, 1);
+	script_createShockwaveSpell(x, y, 3, tileSize * 1.5, 1.26,, 1.5);
 	
 	part_particles_create_color(sys, x, y, explosionPart, image_blend, 25); // EXPLOSIVE PARTS
 	part_type_speed(trailerPart, 1.5, 3.7, 0, 0);

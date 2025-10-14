@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_musicDeepAbyss",
+  "%Name":"snd_mainMenuMusic",
   "audioGroupId":{
     "name":"sndGrp_music",
     "path":"audiogroups/sndGrp_music",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":49.87016,
-  "name":"snd_musicDeepAbyss",
+  "duration":39.999977,
+  "name":"snd_mainMenuMusic",
   "parent":{
     "name":"music",
     "path":"folders/Sounds/music.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_musicDeepAbyss.wav",
+  "soundFile":"snd_mainMenuMusic.mp3",
   "type":1,
   "volume":1.0,
 }

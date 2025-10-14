@@ -6,3 +6,5 @@ speedDecayAir = .98;
 debugTileDraw = [];
 
 waitTimer = 0;
+
+knockbackMult = 1.5;

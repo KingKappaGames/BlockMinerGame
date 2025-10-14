@@ -21,6 +21,14 @@ if(inGame) {
 			pauseNextFrame = obj_cutscene;
 		}
 	}
+} else if(instance_exists(obj_MainMenu)) {
+	if(splashIntroProgress > 1) {
+		if(audio_group_is_loaded(sndGrp_music) && !audio_is_playing(snd_mainMenuMusic)) {
+			menuMusic = audio_play_sound(snd_mainMenuMusic, 999, 1);
+			audio_sound_gain(menuMusic, 0, 0);
+			audio_sound_gain(menuMusic, 1, 12000);
+		}
+	}
 }
 
 if(keyboard_check_released(ord("F"))) {
