@@ -3,8 +3,8 @@ event_inherited();
 shimmerPart = global.radialShimmerPart;
 
 pickupType = "robe";
-pickupIndex = E_robe.bananaYellow;
-sprite_index = spr_playerBanana;
+pickupIndex = E_robe.basicPurple;
+sprite_index = script_getRobeSprite(pickupIndex);
 
 image_xscale = 1;
 image_yscale = 1;

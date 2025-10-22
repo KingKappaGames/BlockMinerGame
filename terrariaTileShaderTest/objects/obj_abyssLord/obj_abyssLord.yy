@@ -11,8 +11,8 @@
   "name":"obj_abyssLord",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"creatures",
+    "path":"folders/Objects/creatures.yy",
   },
   "parentObjectId":{
     "name":"obj_creature",

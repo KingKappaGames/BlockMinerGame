@@ -1,4 +1,4 @@
-function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, damageMult = 1) {
+function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, damageMult = 1, materialType = 0) {
 	var _spell = noone;
 	
 	if(spellIndex == 0)  {
@@ -23,6 +23,8 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell = instance_create_layer(xx, yy, "Instances", obj_explosiveBolt);
 		_spell.xChange = dcos(_dir) * 10 * speedMult;
 		_spell.yChange = -dsin(_dir) * 10 * speedMult;
+	} else if(spellIndex == E_spell.shockwaveMaterial) {
+		_spell = script_createShockwaveSpell(targetX, targetY, 11,, 1.15, materialType, .6, false);
 	}
 	
 	_spell.source = id;

@@ -8,4 +8,4 @@ draw_set_alpha(1);
 
 event_inherited();
 
-//draw_text(x, y - 50, pickupIndex);
+//draw_text(x, y - 50, spellIndex);

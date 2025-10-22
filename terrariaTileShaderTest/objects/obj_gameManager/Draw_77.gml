@@ -18,7 +18,7 @@ if(_brightness != 6) { // neutral is 3
 	
 	shader_set(shd_brightness);
 	
-	shader_set_uniform_f(shader_get_uniform(shd_brightness, "strength"), (_brightness - 5) * .19); // -1 to 1
+	shader_set_uniform_f(shader_get_uniform(shd_brightness, "strength"), max(-.97, (_brightness - 6) * .175));
 	
 	draw_surface_stretched(application_surface, 0, 0, _windowW, _windowH); // draw brightened app surface to ppx surface hold
 	

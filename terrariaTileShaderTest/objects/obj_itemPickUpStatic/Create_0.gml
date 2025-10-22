@@ -13,8 +13,9 @@ image_yscale = 2;
 depth += 10;
 
 pickupType = "pickaxe";
-pickupIndex = E_pickaxe.long;
-sprite_index = spr_pickaxeLong;
+pickupIndex = choose(E_pickaxe.basicRed, E_pickaxe.blue, E_pickaxe.long, E_pickaxe.cycle);
+
+sprite_index = script_getPickaxeSprite(pickupIndex);
 
 //pickUp = function() {
 	//

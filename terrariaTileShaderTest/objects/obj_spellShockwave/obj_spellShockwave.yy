@@ -11,8 +11,8 @@
   "name":"obj_spellShockwave",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"weapons",
+    "path":"folders/Objects/weapons.yy",
   },
   "parentObjectId":{
     "name":"obj_entity",

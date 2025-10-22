@@ -10,8 +10,8 @@
   "name":"obj_bananaShimmer",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"weapons",
+    "path":"folders/Objects/weapons.yy",
   },
   "parentObjectId":{
     "name":"obj_gameObject",

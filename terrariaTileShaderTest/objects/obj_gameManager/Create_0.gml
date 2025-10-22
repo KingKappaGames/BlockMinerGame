@@ -30,6 +30,7 @@ enum E_spell {
 	shockwave = 2,
 	bananaShimmer = 3,
 	explosiveBolt = 4,
+	shockwaveMaterial = 5
 }
 
 enum E_robe {
@@ -48,6 +49,7 @@ enum E_pickaxe {
 	blue = 1,
 	long = 2,
 	banana = 3,
+	cycle = 4
 }
 
 enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
@@ -325,6 +327,9 @@ startGameWorld = function(worldIndex, exists = false) {
 	
 	repeat(3) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
+	}
+	repeat(3) {
+		script_createRobePickup(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
 	}
 	repeat(4) {
 		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpStatic);

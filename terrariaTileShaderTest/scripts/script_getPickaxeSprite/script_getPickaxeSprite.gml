@@ -7,5 +7,7 @@ function script_getPickaxeSprite(index) {
 		return spr_pickaxeBlue;
 	} else if(index == E_pickaxe.long) { // todo the rest of these
 		return spr_pickaxeLong;
+	} else if(index == E_pickaxe.cycle) { // todo the rest of these
+		return spr_pickaxeCycle;
 	}
 }
