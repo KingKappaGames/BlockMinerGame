@@ -64,7 +64,11 @@ if(!loadNextFrame) {
 		draw_sprite_ext(spr_mapIconSprite, _map1Frame, x + 52, y + 142, 1, 1, 0, optionPosition == 1 ? c_yellow : c_white, 1);
 		draw_sprite_ext(spr_mapIconSprite, _map2Frame, x + 120, y + 142, 1, 1, 0, optionPosition == 2 ? c_yellow : c_white, 1);
 		draw_sprite_ext(spr_mapIconSprite, _map3Frame, x + 188, y + 142, 1, 1, 0, optionPosition == 3 ? c_yellow : c_white, 1); 
-	}
+	} else if(optionGroup == 8) {
+	draw_set_halign(fa_left)
+	draw_text_transformed(x + 190, y + 60, string(gameRainOptions[gameRainSelected]), 1, 1, 0);
+	draw_text_transformed(x + 190, y + 100, string(gameCorruptionOptions[gameCorruptionSelected]), 1, 1, 0);
+}
 	
 	draw_set_halign(fa_left);
 }

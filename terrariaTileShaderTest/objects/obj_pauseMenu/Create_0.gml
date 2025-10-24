@@ -27,6 +27,7 @@ options[1][1] = "SOUND SETTINGS";
 options[1][2] = "VISUAL SETTINGS";
 options[1][3] = "GAME SETTINGS";
 options[1][4] = "CONTROLS";
+options[1][5] = "EVENTS"
 
 options[2][0] = "RETURN";
 options[2][1] = "EFFECTS VOLUME";
@@ -45,6 +46,10 @@ options[5][0] = "RETURN";
 options[5][1] = "DIFFICULTY";
 options[5][2] = "SCREEN SHAKE";
 options[5][3] = "GORE";
+
+options[6][0] = "RETURN";
+options[6][1] = "RAIN";
+options[6][2] = "OTHER";
 
 optionPosition = 0;
 optionGroup = 0;
@@ -88,6 +93,14 @@ gameBrightnessOptions = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1
 gameEffectVolume = global.gameEffectVolume;
 gameMusicVolume = global.gameMusicVolume;
 gameAmbientVolume = global.gameAmbientVolume;
+
+
+gameRainSelected = global.gameRainSelected;
+gameRainOptions = ["none", "bombs", "banana bombs", "enemies"];
+
+gameCorruptionSelected = global.gameCorruptionSelected;
+gameCorruptionOptions = ["none", "break blocks", "flesh", "crystal", "metal", "explosives"];
+
 
 #region initialize menu
 initializeMenu = function(){
@@ -140,6 +153,12 @@ menuChangeField = function(fieldChange) {
 			} if(optionPosition == 3) {
 				gameGoreSelected = clamp(gameGoreSelected + fieldChange, 0, 2);
 			}
+		} else if(optionGroup == 6) {
+			if(optionPosition == 1) {
+				gameRainSelected = clamp(gameRainSelected + fieldChange, 0, array_length(gameRainOptions) - 1);
+			} else if(optionPosition == 2) {
+				gameCorruptionSelected = clamp(gameCorruptionSelected + fieldChange, 0, array_length(gameCorruptionOptions) - 1);
+			}
 		}
 	}
 }
@@ -182,6 +201,8 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 				menuSwitchOptionGroup(5, 1);
 			} else if(optionPosition == 4) {
 				menuSwitchOptionGroup(4, 1);
+			} else if(optionPosition == 5) {
+				menuSwitchOptionGroup(6, 1);
 			}
 		}
 	} else if(optionGroup == 2) { // sound
@@ -201,6 +222,12 @@ menuSelectOption = function(intent = 0) { // -1 for decrease option, 0 for none,
 			menuSwitchOptionGroup(1);
 		}
 	} else if(optionGroup == 5) { // game settings
+		if(optionPosition == 0) {
+			menuSwitchOptionGroup(1);
+		} else {
+			menuChangeField(intent);
+		}
+	} else if(optionGroup == 6) { // gameplay settings
 		if(optionPosition == 0) {
 			menuSwitchOptionGroup(1);
 		} else {
@@ -255,6 +282,10 @@ menuSwitchOptionGroup = function(newOptionGroup, hardCoded = 0, playSound = true
 		menuAlign = fa_right;
 		menuWidth = 370;
 		menuTextOffset = 20;
+	} else if(newOptionGroup == 6) {
+		menuAlign = fa_right;
+		menuWidth = 400;
+		menuTextOffset = -25;
 	}
 
 	x = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) / 2 - menuWidth / 2;

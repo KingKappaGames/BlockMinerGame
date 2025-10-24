@@ -143,6 +143,9 @@ global.gameBrightnessSelected = 6;
 global.gameEffectVolume = 5;
 global.gameMusicVolume = 5
 global.gameAmbientVolume = 5;
+
+global.gameRainSelected = 0;
+global.gameCorruptionSelected = 0;
 #endregion
 
 #region camera values

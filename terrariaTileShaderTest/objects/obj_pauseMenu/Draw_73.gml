@@ -42,6 +42,10 @@ if(optionGroup == 4) { // custom draw groups
 	draw_text_transformed(x + 215, y + 60, string(gameDifficultyDisplayOptions[gameDifficultySelected]), 1, 1, 0);
 	draw_text_transformed(x + 215, y + 100, string(gameScreenShakeDisplayOptions[gameScreenShakeSelected]), 1, 1, 0);
 	draw_text_transformed(x + 215, y + 140, gameGoreDisplayOptions[gameGoreSelected], 1, 1, 0);
+} else if(optionGroup == 6) {
+	draw_set_halign(fa_left)
+	draw_text_transformed(x + 190, y + 60, string(gameRainOptions[gameRainSelected]), 1, 1, 0);
+	draw_text_transformed(x + 190, y + 100, string(gameCorruptionOptions[gameCorruptionSelected]), 1, 1, 0);
 }
 	
 draw_set_halign(fa_left);

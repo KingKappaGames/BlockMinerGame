@@ -9,8 +9,28 @@ if(inGame) {
 		script_setPauseState(true);
 		pauseNextFrame = noone;
 	} else {
-		if(global.timer % surfaceEffectsUpdateTick == 0) {
-			updateDepthEffects();
+		if(!global.gamePaused) {
+			if(global.timer % surfaceEffectsUpdateTick == 0) {
+				updateDepthEffects();
+				
+				var _rainEvent = global.gameRainSelected;
+				if(_rainEvent != 0) {
+					if(irandom(3) == 0) {
+						var _rainType;
+						if(_rainEvent == 1) {
+							_rainType = obj_bomb;
+						} else if(_rainEvent == 2) {
+							_rainType = obj_bananaBomb;
+						} else if(_rainEvent == 3) {
+							_rainType = obj_person;
+						}
+						
+						var _bomb = instance_create_layer(camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100, "Instances", _rainType);
+						_bomb.xChange = random_range(-3, 3);
+						_bomb.duration = 720;
+					}
+				}
+			}
 		}
 		
 		//show_debug_message($"CamX/Y: {camera_get_view_x(cam)}/{camera_get_view_y(cam)}   AND updateX/Y: {screenWorldX}/{screenWorldY}");
