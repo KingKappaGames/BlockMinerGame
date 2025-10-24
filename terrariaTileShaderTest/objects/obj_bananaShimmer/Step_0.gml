@@ -54,7 +54,10 @@ if(instance_exists(_collision) && _collision != global.player) {
 	
 	audio_play_sound(snd_explosion, 0, 0, .25);
 	
-	instance_destroy(_collision, false);
+	_collision.hit(1);
+	if(_collision.Health <= 0) {
+		instance_destroy(_collision, false);
+	}
 }
 
 if(duration <= 0) {
