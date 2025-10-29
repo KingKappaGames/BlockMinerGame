@@ -27,7 +27,7 @@ if(inGame) {
 							}
 						}
 						
-						if(_rainEvent != noone) {
+						if(_rainType != noone) {
 							var _bomb = instance_create_layer(camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100, "Instances", _rainType);
 							_bomb.xChange = random_range(-6, 6);
 							_bomb.duration = 720;

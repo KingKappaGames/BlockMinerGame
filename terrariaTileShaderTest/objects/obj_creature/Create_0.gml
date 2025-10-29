@@ -23,7 +23,7 @@ hit = function(damage, dir = -1, force = 0, destroyBody = false) {
 	
 	if(force != -1) {
 		xChange += dcos(dir) * force * knockbackMult;
-		yChange -= (dsin(dir) * force   + force) * knockbackMult; // hit in the direction plus a bit up because in 99% of cases that will be nice
+		yChange -= (dsin(dir) * force   + force * .6) * knockbackMult; // hit in the direction plus a bit up because in 99% of cases that will be nice
 	}
 	
 	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
