@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_musicAbyssTop",
   "audioGroupId":{
     "name":"sndGrp_music",
     "path":"audiogroups/sndGrp_music",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":54.193584,
+  "exportDir":"",
   "name":"snd_musicAbyssTop",
   "parent":{
     "name":"music",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_musicAbyssTop.wav",
-  "type":0,
   "volume":1.0,
 }

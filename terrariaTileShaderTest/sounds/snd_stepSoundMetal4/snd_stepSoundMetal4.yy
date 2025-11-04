@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_stepSoundMetal4",
   "audioGroupId":{
     "name":"sndGrp_ambient",
     "path":"audiogroups/sndGrp_ambient",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.9470068,
+  "exportDir":"",
   "name":"snd_stepSoundMetal4",
   "parent":{
     "name":"Sounds",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_stepSoundMetal4.mp3",
-  "type":0,
   "volume":1.0,
 }

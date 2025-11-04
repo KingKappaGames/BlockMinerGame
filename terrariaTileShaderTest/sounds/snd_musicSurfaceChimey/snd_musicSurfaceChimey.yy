@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_musicSurfaceChimey",
   "audioGroupId":{
     "name":"sndGrp_music",
     "path":"audiogroups/sndGrp_music",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":1,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":40.0,
+  "exportDir":"",
   "name":"snd_musicSurfaceChimey",
   "parent":{
     "name":"music",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_musicSurfaceChimey.mp3",
-  "type":1,
   "volume":1.0,
 }

@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_banana",
   "audioGroupId":{
     "name":"sndGrp_sfx",
     "path":"audiogroups/sndGrp_sfx",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.13061224,
+  "exportDir":"",
   "name":"snd_banana",
   "parent":{
     "name":"Sounds",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_banana.mp3",
-  "type":0,
   "volume":0.67,
 }

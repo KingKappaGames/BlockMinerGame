@@ -5,7 +5,7 @@ function script_createRobePickup(index = -1, xx = x, yy = y) {
 		index = choose(E_robe.superRed, E_robe.bananaYellow, E_robe.teleporterWhite, E_robe.materialGrass, E_robe.materialMetal, E_robe.materialCrystal, E_robe.materialFlesh);
 	}
 	
-	_robe.robeIndex = index;
+	_robe.pickupIndex = index;
 	
 	_robe.sprite_index = script_getRobeSprite(index);
 	

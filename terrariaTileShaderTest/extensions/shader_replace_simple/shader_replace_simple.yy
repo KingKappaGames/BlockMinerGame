@@ -16,25 +16,18 @@
   "exportToGame":true,
   "extensionVersion":"1.0.0",
   "files":[
-    {"$GMExtensionFile":"","%Name":"","constants":[],"copyToTargets":64,"filename":"shader_replace_simple.dll","final":"","functions":[
+    {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":64,"filename":"shader_replace_simple.dll","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple_sync","argCount":1,"args":[2,],"documentation":"","externalName":"shader_replace_simple_sync","help":"","hidden":true,"kind":11,"name":"shader_replace_simple_sync","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple_init_raw","argCount":3,"args":[1,1,1,],"documentation":"","externalName":"shader_replace_simple_init_raw","help":"","hidden":true,"kind":11,"name":"shader_replace_simple_init_raw","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple_raw","argCount":3,"args":[2,1,1,],"documentation":"","externalName":"shader_replace_simple_raw","help":"","hidden":true,"kind":11,"name":"shader_replace_simple_raw","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":1,},
-      ],"init":"","kind":1,"name":"","order":[
-        {"name":"shader_replace_simple_sync","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},
-        {"name":"shader_replace_simple_init_raw","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},
-        {"name":"shader_replace_simple_raw","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},
-      ],"origname":"extensions\\shader_replace_simple.dll","ProxyFiles":[
+      ],"init":"","kind":1,"name":"","origname":"extensions\\shader_replace_simple.dll","ProxyFiles":[
         {"$GMProxyFile":"","%Name":"shader_replace_simple_x64.dll","name":"shader_replace_simple_x64.dll","resourceType":"GMProxyFile","resourceVersion":"2.0","TargetMask":6,},
       ],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
-    {"$GMExtensionFile":"","%Name":"","constants":[],"copyToTargets":9223372036854775807,"filename":"shader_replace_simple.gml","final":"","functions":[
+    {"$GMExtensionFile":"v1","%Name":"","constants":[],"copyToTargets":9223372036854775807,"filename":"shader_replace_simple.gml","final":"","functions":[
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple_init","argCount":0,"args":[],"documentation":"","externalName":"shader_replace_simple_init","help":"","hidden":true,"kind":11,"name":"shader_replace_simple_init","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple","argCount":3,"args":[2,2,2,],"documentation":"","externalName":"shader_replace_simple","help":"shader_replace_simple(shader, vertex_code, fragment_code)->error_text||\"\"","hidden":false,"kind":2,"name":"shader_replace_simple","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
         {"$GMExtensionFunction":"","%Name":"shader_replace_simple_auto","argCount":3,"args":[2,2,2,],"documentation":"","externalName":"shader_replace_simple_auto","help":"shader_replace_simple_auto(shader, vertex_code, fragment_code)->success?; prints error","hidden":false,"kind":2,"name":"shader_replace_simple_auto","resourceType":"GMExtensionFunction","resourceVersion":"2.0","returnType":2,},
-      ],"init":"shader_replace_simple_init","kind":2,"name":"","order":[
-        {"name":"shader_replace_simple_init","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},
-        {"name":"shader_replace_simple_auto","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},
-      ],"origname":"extensions\\gml.gml","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
+      ],"init":"shader_replace_simple_init","kind":2,"name":"","origname":"extensions\\gml.gml","ProxyFiles":[],"resourceType":"GMExtensionFile","resourceVersion":"2.0","uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject":"",
   "hasConvertedCodeInjection":true,

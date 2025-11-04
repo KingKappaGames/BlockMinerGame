@@ -2,7 +2,23 @@ function script_saveWorld(filename) {
 	var _player = global.player;
 	var _respawnRobe = _player.robePreviousId;
 	var _robeRespawnData = _respawnRobe == noone ? 0 : [_respawnRobe.x, _respawnRobe.y, _respawnRobe.pickupIndex];
-	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData];
+	
+	instance_activate_object(obj_materialOrbNode);
+	instance_activate_object(obj_itemPickUpParent);
+	
+	var _materialNodeArray = [];
+	with(obj_materialOrbNode) {
+		array_push(_materialNodeArray, [x, y, materialType]);
+	}
+	
+	var _itemPickups = [];
+	with(obj_itemPickUpParent) {
+		if(id != _respawnRobe) {
+			array_push(_itemPickups, [x, y, pickupType, pickupIndex]); // type, index should be all the data you need
+		}
+	}
+	
+	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups]; // 9 length so far
 	var _jsonWorld = json_stringify(_saveData);
 	
     var _worldSavebuffer = buffer_create(string_byte_length(_jsonWorld) + 1, buffer_fixed, 1);
@@ -36,6 +52,22 @@ function script_loadWorld(filename) {
 	if(_loadData[7] != 0) {
 		var _respawnRobe = script_createRobePickup(_loadData[7][2], _loadData[7][0], _loadData[7][1])
 		_player.robePreviousId = _respawnRobe;
+	}
+	
+	var _materialNodeData = _loadData[8];
+	for(var _materialNodes = array_length(_materialNodeData) - 1; _materialNodes >= 0; _materialNodes--) {
+		script_createMaterialNode(_materialNodeData[_materialNodes][0], _materialNodeData[_materialNodes][1], _materialNodeData[_materialNodes][2]);
+	}
+	
+	var _pickupData = _loadData[9];
+	var _pickup;
+	for(var _pickupI = array_length(_pickupData) - 1; _pickupI >= 0; _pickupI--) {
+		_pickup = _pickupData[_pickupI];
+		if(_pickup[2] == "pickaxe") {
+			script_createPickaxe(_pickupData[_pickupI][3], _pickupData[_pickupI][0], _pickupData[_pickupI][1]); // i dont have a create pickaxe script...
+		} else if(_pickup[2] == "robe") {
+			script_createRobePickup(_pickupData[_pickupI][3], _pickupData[_pickupI][0], _pickupData[_pickupI][1]);
+		}
 	}
 	
 	buffer_delete(_worldLoadBuffer);

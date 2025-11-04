@@ -1,5 +1,5 @@
 {
-  "$GMWindowsOptions":"",
+  "$GMWindowsOptions":"v1",
   "%Name":"Windows",
   "name":"Windows",
   "option_windows_allow_fullscreen_switching":false,
@@ -7,6 +7,7 @@
   "option_windows_company_info":"WanderlustInTheEndGames",
   "option_windows_copyright_info":"WanderlustInTheEnd@youtube",
   "option_windows_copy_exe_to_dest":false,
+  "option_windows_d3dswapeffectdiscard":false,
   "option_windows_description_info":"You grew mad and commited a terrible act to be thrown into the formless realms of chaos, but will you find what you were seeking there, and if you do, is it worth the price you paid?",
   "option_windows_disable_sandbox":false,
   "option_windows_display_cursor":true,

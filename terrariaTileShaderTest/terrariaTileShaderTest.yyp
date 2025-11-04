@@ -2,10 +2,10 @@
   "$GMProject":"v1",
   "%Name":"terrariaTileShaderTest",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
-    {"$GMAudioGroup":"","%Name":"sndGrp_sfx","name":"sndGrp_sfx","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
-    {"$GMAudioGroup":"","%Name":"sndGrp_ambient","name":"sndGrp_ambient","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
-    {"$GMAudioGroup":"","%Name":"sndGrp_music","name":"sndGrp_music","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"sndGrp_sfx","exportDir":"","name":"sndGrp_sfx","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"sndGrp_ambient","exportDir":"","name":"sndGrp_ambient","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"sndGrp_music","exportDir":"","name":"sndGrp_music","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -53,7 +53,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.1.193",
+    "IDEVersion":"2024.14.0.207",
   },
   "name":"terrariaTileShaderTest",
   "resources":[
@@ -104,6 +104,8 @@
     {"id":{"name":"script_centerCameraOnPlayer","path":"scripts/script_centerCameraOnPlayer/script_centerCameraOnPlayer.yy",},},
     {"id":{"name":"script_checkDepthAtTile","path":"scripts/script_checkDepthAtTile/script_checkDepthAtTile.yy",},},
     {"id":{"name":"script_createBlockParticles","path":"scripts/script_createBlockParticles/script_createBlockParticles.yy",},},
+    {"id":{"name":"script_createMaterialNode","path":"scripts/script_createMaterialNode/script_createMaterialNode.yy",},},
+    {"id":{"name":"script_createPickaxe","path":"scripts/script_createPickaxe/script_createPickaxe.yy",},},
     {"id":{"name":"script_createRobePickup","path":"scripts/script_createRobePickup/script_createRobePickup.yy",},},
     {"id":{"name":"script_createShockwaveSpell","path":"scripts/script_createShockwaveSpell/script_createShockwaveSpell.yy",},},
     {"id":{"name":"script_createWorm","path":"scripts/script_createWorm/script_createWorm.yy",},},

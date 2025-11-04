@@ -252,7 +252,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 		if(useIndex) {
 			robeIndex = newRobe;
 		} else {
-			robeIndex = newRobe.robeIndex; // set current index of robe to pick up coming in
+			robeIndex = newRobe.pickupIndex; // set current index of robe to pick up coming in
 		
 			if(moveToNew) {
 				x = newRobe.x;

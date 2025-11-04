@@ -314,6 +314,16 @@ startGameWorld = function(worldIndex, exists = false) {
 				y = 1000; 
 			}
 		}
+		
+		repeat(3) {
+			script_createRobePickup(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
+		}
+		repeat(7) {
+			script_createPickaxe(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
+		}
+		repeat(3) {
+			var _materialOrb = script_createMaterialNode(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), irandom_range(1, 7));
+		}
 	}
 	
 	instance_destroy(obj_MainMenu); // hm
@@ -327,28 +337,6 @@ startGameWorld = function(worldIndex, exists = false) {
 	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 0, 0);
 	audio_sound_gain(musicDepthTracks[musicCurrentLayer], 1, 20000);
 	audio_stop_sound(menuMusic);
-	
-	repeat(3) {
-		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpFloat);
-	}
-	repeat(3) {
-		script_createRobePickup(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
-	}
-	repeat(4) {
-		instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_itemPickUpStatic);
-	}
-	repeat(3) {
-		var _materialOrb = instance_create_layer(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), "Instances", obj_materialOrbNode);
-		with(_materialOrb) {
-			materialType = irandom_range(1, 7);
-			if(materialType == E_tile.explosive || materialType == E_tile.banana) {
-				shockwaveDuration = 9; // shorter lived bursts but faster expanding, still smaller / less tiles than normal because explosives are laggy yo
-				radiusExpand = 1.2;
-				strengthMult = .3;
-			}
-			image_blend = materialType >= 0 ? global.tileColors[materialType] : global.tileColorsDecorative[abs(materialType)];
-		}
-	}
 	
 	inGame = true;
 	worldCurrent = worldIndex;

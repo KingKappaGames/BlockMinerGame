@@ -134,7 +134,11 @@ if(inWorld) {
 												xChange = _facing * 1.11;
 												waitTimer = 50;
 											} else { // jumping 2 gap
-												if(move(3, -1) isSolid) {
+												if(move(3, 1) isClear && move(3, 0) isSolid) {
+													yChange = -2.8;
+													xChange = _facing * 1.62 - (x % tileSize - 16 * _facingBack) * .05;
+													waitTimer = 50;
+												} else if(move(3, -1) isSolid) {
 													yChange = -2.05;
 													xChange = _facing * 1.66 - (x % tileSize - 16 * _facingBack) * .05;
 													waitTimer = 50;
@@ -145,10 +149,6 @@ if(inWorld) {
 												} else if(move(3, -3) isSolid) {
 													yChange = -1.1;
 													xChange = _facing * 1.45 - (x % tileSize - 16 * _facingBack) * .05;
-													waitTimer = 50;
-												} else if(move(3, 1) isClear && move(3, 0) isSolid) {
-													yChange = -2.8;
-													xChange = _facing * 1.62 - (x % tileSize - 16 * _facingBack) * .05;
 													waitTimer = 50;
 												} else if(move(3, 2) isClear && move(3, 1) isSolid) {
 													yChange = -4;

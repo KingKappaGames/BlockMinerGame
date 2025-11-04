@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_smokePoof",
   "audioGroupId":{
     "name":"sndGrp_sfx",
     "path":"audiogroups/sndGrp_sfx",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.48312926,
+  "exportDir":"",
   "name":"snd_smokePoof",
   "parent":{
     "name":"Sounds",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_smokePoof.mp3",
-  "type":0,
   "volume":1.0,
 }
