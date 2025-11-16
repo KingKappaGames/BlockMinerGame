@@ -118,6 +118,8 @@ hitGround = function(fallSpeed, tileIndex) {
 hit = function(damage = 0, dir, force = 0, destroyBody = false) {
 	Health -= damage;
 	
+	audio_play_sound(snd_hit, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
+	
 	if(Health <= 0) {
 		die();
 	} else {
@@ -133,6 +135,7 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false) {
 }
 
 die = function() {
+	
 	//place robe pickup here
 	refreshCondition(true);
 	
@@ -153,7 +156,7 @@ die = function() {
 		}
 	}
 	
-	//script_centerCameraOnPlayer();
+	script_centerCameraOnPlayer();
 	
 	part_particles_create_color(sys, x, y - 10, breakPart, c_purple, 50);
 }
@@ -325,6 +328,17 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			moveSpeed = .1;
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.metal;
+		} else if(robeIndex == E_robe.abyssLord) {
+			healthRegen = 2;
+			manaRegen = 5;
+			HealthMax = 25; // defaulting
+			manaMax = 200;
+		
+			jumpSpeed = 4.15;
+			moveSpeed = .24;
+			
+			canFly = true;
+			canBeInVoid = true;
 		}
 		
 		mana = min(manaMax, mana);

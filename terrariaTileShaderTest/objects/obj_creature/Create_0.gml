@@ -15,6 +15,14 @@ directionFacing = 1;
 hit = function(damage, dir = -1, force = 0, destroyBody = false) {
 	Health -= damage;
 	
+	audio_play_sound(snd_hit, 0, 0, random_range(.45, .65), undefined, random_range(.85, 1.25));
+	
+	if(object_index != obj_abyssLord) {
+		if(irandom(12) == 0) {
+			audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
+		}
+	}
+	
 	if(Health <= 0) {
 		die();
 	} else {

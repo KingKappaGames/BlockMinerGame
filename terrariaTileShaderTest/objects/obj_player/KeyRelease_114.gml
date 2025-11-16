@@ -1,4 +1,6 @@
 if (live_call()) return live_result;
+	
+setRobe(ceil(current_time % 3000 / 400), false, true, false);
 
 //if(instance_exists(obj_worm)) {
 	//obj_worm.xChange = 0;
@@ -7,6 +9,3 @@ if (live_call()) return live_result;
 //} else {
 	//script_createWorm(x, y, 35, 2);
 //}
-
-var _person = instance_create_layer(x, y - 8, "Instances", obj_person);
-_person.directionFacing = directionFacing;

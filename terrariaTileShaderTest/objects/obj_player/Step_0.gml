@@ -1,3 +1,8 @@
+pickaxeRange = 10000000;
+pickaxeTimerDelay = 0;
+blockPlacementRange = 1000000;
+heldResourceTimer = 0; // debug auto place and break values
+
 event_inherited();
 
 var _timer = global.timer;
@@ -42,6 +47,9 @@ if(_tileInside) {
 var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 
 if(!flying) {
+	if(image_speed != 0) {
+		image_speed = 0;
+	}
 	if(keyboard_check(ord("W")) || keyboard_check(vk_space)) {
 		if(_tileStanding != 0) {
 			yChange = -jumpSpeed;
@@ -86,6 +94,12 @@ if(!flying) {
 	if(mana <= 0) {
 		flying = false;
 		mana = 0;
+	}
+	
+	if(image_speed != 12) {
+		if(sprite_index == spr_playerAbyssLord) {
+			image_speed = 12;
+		}
 	}
 	
 	// flying costs mana
@@ -234,6 +248,8 @@ if(canTeleport && mana > 25) {
 			mana -= 25;
 			x = mouse_x;
 			y = mouse_y;
+			
+			audio_play_sound(snd_teleportWarble, 0, 0, random_range(.9, 1.15), undefined, random_range(1.85, 2.25));
 			
 			var _shimmer = global.radialShimmerPart;
 			repeat(25) {

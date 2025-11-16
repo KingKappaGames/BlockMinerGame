@@ -1,6 +1,6 @@
 if (live_call()) return live_result;
 
-draw_sprite_tiled_ext(spr_starryNight, 0, 0, -current_time * .03, .5, .5, c_white, 1);
+draw_sprite_tiled_ext(spr_starryNightFree, 0, 0, -current_time * .03, .5, .5, c_white, 1);
 
 if(loadNextFrame) {
 	draw_sprite_ext(spr_loadingTextIcon, 0, x + menuWidth / 2, y + camera_get_view_height(cam) * .2, 1, 1, 0, c_white, 1);	

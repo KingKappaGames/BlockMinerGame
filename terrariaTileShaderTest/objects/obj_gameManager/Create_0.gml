@@ -41,7 +41,8 @@ enum E_robe {
 	materialGrass = 4,
 	materialCrystal = 5,
 	materialFlesh = 6, 
-	materialMetal = 7
+	materialMetal = 7,
+	abyssLord = 8
 }
 
 enum E_pickaxe {

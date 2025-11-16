@@ -85,6 +85,9 @@ if(inWorld) {
 											yChange = -sqrt(abs(_pY - y)) * .6 + .8;
 											xChange = (_pX - x) * .055;
 											waitTimer = 30;
+											
+											audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
+											
 											_alreadyJumped = true;
 										}
 									}

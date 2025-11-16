@@ -6,7 +6,7 @@ if(inGame && !global.gamePaused) {
 	var _camW = camera_get_view_width(cam);
 	var _camH = camera_get_view_height(cam);
 	
-	draw_sprite_tiled_ext(spr_starryNight, 0, _camX * .95, _camY * .975, .5, .5, c_white, 1);
+	draw_sprite_tiled_ext(spr_starryNightFree, 0, _camX * .95, _camY * .975, .5, .5, c_white, 1);
 	
 	var _parralaxMult = -.75;
 	

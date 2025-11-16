@@ -15,5 +15,7 @@ function script_getRobeSprite(index) {
 		return spr_playerFlesh;
 	} else if(index == E_robe.materialMetal) {
 		return spr_playerMetal;
+	} else if(index == E_robe.abyssLord) {
+		return spr_playerAbyssLord;
 	}
 }
