@@ -18,6 +18,9 @@ function script_saveWorld(filename) {
 		}
 	}
 	
+	instance_deactivate_object(obj_materialOrbNode);
+	instance_deactivate_object(obj_itemPickUpParent);
+	
 	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups]; // 9 length so far
 	var _jsonWorld = json_stringify(_saveData);
 	

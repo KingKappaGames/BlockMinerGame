@@ -85,7 +85,7 @@ gameDifficultySelected = global.gameDifficultySelected;
 gameScreenShakeDisplayOptions = ["none", "minimal", "default", "jittery", "mistakes"];
 gameScreenShakeSelected = global.gameScreenShakeSelected;
 
-gameGoreDisplayOptions = ["none", "minimal", "default"];
+gameGoreDisplayOptions = ["disabled", "enabled"];
 gameGoreSelected = global.gameGoreSelected;
 
 gameWindowResolutionSelected = global.gameWindowResolutionSelected;
@@ -179,7 +179,7 @@ menuChangeField = function(fieldChange) {
 			} else if(optionPosition == 2) {
 				gameScreenShakeSelected = clamp(gameScreenShakeSelected + fieldChange, 0, 4);
 			} if(optionPosition == 3) {
-				gameGoreSelected = clamp(gameGoreSelected + fieldChange, 0, 2);
+				gameGoreSelected = clamp(gameGoreSelected + fieldChange, 0, 1);
 			}
 		} else if(optionGroup == 6) { // world gen options
 			if(optionPosition == 1) {

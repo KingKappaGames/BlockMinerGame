@@ -27,8 +27,12 @@ if(parent == noone) {
 	} else {
 		yChange += grav;
 		
-		part_type_direction(bloodSpurtPart, image_angle - 20, image_angle + 20, 0, 0);
-		part_particles_create_color(sysUnder, x, y, bloodSpurtPart, #b59ff2, 2);
+		if(global.gameGoreSelected != 0) {
+			part_type_direction(bloodSpurtPart, image_angle - 20, image_angle + 20, 0, 0);
+			part_particles_create_color(sysUnder, x, y, bloodSpurtPart, #b59ff2, 2);
+		} else {
+			part_particles_create_color(sysUnder, x, y, thickTrailPart, #b59ff2, 1);
+		}
 	}
 	
 	image_angle = point_direction(0, 0, xChange, yChange);
@@ -46,8 +50,12 @@ if(parent == noone) {
 		
 		if(child == noone) {
 			if(sprite_index != spr_wormTail) { // this isn't robust for other sprites of worms but... Oh well?
-				part_type_direction(bloodSpurtPart, image_angle - 200, image_angle - 160, 0, 0);
-				part_particles_create_color(sysUnder, x, y, bloodSpurtPart, #b59ff2, 2);
+				if(global.gameGoreSelected != 0) {
+					part_type_direction(bloodSpurtPart, image_angle - 200, image_angle - 160, 0, 0);
+					part_particles_create_color(sysUnder, x, y, bloodSpurtPart, #b59ff2, 2);
+				} else {
+					part_particles_create_color(sysUnder, x, y, thickTrailPart, #b59ff2, 1);
+				}
 			}
 		}
 	}

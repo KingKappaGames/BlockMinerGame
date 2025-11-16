@@ -8,7 +8,7 @@ if(loadNextFrame) {
 	draw_sprite_ext(sprite_index, image_index, x, y, menuWidth / sprite_width, menuHeight / sprite_height, 0, c_white, 1);
 	
 	if(optionGroup == 0) {
-		var _sin = dsin(current_time / 30);
-		draw_sprite_ext(spr_gameTitle, 0, x + menuWidth / 2, y - 20, .67, .67, 0, make_color_rgb(255, 230 + _sin * 25, 230 + _sin * 25), 1);
+		var _sin = dsin(current_time / 28);
+		draw_sprite_ext(spr_gameTitle, 0, x + menuWidth / 2, y - 22, .67, .67, 0, make_color_rgb(230 + _sin * 25, 230 + _sin * 25, 255), 1);
 	}
 }

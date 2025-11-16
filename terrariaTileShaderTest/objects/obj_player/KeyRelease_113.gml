@@ -1,5 +1,5 @@
-HealthMax = 10000;
-Health = 10000;
+HealthMax = 1000;
+Health = 1000;
 manaMax = 300;
 mana = manaMax;
 manaRegen *= 3;

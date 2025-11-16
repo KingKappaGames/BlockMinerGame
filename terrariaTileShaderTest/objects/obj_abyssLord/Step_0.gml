@@ -53,8 +53,10 @@ if(alive) {
 	deathTimer++;
 	if(deathTimer < deathTimerMax * .7) {
 		if(deathTimer < deathTimerMax * .35) {
-			part_type_direction(bloodSpurtPart, 0, 360, 0, 0);
-			part_particles_create_color(sys, x, y, bloodSpurtPart, c_maroon, 10 - deathTimer / 15);
+			if(global.gameGoreSelected != 0) {
+				part_type_direction(bloodSpurtPart, 0, 360, 0, 0);
+				part_particles_create_color(sys, x, y, bloodSpurtPart, c_maroon, 10 - deathTimer / 15);
+			}
 		}
 		
 		if(random(1) < ((deathTimer - 50) * .008)) {

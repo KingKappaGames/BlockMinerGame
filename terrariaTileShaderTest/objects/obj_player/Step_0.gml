@@ -170,8 +170,12 @@ if(mouse_check_button(mb_left)) {
 					
 					var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
 					if(instance_exists(_hit)) {
-						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
-						part_particles_create_color(sys, _hit.x, _hit.y, bloodSpurtPart, c_maroon, 7);
+						if(global.gameGoreSelected != 0) {
+							part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+							part_particles_create_color(sys, _hit.x, _hit.y, bloodSpurtPart, c_maroon, 7);
+						} else {
+							part_particles_create_color(sys, _hit.x, _hit.y, starPart, c_white, 3);
+						}
 						_hit.hit(.5, _dir, 2);
 					} else { // line check mining
 						
@@ -187,8 +191,12 @@ if(mouse_check_button(mb_left)) {
 					var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
 					if(instance_exists(_hit)) {
 						var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
-						part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
-						part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
+						if(global.gameGoreSelected != 0) {
+							part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+							part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
+						} else {
+							part_particles_create_color(sys, mouse_x, mouse_y, starPart, c_white, 3);
+						}
 						_hit.hit(.5, _dir, 2);
 					} else {
 						miningFunc(mouse_x, mouse_y);

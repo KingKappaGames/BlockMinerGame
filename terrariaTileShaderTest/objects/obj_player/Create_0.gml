@@ -10,6 +10,8 @@ HealthMax = 10;
 Health = HealthMax;
 healthRegen = 1;
 
+heartCurve = animcurve_get_channel(curve_heartBeat, "val");
+
 knockbackMult = 1;
 
 essential = true;
@@ -116,7 +118,7 @@ hitGround = function(fallSpeed, tileIndex) {
 }
 
 hit = function(damage = 0, dir, force = 0, destroyBody = false) {
-	Health -= damage;
+	Health -= damage * (.85 + global.gameDifficultySelected * .15);
 	
 	audio_play_sound(snd_hit, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
 	
@@ -280,9 +282,9 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			
 		} else if(robeIndex == E_robe.superRed) {
 			HealthMax = 50;
-			healthRegen = 3;
+			healthRegen = 4;
 			manaRegen = 1;
-			manaMax = 50;
+			manaMax = 100;
 			array_push(spellsUnlocked, E_spell.explosiveBolt);
 		} else if(robeIndex == E_robe.bananaYellow) {
 			array_push(spellsUnlocked, E_spell.bananaShimmer);
@@ -383,7 +385,7 @@ removeSpell = function(index) {
 
 castSpell = function(targetX, targetY) {
 	if(mana > spellManaCost) {
-		mana -= spellManaCost;
+		mana -= spellManaCost * (.9 + .1 * global.gameDifficultySelected);
 		
 		var _shockwaveType = spell == E_spell.shockwaveMaterial ? materialWearingType : 0;
 		var _spell = script_castSpell(spell, chestX + spellXOff, chestY + spellYOff, mouse_x, mouse_y, 1, 1, _shockwaveType);

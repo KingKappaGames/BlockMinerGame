@@ -135,7 +135,7 @@ global.timer = 0; // count up and use for applying updates eveny n frames
 #region menu/settings values set up
 global.gameDifficultySelected = 1;
 global.gameScreenShakeSelected = 2;
-global.gameGoreSelected = 2;
+global.gameGoreSelected = 1;
 global.gameWindowResolutionSelected = 2;
 global.gameFullscreenSelected = 0;
 global.gameColorFilterSelected = 0;

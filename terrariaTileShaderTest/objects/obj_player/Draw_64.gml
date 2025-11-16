@@ -4,7 +4,26 @@ var _size = 28;
 
 draw_circle(45, 45, _size, true);
 
-draw_text_transformed(90, 18, round(Health), 2, 2, 0);
+if(Health >= 0) {
+	var _healthPortion = Health / HealthMax;
+	var _beat = animcurve_channel_evaluate(heartCurve, (current_time % 1000) / 1000);
+	var _saturation = power(_healthPortion, .75);
+	var _rawHealthForce = max(0, sqr(Health / 50) - .18);
+	var _rawColorAdd = (255 * _saturation * _rawHealthForce);
+	var _col = make_colour_rgb(min(255, 128 + 192 * _saturation + _rawColorAdd), clamp(96 - 96 * _saturation + _rawColorAdd, 0, 255), clamp(96 -  96 * _saturation + _rawColorAdd, 0, 255));
+	
+	var _beatStrength = 1.6 * ((_beat - 1) * _saturation + 1);
+	draw_sprite_ext(spr_heart, 0, 110, 45, _beatStrength, _beatStrength, 0, _col, 1);
+	
+	if(keyboard_check_released(vk_enter)) {
+		Health *= 1.1;
+	}
+}
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_text_transformed(110, 45, round(Health), .75, .75, 0);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
 
 shader_set(shd_fogDistortColor);
 

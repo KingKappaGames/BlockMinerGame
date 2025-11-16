@@ -34,11 +34,19 @@ hit = function(damage, dir = -1, force = 0, destroyBody = false) {
 		yChange -= (dsin(dir) * force   + force * .6) * knockbackMult; // hit in the direction plus a bit up because in 99% of cases that will be nice
 	}
 	
-	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
+	if(global.gameGoreSelected != 0) {
+		part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
+	} else {
+		part_particles_create_color(sys, x, y - 10, starPart, c_white, power(damage * .75, 1.5) + 1);
+	}
 }
 
 die = function() {
-	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, HealthMax * 3 + 15);
+	if(global.gameGoreSelected != 0) {
+		part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, HealthMax * 3 + 15);
+	} else {
+		part_particles_create_color(sys, x, y - 10, starPart, c_white, HealthMax * 1 + 7);
+	}
 	audio_play_sound(snd_chime, 1, 0);
 	
 	instance_destroy();

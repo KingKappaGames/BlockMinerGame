@@ -4,7 +4,7 @@ image_blend = c_white;
 
 image_angle = irandom(360);
 
-duration = 350 + irandom(60);
+duration = 480 + irandom(60);
 
 speedDecay = .99;
 
@@ -20,7 +20,7 @@ hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall d
 	
 	audio_play_sound_at(snd_banana, 0, 0, 0, audioRefQuiet, audioMaxQuiet, 2, false, 0);
 	
-	duration = duration * .75 - 12;
+	duration = duration * .8 - 8;
 }
 
 depth += choose(-10, 10);

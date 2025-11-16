@@ -57,6 +57,7 @@
   },
   "name":"terrariaTileShaderTest",
   "resources":[
+    {"id":{"name":"curve_heartBeat","path":"animcurves/curve_heartBeat/curve_heartBeat.yy",},},
     {"id":{"name":"execute_program_pipe","path":"extensions/execute_program_pipe/execute_program_pipe.yy",},},
     {"id":{"name":"GMLive_fallback","path":"extensions/GMLive_fallback/GMLive_fallback.yy",},},
     {"id":{"name":"shader_replace_simple","path":"extensions/shader_replace_simple/shader_replace_simple.yy",},},
@@ -186,6 +187,7 @@
     {"id":{"name":"spr_defaultMask","path":"sprites/spr_defaultMask/spr_defaultMask.yy",},},
     {"id":{"name":"spr_deleteWorldIcons","path":"sprites/spr_deleteWorldIcons/spr_deleteWorldIcons.yy",},},
     {"id":{"name":"spr_gameTitle","path":"sprites/spr_gameTitle/spr_gameTitle.yy",},},
+    {"id":{"name":"spr_heart","path":"sprites/spr_heart/spr_heart.yy",},},
     {"id":{"name":"spr_introCutscene","path":"sprites/spr_introCutscene/spr_introCutscene.yy",},},
     {"id":{"name":"spr_loadingTextIcon","path":"sprites/spr_loadingTextIcon/spr_loadingTextIcon.yy",},},
     {"id":{"name":"spr_mapIconSprite","path":"sprites/spr_mapIconSprite/spr_mapIconSprite.yy",},},
