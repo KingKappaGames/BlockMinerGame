@@ -25,6 +25,12 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell.yChange = -dsin(_dir) * 10 * speedMult;
 	} else if(spellIndex == E_spell.shockwaveMaterial) {
 		_spell = script_createShockwaveSpell(targetX, targetY, 11,, 1.15, materialType, .6, false);
+	} else if(spellIndex == E_spell.streamer) {
+		var _dir = point_direction(xx, yy, targetX, targetY) + irandom_range(-2, 2);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_magicStreamer);
+		_spell.xChange = dcos(_dir) * 8.8 * speedMult;
+		_spell.yChange = -dsin(_dir) * 8.8 * speedMult;
 	}
 	
 	_spell.source = id;

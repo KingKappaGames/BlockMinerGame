@@ -9,8 +9,6 @@ if(deathTimer < deathTimerMax * .7) {
 		draw_set_alpha(.45);
 		draw_circle_color(x, y - 8, (16 + irandom(3)) * _size, _color, _color, false);
 		draw_set_alpha(1);
-	} else {
-		draw_circle_color(x, y, 40, c_white, c_random, true);
 	}
 }
 

@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_breakBlockWood",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"breaks",
+    "path":"folders/Sounds/breaks.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

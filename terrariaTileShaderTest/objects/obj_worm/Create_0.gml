@@ -9,11 +9,11 @@ speedDecayAir = .98;
 moveDir = irandom(360);
 moveSpeed = .21;
 
-image_blend = c_random;
-
 depth += 5; // go behind tiles.. 
 
 head = noone;
+
+tail = false;
 
 parent = noone;
 child = noone;

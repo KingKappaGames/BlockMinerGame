@@ -49,7 +49,7 @@ if(parent == noone) {
 		y = _parentY + dsin(_dir) * 16;
 		
 		if(child == noone) {
-			if(sprite_index != spr_wormTail) { // this isn't robust for other sprites of worms but... Oh well?
+			if(!tail) { // this isn't robust for other sprites of worms but... Oh well?
 				if(global.gameGoreSelected != 0) {
 					part_type_direction(bloodSpurtPart, image_angle - 200, image_angle - 160, 0, 0);
 					part_particles_create_color(sysUnder, x, y, bloodSpurtPart, #b59ff2, 2);

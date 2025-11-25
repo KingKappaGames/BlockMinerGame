@@ -1,5 +1,5 @@
 if(!flying) {
-	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 3 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, heldResourceIndex >= 0 ? global.tileColors[heldResourceIndex] : global.tileColorsDecorative[abs(heldResourceIndex)], 1);
+	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 5 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, heldResourceIndex >= 0 ? global.tileColors[heldResourceIndex] : global.tileColorsDecorative[abs(heldResourceIndex)], 1);
 }
 
 event_inherited();

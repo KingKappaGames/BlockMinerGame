@@ -71,7 +71,7 @@ pickaxeTimerDelay = 24;
 miningFunc = script_pickaxeMineNormal;
 
 //held material/block values
-heldMaterialsUnlocked = [1, 2, 3, 4, 5, 6, 7, 8];
+heldMaterialsUnlocked = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 heldResourceArrayPos = 0;
 heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
@@ -91,7 +91,7 @@ mana = manaMax;
 manaRegen = 3;
 spellManaCost = 3;
 
-spellsUnlocked = [E_spell.bolt, E_spell.shockwave];
+spellsUnlocked = [E_spell.bolt];
 spellArrayPos = 0;
 spell = spellsUnlocked[spellArrayPos];
 
@@ -126,14 +126,16 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false) {
 		die();
 	} else {
 		if(force != 0) {
-			xChange += dcos(dir) * force;
-			yChange -= dsin(dir) * force   + force; // hit in the direction plus a bit up because in 99% of cases that will be nice
+			xChange += dcos(dir) * force * knockbackMult;
+			yChange -= (dsin(dir) * force   + force) * knockbackMult; // hit in the direction plus a bit up because in 99% of cases that will be nice
 		}
 		
 		hitFlash = 7;
 	}
 	
-	part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
+	if(global.gameGoreSelected == 1) {
+		part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, power(damage * .75, 1.5) * 2 + 1);
+	}
 }
 
 die = function() {
@@ -226,25 +228,32 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) {
 	if(instance_exists(newRobe) || useIndex) {
 		if(robeIndex == E_robe.basicPurple) { // removing values based on taken off robe
-			
+			removeSpell(E_spell.streamer);
 		} else if(robeIndex == E_robe.bananaYellow) {
 			removeSpell(E_spell.bananaShimmer);
 		} else if(robeIndex == E_robe.superRed) {
 			removeSpell(E_spell.explosiveBolt);
 		} else if(robeIndex == E_robe.teleporterWhite) {
-			
+			removeSpell(E_spell.streamer);
 		} else if(robeIndex == E_robe.materialGrass) {
+			removeSpell(E_spell.shockwave);
 			removeSpell(E_spell.shockwaveMaterial);
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.materialCrystal) {
+			removeSpell(E_spell.shockwave);
 			removeSpell(E_spell.shockwaveMaterial);
+			removeSpell(E_spell.streamer);
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.materialFlesh) {
+			removeSpell(E_spell.shockwave);
 			removeSpell(E_spell.shockwaveMaterial);
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.materialMetal) {
+			removeSpell(E_spell.shockwave);
 			removeSpell(E_spell.shockwaveMaterial);
 			materialWearingType = 0;
+		} else if(robeIndex == E_robe.abyssLord) {
+			removeSpell(E_spell.shockwave);
 		}
 		
 		if(dropOld) {
@@ -275,11 +284,13 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 		canTeleport = false;
 		canFly = false;
 		
+		knockbackMult = 1;
+		
 		jumpSpeed = 3.45;
 		moveSpeed = .19;
 		
 		if(robeIndex == E_robe.basicPurple) { // load new robe values (non defaults)
-			
+			array_push(spellsUnlocked, E_spell.streamer);
 		} else if(robeIndex == E_robe.superRed) {
 			HealthMax = 50;
 			healthRegen = 4;
@@ -294,6 +305,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			healthRegen = .5;
 			manaMax = 60;
 			knockbackMult = 2;
+			array_push(spellsUnlocked, E_spell.streamer);
 		} else if(robeIndex == E_robe.materialGrass) {
 			HealthMax = 15;
 			healthRegen = 2;
@@ -301,6 +313,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaRegen = 4;
 			jumpSpeed = 4.25;
 			moveSpeed = .21;
+			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.grass;
 		} else if(robeIndex == E_robe.materialCrystal) {
@@ -310,8 +323,10 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaRegen = 8;
 			jumpSpeed = 2.45;
 			moveSpeed = .12;
+			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.diamond;
+			array_push(spellsUnlocked, E_spell.streamer);
 		} else if(robeIndex == E_robe.materialFlesh) {
 			HealthMax = 20;
 			healthRegen = 4;
@@ -319,6 +334,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaRegen = 2;
 			jumpSpeed = 4.15;
 			moveSpeed = .20;
+			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.flesh;
 		} else if(robeIndex == E_robe.materialMetal) {
@@ -328,6 +344,8 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaRegen = 2;
 			jumpSpeed = 2.4;
 			moveSpeed = .1;
+			knockbackMult = .3;
+			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.metal;
 		} else if(robeIndex == E_robe.abyssLord) {
@@ -341,6 +359,8 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			
 			canFly = true;
 			canBeInVoid = true;
+			
+			array_push(spellsUnlocked, E_spell.shockwave);
 		}
 		
 		mana = min(manaMax, mana);
@@ -354,7 +374,7 @@ equipSpell = function() {
 		spellManaCost = 3;
 	} else if(spell == E_spell.bolt) {
 		spellTimerDelay = 15;
-		spellManaCost = 4;
+		spellManaCost = 3;
 	} else if(spell == E_spell.shockwave) {
 		spellTimerDelay = 70;
 		spellManaCost = 25;
@@ -367,6 +387,9 @@ equipSpell = function() {
 	} else if(spell == E_spell.shockwaveMaterial) {
 		spellTimerDelay = 40;
 		spellManaCost = 30;
+	} else if(spell == E_spell.streamer) {
+		spellTimerDelay = 6;
+		spellManaCost = 2.4;
 	}
 }
 
@@ -380,6 +403,7 @@ removeSpell = function(index) {
 	if(spell == index) { // if removing the spell you're currently holding..
 		spell = spellsUnlocked[0];
 		spellArrayPos = 0;
+		equipSpell();
 	}
 }
 
@@ -393,3 +417,5 @@ castSpell = function(targetX, targetY) {
 }
 
 setPickaxe(E_pickaxe.basicRed);
+
+setRobe(robeIndex, false, true, false);

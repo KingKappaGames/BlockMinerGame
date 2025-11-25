@@ -28,9 +28,9 @@ for(var _x = 1; _x < _screenTileWidth - 1; _x++) {
 			if(_tileVal < 0) { // decorative (non blending) tiles
 				_color = _tColDec[abs(_tileVal)];
 				
-				_tileFrameIndex = ((_screenWorldTileX + _x) * 17 + (_screenWorldTileY + _y) * 73) % 3; //clamp(dsin(current_time) * 7 + 4, 0, 10); // bah (arbitary mix up values)
+				_tileFrameIndex = ((_screenWorldTileX + _x) * 17 + (_screenWorldTileY + _y) * 73) % 5; //clamp(dsin(current_time) * 7 + 4, 0, 10); // bah (arbitary mix up values)
 				
-				draw_sprite_ext(_tSpriteDec[abs(_tileVal)], _tileFrameIndex, _screenWorldX + _x * tileSize + tileSize * .5, _screenWorldY + _y * tileSize + tileSize * .5, 1, 1, 0, _color, 1);
+				draw_sprite_ext(_tSpriteDec[abs(_tileVal)], _tileFrameIndex, _screenWorldX + _x * tileSize + tileSize * .5, _screenWorldY + _y * tileSize + tileSize * .5, _tileFrameIndex % 2 == 0 ? 1 : 1, 1, 0, _color, 1);
 			} else { // physical, real tiles
 				//_color = tileColors[_tileVal];
 				

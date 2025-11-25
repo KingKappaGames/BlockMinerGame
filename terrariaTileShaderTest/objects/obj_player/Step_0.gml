@@ -1,7 +1,7 @@
-pickaxeRange = 10000000;
-pickaxeTimerDelay = 0;
-blockPlacementRange = 1000000;
-heldResourceTimer = 0; // debug auto place and break values
+//pickaxeRange = 10000000;
+//pickaxeTimerDelay = 0;
+//blockPlacementRange = 1000000;
+//heldResourceTimer = 0; // debug auto place and break values
 
 event_inherited();
 

@@ -9,7 +9,7 @@ waitTimer = 0;
 
 damage = 2;
 
-HealthMax = irandom_range(5, 9);
+HealthMax = irandom_range(6, 10);
 Health = HealthMax;
 
 knockbackMult = 1.6;
@@ -22,25 +22,4 @@ tiles = global.worldTiles; // hold value each frame
 move = function(xx, yy) {
 	var _debug = tiles[x div tileSize + xx * directionFacing][y div tileSize - yy];
 	return _debug;
-}
-
-sprite_index = choose(spr_player, spr_playerCrystal, spr_playerGrass, spr_playerMetal);
-
-if(sprite_index == spr_playerCrystal) {
-	HealthMax *= .7;
-	Health *= .7;
-	damage *= 3;
-	moveSpeed *= .9;
-} else if(sprite_index == spr_playerMetal) {
-	HealthMax *= 2;
-	Health *= 2;
-	damage *= 1.25;
-	moveSpeed *= .7;
-	knockbackMult = 0;
-} else if(sprite_index == spr_playerGrass) {
-	HealthMax *= 1;
-	Health *= 1;
-	damage *= 1;
-	moveSpeed *= 1.5;
-	knockbackMult = 1.8;
 }

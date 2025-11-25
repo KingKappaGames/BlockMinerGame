@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_breakBlockStone",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.1946259,
+  "exportDir":"",
+  "name":"snd_breakBlockStone",
+  "parent":{
+    "name":"breaks",
+    "path":"folders/Sounds/breaks.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_breakBlockStone.mp3",
+  "volume":0.51,
+}

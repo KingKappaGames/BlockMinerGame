@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_breakBlockCrystal",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"breaks",
+    "path":"folders/Sounds/breaks.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

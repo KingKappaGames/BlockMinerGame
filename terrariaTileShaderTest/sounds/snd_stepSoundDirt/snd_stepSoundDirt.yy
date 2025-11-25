@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_stepSoundDirt",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"footsteps",
+    "path":"folders/Sounds/footsteps.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

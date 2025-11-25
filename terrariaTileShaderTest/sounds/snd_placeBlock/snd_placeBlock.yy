@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_placeBlock",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"place",
+    "path":"folders/Sounds/place.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

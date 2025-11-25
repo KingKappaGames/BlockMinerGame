@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_stepSoundMud1",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"footsteps",
+    "path":"folders/Sounds/footsteps.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

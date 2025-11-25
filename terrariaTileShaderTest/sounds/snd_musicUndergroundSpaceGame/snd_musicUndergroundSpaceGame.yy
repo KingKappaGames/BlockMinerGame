@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":40.0,
+  "duration":39.999977,
   "exportDir":"",
   "name":"snd_musicUndergroundSpaceGame",
   "parent":{

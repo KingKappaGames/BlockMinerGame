@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_breakBlockGrass",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.6240136,
+  "exportDir":"",
+  "name":"snd_breakBlockGrass",
+  "parent":{
+    "name":"breaks",
+    "path":"folders/Sounds/breaks.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_breakBlockGrass.mp3",
+  "volume":1.0,
+}
