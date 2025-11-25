@@ -31,6 +31,12 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell = instance_create_layer(xx, yy, "Instances", obj_magicStreamer);
 		_spell.xChange = dcos(_dir) * 8.8 * speedMult;
 		_spell.yChange = -dsin(_dir) * 8.8 * speedMult;
+	} else if(spellIndex == E_spell.balista) {
+		var _dir = point_direction(xx, yy, targetX, targetY) + irandom_range(-1, 1);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_balista);
+		_spell.xChange = dcos(_dir) * 13.5 * speedMult;
+		_spell.yChange = -dsin(_dir) * 13.5 * speedMult;
 	}
 	
 	_spell.source = id;

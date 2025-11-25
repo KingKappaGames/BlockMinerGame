@@ -31,7 +31,8 @@ enum E_spell {
 	bananaShimmer = 3,
 	explosiveBolt = 4,
 	shockwaveMaterial = 5,
-	streamer = 6
+	streamer = 6,
+	balista = 7,
 }
 
 enum E_robe {
@@ -257,6 +258,15 @@ part_type_shape(_bloodSpurt, pt_shape_disk);
 part_type_size(_bloodSpurt, .08, .13, -.003, 0);
 part_type_speed(_bloodSpurt, 1.5, 2.7, -.003, 0);
 part_type_gravity(_bloodSpurt, .02, 270);
+
+global.partDebrisKnock = part_type_create();
+var _debrisKnock = global.partDebrisKnock;
+part_type_life(_debrisKnock, 60, 90);
+part_type_shape(_debrisKnock, pt_shape_square);
+part_type_size(_debrisKnock, .03, .05, .005, 0);
+part_type_speed(_debrisKnock, 1.5, 2.7, -.003, 0);
+part_type_gravity(_debrisKnock, .02, 270);
+part_type_alpha3(_debrisKnock, 1, 1, 0);
 
 global.rushPart = part_type_create();
 var _rushPart = global.rushPart;

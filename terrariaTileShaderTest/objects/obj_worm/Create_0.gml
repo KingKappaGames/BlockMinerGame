@@ -21,7 +21,7 @@ child = noone;
 alive = true;
 connected = true;
 
-hit = function(damage, dir, force, destroySegment = false) {
+hit = function(damage, dir = 90, force = 0, destroySegment = false) {
 	if(destroySegment) {
 		instance_destroy();
 	} else {

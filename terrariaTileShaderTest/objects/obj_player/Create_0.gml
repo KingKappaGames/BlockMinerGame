@@ -251,6 +251,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 		} else if(robeIndex == E_robe.materialMetal) {
 			removeSpell(E_spell.shockwave);
 			removeSpell(E_spell.shockwaveMaterial);
+			removeSpell(E_spell.balista);
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.abyssLord) {
 			removeSpell(E_spell.shockwave);
@@ -335,6 +336,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			jumpSpeed = 4.15;
 			moveSpeed = .20;
 			array_push(spellsUnlocked, E_spell.shockwave);
+			array_push(spellsUnlocked, E_spell.balista);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.flesh;
 		} else if(robeIndex == E_robe.materialMetal) {
@@ -376,8 +378,8 @@ equipSpell = function() {
 		spellTimerDelay = 15;
 		spellManaCost = 3;
 	} else if(spell == E_spell.shockwave) {
-		spellTimerDelay = 70;
-		spellManaCost = 25;
+		spellTimerDelay = 120;
+		spellManaCost = 50;
 	} else if(spell == E_spell.bananaShimmer) {
 		spellTimerDelay = 12;
 		spellManaCost = 30;
@@ -390,6 +392,9 @@ equipSpell = function() {
 	} else if(spell == E_spell.streamer) {
 		spellTimerDelay = 6;
 		spellManaCost = 2.4;
+	} else if(spell == E_spell.balista) {
+		spellTimerDelay = 60;
+		spellManaCost = 24;
 	}
 }
 

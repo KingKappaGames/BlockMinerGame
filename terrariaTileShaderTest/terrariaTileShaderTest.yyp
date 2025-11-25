@@ -71,6 +71,7 @@
     {"id":{"name":"fnt_gameplayGeneral","path":"fonts/fnt_gameplayGeneral/fnt_gameplayGeneral.yy",},},
     {"id":{"name":"fnt_menuText","path":"fonts/fnt_menuText/fnt_menuText.yy",},},
     {"id":{"name":"obj_abyssLord","path":"objects/obj_abyssLord/obj_abyssLord.yy",},},
+    {"id":{"name":"obj_balista","path":"objects/obj_balista/obj_balista.yy",},},
     {"id":{"name":"obj_banana","path":"objects/obj_banana/obj_banana.yy",},},
     {"id":{"name":"obj_bananaBomb","path":"objects/obj_bananaBomb/obj_bananaBomb.yy",},},
     {"id":{"name":"obj_bananaShimmer","path":"objects/obj_bananaShimmer/obj_bananaShimmer.yy",},},

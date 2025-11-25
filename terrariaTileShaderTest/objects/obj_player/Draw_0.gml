@@ -14,7 +14,7 @@ if(usingPickaxeNotSpell) {
 
 if(pickaxeMineTileLine && pickaxeTimer > 0) {
 	var _range = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
-	draw_set_alpha(pickaxeTimer * .01);
+	draw_set_alpha(pickaxeTimer * .013);
 	draw_circle_color(chestX + dcos(dirToMouse) * _range, chestY - dsin(dirToMouse) * _range, 2, c_yellow, c_yellow, true);
 	draw_set_alpha(1);
 }
