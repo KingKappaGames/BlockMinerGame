@@ -22,7 +22,7 @@ function script_spawnCreature(creature, xx, yy, healthSet = undefined, direction
 				Health = HealthMax;
 				damage *= 1.25;
 				moveSpeed *= .7;
-				knockbackMult = 0;
+				knockbackMult = .2;
 			} else if(sprite_index == spr_playerGrass) {
 				HealthMax *= 1;
 				Health = HealthMax;

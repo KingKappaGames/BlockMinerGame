@@ -14,6 +14,11 @@ function script_explodeTiles(xx = x, yy = y, breakTries = 150, distAdd = .25, an
 	
 	if(doParticles) {
 		part_particles_create_color(sys, x, y, explosionPart, image_blend, 120);
+		repeat(3) {
+			var _debris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);
+			_debris.xChange = random_range(-5, 5);
+			_debris.yChange = random_range(-5, 5);
+		}
 	}
 	
 	if(doSound) {

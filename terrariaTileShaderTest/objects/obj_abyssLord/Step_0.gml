@@ -21,7 +21,9 @@ if(alive) {
 	moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 	
 	if(_distToPlayer < 30) {
-		player.hit(1, _dirToPlayer, 10);
+		if(global.timer % 8 == 0) {
+			player.hit(3, _dirToPlayer, 10);
+		}
 	} else if(_distToPlayer > 80 && _distToPlayer < 350) {
 		if(current_time % 3000 < 600) {
 			var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-30, 30) + irandom_range(-30, 30), y + irandom_range(-30, 30) + irandom_range(-30, 30), player.x + irandom_range(-10, 10), global.player.y + irandom_range(-10, 10), 1, 1);

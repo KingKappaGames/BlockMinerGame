@@ -20,6 +20,12 @@ if(duration <= 0 || _tileOn > 0) {
 		
 	script_createShockwaveSpell(x, y, 3, tileSize * 1.3, 1.26,, 1);
 	
+	repeat(3) {
+		var _debris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);
+		_debris.xChange = random_range(-5, 5) + random_range(-5, 5);
+		_debris.yChange = random_range(-5, 5) + random_range(-5, 5);
+	}
+	
 	part_particles_create_color(sys, x, y, explosionPart, merge_color(image_blend, c_white, .5), 25); // EXPLOSIVE PARTS
 	part_type_speed(trailerPart, 2, 5, 0, 0);
 	part_particles_create(sys, x, y, true, irandom_range(3, 4)); // TRAILINGS

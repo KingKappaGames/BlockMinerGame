@@ -8,6 +8,8 @@ event_inherited();
 var _timer = global.timer;
 dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 
+iFrames--;
+
 #region movement checks and forces
 if(canFly) {
 	if(keyboard_check_released(ord("X"))) {
@@ -334,7 +336,7 @@ heldResourceYChange *= .84;
 var _camChange = keyboard_check(vk_subtract) - keyboard_check(vk_add);
 if(_camChange != 0) {
 	var _camScaleChange = 1 + _camChange * .01;
-	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 2560), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 1440));
+	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 960), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 540));
 }
 
 var _mousePush = 3; // inverse

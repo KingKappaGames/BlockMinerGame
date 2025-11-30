@@ -5,7 +5,7 @@ function script_saveWorld(filename) {
 	
 	instance_activate_object(obj_materialOrbNode);
 	instance_activate_object(obj_itemPickUpParent);
-	
+
 	var _materialNodeArray = [];
 	with(obj_materialOrbNode) {
 		array_push(_materialNodeArray, [x, y, materialType]);
@@ -47,7 +47,7 @@ function script_loadWorld(filename) {
 	_player.x = _loadData[1];
 	_player.y = _loadData[2];
 	
-	_player.spellsUnlocked = _loadData[3];
+	//_player.spellsUnlocked = _loadData[3]; // when robe is loaded all robe related spells are updated, however if I bring back the permanent unlocked spells then this becomes more complex...
 	_player.heldMaterialsUnlocked = _loadData[4];
 	_player.setRobe(_loadData[5],, true, false);
 	_player.setPickaxe(_loadData[6]);

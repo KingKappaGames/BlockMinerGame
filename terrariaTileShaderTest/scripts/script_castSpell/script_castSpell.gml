@@ -37,6 +37,12 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell = instance_create_layer(xx, yy, "Instances", obj_balista);
 		_spell.xChange = dcos(_dir) * 13.5 * speedMult;
 		_spell.yChange = -dsin(_dir) * 13.5 * speedMult;
+	} else if(spellIndex == E_spell.bouncyBolt) {
+		var _dir = point_direction(xx, yy, targetX, targetY) + irandom_range(-3, 3);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_bouncingBolt);
+		_spell.xChange = dcos(_dir) * 5.1 * speedMult;
+		_spell.yChange = -dsin(_dir) * 5.1 * speedMult;
 	}
 	
 	_spell.source = id;

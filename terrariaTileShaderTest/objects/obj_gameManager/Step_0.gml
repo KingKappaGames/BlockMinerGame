@@ -34,6 +34,37 @@ if(inGame) {
 						}
 					}
 				}
+				
+				var _corruptionEvent = global.gameCorruptionSelected;
+				if(_corruptionEvent != 0) {
+					repeat(10) {
+						var _worldTiles = worldTiles;
+						var _tileX = 1 + irandom(global.tileRangeWorld - 3);
+						var _tileY = 1 + irandom(global.tileRangeWorld - 3);
+						var _corruptTileType = global.corruptionBlocks[global.gameCorruptionSelected];
+						
+						if(_worldTiles[_tileX][_tileY] == _corruptTileType) {
+							if(_worldTiles[_tileX - 1][_tileY] != E_tile.empty) {
+								script_placeTile(_tileX - 1, _tileY, _corruptTileType, true);
+							}
+							if(_worldTiles[_tileX + 1][_tileY] != E_tile.empty) {
+								script_placeTile(_tileX + 1, _tileY, _corruptTileType, true); // turn existing blocks radially into corrupt type
+							}
+							if(_worldTiles[_tileX][_tileY - 1] != E_tile.empty) {
+								script_placeTile(_tileX, _tileY - 1, _corruptTileType, true);
+							}
+							if(_worldTiles[_tileX][_tileY + 1] != E_tile.empty) {
+								script_placeTile(_tileX, _tileY + 1, _corruptTileType, true);
+							}
+						} else {
+							if(irandom(20) == 0) {
+								if(_worldTiles[_tileX][_tileY] != E_tile.empty) {
+									script_placeTile(_tileX, _tileY, _corruptTileType, true);// start morphing blocks into the corrupting type
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		

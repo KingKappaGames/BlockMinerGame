@@ -17,6 +17,8 @@ pauseSurface = -1;
 
 ppxSurface = -1;
 
+worldTiles = -1; // maybe doesn't exist at times since manager is above the law... updated for world effects that need to run scripts with the variable
+
 cursor_sprite = spr_cursor;
 window_set_cursor(cr_none);
 
@@ -33,6 +35,7 @@ enum E_spell {
 	shockwaveMaterial = 5,
 	streamer = 6,
 	balista = 7,
+	bouncyBolt = 8,
 }
 
 enum E_robe {
@@ -150,6 +153,7 @@ global.gameAmbientVolume = 5;
 
 global.gameRainSelected = 0;
 global.gameCorruptionSelected = 0;
+global.corruptionBlocks = [-1, E_tile.empty, E_tile.flesh, E_tile.diamond, E_tile.metal, E_tile.explosive]; //["none", "break blocks", "flesh", "crystal", "metal", "explosives"];
 #endregion
 
 #region camera values
@@ -251,6 +255,16 @@ part_type_direction(_thickTrail, 0, 360, 0, 0);
 part_type_orientation(_thickTrail, 0, 360, 0, 0, false);
 part_type_gravity(_thickTrail, -.01, 270);
 
+global.partSwirl = part_type_create();
+var _swirl = global.partSwirl;
+part_type_life(_swirl, 50, 70);
+part_type_sprite(_swirl, spr_swirldShape, false, false, false);
+part_type_size(_swirl, 1, 1.4, -.03, 0);
+part_type_speed(_swirl, 0.0, .65, -.005, 0);
+part_type_direction(_swirl, 0, 360, 0, 0);
+part_type_orientation(_swirl, 0, 360, 0, 0, false);
+part_type_gravity(_swirl, -.01, 270);
+
 global.bloodSpurt = part_type_create();
 var _bloodSpurt = global.bloodSpurt;
 part_type_life(_bloodSpurt, 35, 70);
@@ -276,6 +290,22 @@ part_type_size(_rushPart, .15, .21, -.002, 0);
 part_type_orientation(_rushPart, 0, 360, 0, 0, false);
 part_type_gravity(_rushPart, .04, 270);
 
+global.partStreamerSpellTrail = part_type_create();
+var _streamerTrail = global.partStreamerSpellTrail;
+part_type_life(_streamerTrail, 30, 40);
+part_type_shape(_streamerTrail, pt_shape_square);
+part_type_size(_streamerTrail, .06, .06, -.001, 0);
+part_type_alpha2(_streamerTrail, 1, .2);
+part_type_color1(_streamerTrail, #ffffff);
+
+global.partSmallStreamerTrail = part_type_create();
+var _smallStreamerTrail = global.partSmallStreamerTrail;
+part_type_life(_smallStreamerTrail, 27, 27);
+part_type_shape(_smallStreamerTrail, pt_shape_square);
+part_type_size(_smallStreamerTrail, .04, .04, -.001, 0);
+part_type_alpha2(_smallStreamerTrail, 1, 0);
+part_type_color1(_smallStreamerTrail, #ffffff);
+
 global.itemGlimmerPart = part_type_create();
 var _itemGlimmer = global.itemGlimmerPart;
 part_type_life(_itemGlimmer, 90, 300);
@@ -284,6 +314,8 @@ part_type_size(_itemGlimmer, .06, .09, -.0004, 0);
 part_type_speed(_itemGlimmer, 0.2, .4, -.001, 0);
 part_type_direction(_itemGlimmer, 0, 360, 0, 0);
 part_type_gravity(_itemGlimmer, -.003, 270);
+
+breakPart = global.breakPart; // annoying!
 #endregion
 
 #endregion
@@ -353,6 +385,7 @@ startGameWorld = function(worldIndex, exists = false) {
 	
 	inGame = true;
 	worldCurrent = worldIndex;
+	worldTiles = global.worldTiles;
 	
 	if(!exists) {
 		script_saveWorld("worldSave" + string(worldCurrent) + ".txt"); // save newly generated world
@@ -377,6 +410,7 @@ exitGameWorld = function() {
 	}
 	
 	inGame = false;
+	worldTiles = -1;
 }
 
 initMainMenuScreen = function() {

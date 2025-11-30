@@ -10,6 +10,8 @@ HealthMax = 10;
 Health = HealthMax;
 healthRegen = 1;
 
+iFrames = 0;
+
 heartCurve = animcurve_get_channel(curve_heartBeat, "val");
 
 knockbackMult = 1;
@@ -117,7 +119,14 @@ hitGround = function(fallSpeed, tileIndex) {
 	}
 }
 
-hit = function(damage = 0, dir, force = 0, destroyBody = false) {
+hit = function(damage = 0, dir, force = 0, destroyBody = false, iFramesSet = undefined, ignoreIframes = false) {
+	
+	if(!ignoreIframes && iFrames > 0) { exit; } // good?
+	
+	iFramesSet ??= damage * 2 + 4 - global.gameDifficultySelected;
+	
+	iFrames = iFramesSet;
+	
 	Health -= damage * (.85 + global.gameDifficultySelected * .15);
 	
 	audio_play_sound(snd_hit, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
@@ -231,6 +240,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			removeSpell(E_spell.streamer);
 		} else if(robeIndex == E_robe.bananaYellow) {
 			removeSpell(E_spell.bananaShimmer);
+			removeSpell(E_spell.bouncyBolt);
 		} else if(robeIndex == E_robe.superRed) {
 			removeSpell(E_spell.explosiveBolt);
 		} else if(robeIndex == E_robe.teleporterWhite) {
@@ -246,6 +256,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.materialFlesh) {
 			removeSpell(E_spell.shockwave);
+			removeSpell(E_spell.bouncyBolt);
 			removeSpell(E_spell.shockwaveMaterial);
 			materialWearingType = 0;
 		} else if(robeIndex == E_robe.materialMetal) {
@@ -285,6 +296,8 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 		canTeleport = false;
 		canFly = false;
 		
+		bombMax = 3;
+		
 		knockbackMult = 1;
 		
 		jumpSpeed = 3.45;
@@ -299,6 +312,8 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaMax = 100;
 			array_push(spellsUnlocked, E_spell.explosiveBolt);
 		} else if(robeIndex == E_robe.bananaYellow) {
+			bombMax = 5;
+			array_push(spellsUnlocked, E_spell.bouncyBolt);
 			array_push(spellsUnlocked, E_spell.bananaShimmer);
 		} else if(robeIndex == E_robe.teleporterWhite) {
 			canTeleport = true;
@@ -306,6 +321,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			healthRegen = .5;
 			manaMax = 60;
 			knockbackMult = 2;
+			bombMax = 1;
 			array_push(spellsUnlocked, E_spell.streamer);
 		} else if(robeIndex == E_robe.materialGrass) {
 			HealthMax = 15;
@@ -324,6 +340,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			manaRegen = 8;
 			jumpSpeed = 2.45;
 			moveSpeed = .12;
+			bombMax = 2;
 			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.diamond;
@@ -331,12 +348,12 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 		} else if(robeIndex == E_robe.materialFlesh) {
 			HealthMax = 20;
 			healthRegen = 4;
-			manaMax = 40;
+			manaMax = 60;
 			manaRegen = 2;
 			jumpSpeed = 4.15;
 			moveSpeed = .20;
+			array_push(spellsUnlocked, E_spell.bouncyBolt);
 			array_push(spellsUnlocked, E_spell.shockwave);
-			array_push(spellsUnlocked, E_spell.balista);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.flesh;
 		} else if(robeIndex == E_robe.materialMetal) {
@@ -347,6 +364,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			jumpSpeed = 2.4;
 			moveSpeed = .1;
 			knockbackMult = .3;
+			bombMax = 5;
 			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.metal;
@@ -395,6 +413,9 @@ equipSpell = function() {
 	} else if(spell == E_spell.balista) {
 		spellTimerDelay = 60;
 		spellManaCost = 24;
+	} else if(spell == E_spell.bouncyBolt) {
+		spellTimerDelay = 12;
+		spellManaCost = 5;
 	}
 }
 

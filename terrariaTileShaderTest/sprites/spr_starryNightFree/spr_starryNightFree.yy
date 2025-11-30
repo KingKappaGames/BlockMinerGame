@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"spr_starryNightFree",
   "bboxMode":0,
-  "bbox_bottom":299,
+  "bbox_bottom":599,
   "bbox_left":0,
   "bbox_right":599,
   "bbox_top":0,
@@ -12,14 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"9748b736-5c78-444d-83a6-75e82e7f1c74","name":"9748b736-5c78-444d-83a6-75e82e7f1c74","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"9bf7031e-b9f7-4b5a-90db-2d774db4da72","name":"9bf7031e-b9f7-4b5a-90db-2d774db4da72","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":300,
+  "height":600,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"c9b271ee-4cc3-4eda-af59-ede8a4607076","blendMode":0,"displayName":"default","isLocked":false,"name":"c9b271ee-4cc3-4eda-af59-ede8a4607076","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"121cb68c-ec95-4529-9700-f27eaa4356e6","blendMode":0,"displayName":"default","isLocked":false,"name":"121cb68c-ec95-4529-9700-f27eaa4356e6","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_starryNightFree",
   "nineSlice":{
@@ -90,8 +90,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"9748b736-5c78-444d-83a6-75e82e7f1c74","path":"sprites/spr_starryNightFree/spr_starryNightFree.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"348a15b6-7070-447a-9748-573b6aa8c818","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"9bf7031e-b9f7-4b5a-90db-2d774db4da72","path":"sprites/spr_starryNightFree/spr_starryNightFree.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"301ec093-a12e-4562-8624-1bb4a1ed2dd3","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

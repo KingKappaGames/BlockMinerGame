@@ -54,6 +54,6 @@ if(duration <= 0 || _tileOn > 0) {
 	}
 	
 	instance_destroy();
-} else if(_tileOn < 0) {
+}/* else if(_tileOn < 0) {
 	script_breakTileAtPos(x, y, .5);
-}
+}*/

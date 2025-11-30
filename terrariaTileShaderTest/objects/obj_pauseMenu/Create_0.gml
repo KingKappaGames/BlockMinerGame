@@ -49,7 +49,7 @@ options[5][3] = "GORE";
 
 options[6][0] = "RETURN";
 options[6][1] = "RAIN";
-options[6][2] = "OTHER";
+options[6][2] = "CORRUPTION";
 
 optionPosition = 0;
 optionGroup = 0;

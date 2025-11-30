@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_teleportWarble",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"spells",
+    "path":"folders/Sounds/spells.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
