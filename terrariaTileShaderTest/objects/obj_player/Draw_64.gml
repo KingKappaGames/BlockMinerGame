@@ -50,3 +50,5 @@ if(bombCount > 2)  {
 }
 
 shader_reset();
+
+draw_sprite(spr_spellIcons, spell, 45, 45);

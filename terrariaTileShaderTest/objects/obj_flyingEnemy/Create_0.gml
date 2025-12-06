@@ -45,6 +45,8 @@ hit = function(damage, dir, force, destroyBody = false) {
 			hitFlash = 5;
 		}
 		
+		audio_play_sound(snd_hit, 0, 0, random_range(.85, 1.25), undefined, random_range(1.2, 2.1));
+		
 		xChange += dcos(dir) * force * knockbackMult;
 		yChange -= dsin(dir) * force * knockbackMult;
 	}
@@ -55,7 +57,11 @@ hit = function(damage, dir, force, destroyBody = false) {
 die = function() {
 	alive = false;
 	
+	audio_play_sound_at(snd_bugDie, x, y, 0, audioRefMedium, audioMaxMedium, 1, 0, 0, 1,, random_range(.9, 1.1));
+	
 	sprite_index = deadSprite;
 	image_angle = irandom(360);
+	
+	
 	//uh, then what?
 }

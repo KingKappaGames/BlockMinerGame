@@ -64,7 +64,10 @@ if(alive) {
 } else {
 	deathTimer++;
 	
-	yChange += grav;
+	yChange += grav * .75; // bugs have less gravity yo
+	
+	xChange *= speedDecay;
+	yChange *= .98; // hard coded, yes. CAI
 	
 	if(irandom(11) == 0) {
 		part_particles_create_color(sys, x + irandom_range(-8, 8), y + irandom_range(-8, 8), global.partSwirl, #aa9933, 1 + irandom(1));

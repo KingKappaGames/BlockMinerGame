@@ -27,6 +27,8 @@ chestY = y - chestOff;
 
 flying = false; // whether the player is flying around or walking/jumping
 
+deathSpin = 0;
+
 jumpSpeed = 3.45;
 moveSpeed = .19;
 moveSpeedAir = .11;
@@ -36,6 +38,9 @@ moveSpeedFlyVertical = .17;
 speedDecay = .91;
 speedDecayAir = .96;
 speedDecayFly = .94;
+
+horizontalBounce = 0;
+verticalBounce = 0;
 
 materialWearingType = 0;
 
@@ -129,7 +134,9 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false, iFramesSet = und
 	
 	Health -= damage * (.85 + global.gameDifficultySelected * .15);
 	
-	audio_play_sound(snd_hit, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
+	deathSpin += random_range(-5 - damage, 5 + damage);
+	
+	audio_play_sound(snd_hit, 0, 0, random_range(1, 1.35), undefined, random_range(.85, 1.25));
 	
 	if(Health <= 0) {
 		die();
@@ -147,7 +154,50 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false, iFramesSet = und
 	}
 }
 
-die = function() {
+die = function() { 
+	if(alive) {
+		xChange += random_range(-8, 8);
+		yChange += random_range(-8, 8);
+		
+		deathSpin += random_range(-10, 10);
+		
+		horizontalBounce = -.35;
+		verticalBounce = -.5;
+		
+		part_particles_create_color(sys, x, y - 10, breakPart, c_purple, 50);
+		
+		var _droppedTalismanDebris = instance_create_layer(x, y, "Instances", obj_bouncingDebris); // doesn't actually affect talisman or pickaxe! V
+		_droppedTalismanDebris.xChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedTalismanDebris.yChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedTalismanDebris.sprite_index = spr_talisman;
+		
+		var _droppedPickaxeDebris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);
+		_droppedPickaxeDebris.xChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedPickaxeDebris.yChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedPickaxeDebris.sprite_index = pickaxeSprite;
+		
+		var _droppedMaterialDebris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);
+		_droppedPickaxeDebris.xChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedPickaxeDebris.yChange = random_range(-5, 5) + random_range(-5, 5);
+		_droppedPickaxeDebris.sprite_index = spr_resourceHeldIcons;
+		_droppedPickaxeDebris.image_index = heldResourceIndex;
+		
+		alive = false;
+		
+		respawnTimer = 210;
+	}
+}
+
+respawn = function() {
+	alive = true;
+	
+	image_angle = 0;
+	xChange = 0;
+	yChange = 0;
+	deathSpin = 0; // refresh for next event..
+	
+	horizontalBounce = 0;
+	verticalBounce = 0;
 	
 	//place robe pickup here
 	refreshCondition(true);
@@ -170,8 +220,6 @@ die = function() {
 	}
 	
 	script_centerCameraOnPlayer();
-	
-	part_particles_create_color(sys, x, y - 10, breakPart, c_purple, 50);
 }
 
 refreshCondition = function(useDifficulty = false) {
@@ -365,6 +413,7 @@ setRobe = function(newRobe, moveToNew = true, useIndex = false, dropOld = true) 
 			moveSpeed = .1;
 			knockbackMult = .3;
 			bombMax = 5;
+			array_push(spellsUnlocked, E_spell.balista);
 			array_push(spellsUnlocked, E_spell.shockwave);
 			array_push(spellsUnlocked, E_spell.shockwaveMaterial);
 			materialWearingType = E_tile.metal;

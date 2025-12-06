@@ -15,7 +15,7 @@ directionFacing = 1;
 hit = function(damage, dir = -1, force = 0, destroyBody = false) {
 	Health -= damage;
 	
-	audio_play_sound(snd_hit, 0, 0, random_range(.45, .65), undefined, random_range(.85, 1.25));
+	audio_play_sound(snd_hit, 0, 0, random_range(.75, .9), undefined, random_range(.85, 1.25));
 	
 	if(object_index != obj_abyssLord) {
 		if(irandom(12) == 0) {
@@ -47,7 +47,7 @@ die = function() {
 	} else {
 		part_particles_create_color(sys, x, y - 10, starPart, c_white, HealthMax * 1 + 7);
 	}
-	audio_play_sound(snd_chime, 1, 0);
+	audio_play_sound_at(snd_monsterSquak, x, y, 0, audioRefMedium, audioMaxMedium, 1, 0, 0, 1,, random_range(.9, 1.1));
 	
 	instance_destroy();
 }

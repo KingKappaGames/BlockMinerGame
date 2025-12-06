@@ -297,12 +297,16 @@ part_type_shape(_streamerTrail, pt_shape_square);
 part_type_size(_streamerTrail, .06, .06, -.001, 0);
 part_type_alpha2(_streamerTrail, 1, .2);
 part_type_color1(_streamerTrail, #ffffff);
+part_type_speed(_streamerTrail, 0, .3, -.004, 0);
+part_type_direction(_streamerTrail, 0, 360, 0, 0);
+part_type_orientation(_streamerTrail, 0, 360, 1.7, 0, 0);
+
 
 global.partSmallStreamerTrail = part_type_create();
 var _smallStreamerTrail = global.partSmallStreamerTrail;
 part_type_life(_smallStreamerTrail, 27, 27);
 part_type_shape(_smallStreamerTrail, pt_shape_square);
-part_type_size(_smallStreamerTrail, .04, .04, -.001, 0);
+part_type_size(_smallStreamerTrail, .032, .032, -.0008, 0);
 part_type_alpha2(_smallStreamerTrail, 1, 0);
 part_type_color1(_smallStreamerTrail, #ffffff);
 

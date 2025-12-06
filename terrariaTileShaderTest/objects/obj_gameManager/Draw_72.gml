@@ -6,7 +6,9 @@ if(inGame && !global.gamePaused) {
 	var _camW = camera_get_view_width(cam);
 	var _camH = camera_get_view_height(cam);
 	
-	draw_sprite_tiled_ext(spr_starryNightFree, 0, _camX * .97, _camY * .985, 2, 2, c_white, 1);
+	shader_set(shd_fogDistorySkyBackground);
+	draw_sprite_tiled_ext(spr_starryNightFree, 0, _camX * .97, _camY * .985 - 300 - current_time * .00015, 2, 2, c_white, 1);
+	shader_reset();
 	
 	var _parralaxMult = -.75;
 	

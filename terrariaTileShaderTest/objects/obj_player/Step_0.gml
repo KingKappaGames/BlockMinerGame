@@ -11,7 +11,7 @@ dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 iFrames--;
 
 #region movement checks and forces
-if(canFly) {
+if(canFly && alive) {
 	if(keyboard_check_released(ord("X"))) {
 		if(flying) {
 			flying = false;
@@ -38,269 +38,274 @@ if(inWorld) {
 	}
 }
 
-var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
-
-if(_tileInside) {
-	if(_timer % 50 == 0) {
-		hit(1);
-	}
-}
-
-var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
-
-if(!flying) {
-	if(image_speed != 0) {
-		image_speed = 0;
-	}
-	if(keyboard_check(ord("W")) || keyboard_check(vk_space)) {
-		if(_tileStanding != 0) {
-			yChange = -jumpSpeed;
-			_tileStanding = 0;
+if(alive) {
+	var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
+	
+	if(_tileInside) {
+		if(_timer % 50 == 0) {
+			hit(1);
 		}
 	}
 	
-	if(keyboard_check(ord("A"))) {
-		if(_tileStanding != 0) {
-			xChange -= moveSpeed;
-			if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
-				var _sound = global.tileStepSounds[_tileStanding];
-				if(is_array(_sound)) {
-					_sound = _sound[irandom(array_length(_sound) - 1)];
-				}
-				audio_play_sound(_sound, 0, 0, 1.25);
-			}
-		} else {
-			xChange -= moveSpeedAir;
-		}
-		
-		directionFacing = -1;
-		pickaxeAngleBase = 90 + 30 * directionFacing;
-	} else if(keyboard_check(ord("D"))) {
-		if(_tileStanding != 0) {
-			xChange += moveSpeed;
-			if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
-				var _sound = global.tileStepSounds[_tileStanding];
-				if(is_array(_sound)) {
-					_sound = _sound[irandom(array_length(_sound) - 1)];
-				}
-				audio_play_sound(_sound, 0, 0, 1.25);
-			}
-		} else {
-			xChange += moveSpeedAir;
-		}
-		directionFacing = 1;
-		pickaxeAngleBase = 90 + 30 * directionFacing;
-	}
-} else {
-	mana -= .06; 
-	if(mana <= 0) {
-		flying = false;
-		mana = 0;
-	}
+	var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 	
-	if(image_speed != 12) {
-		if(sprite_index == spr_playerAbyssLord) {
-			image_speed = 12;
-		}
-	}
-	
-	// flying costs mana
-	part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
-	
-	if(keyboard_check(ord("A"))) {
-		xChange -= moveSpeedFly;
-		
-		directionFacing = -1;
-	}
-	if(keyboard_check(ord("D"))) {
-		xChange += moveSpeedFly;
-		
-		directionFacing = 1; // direction facing should be determined by angle of fly not input
-	}
-	
-	if(keyboard_check(ord("W"))) { // if in edge lands just move as in fly mode...
-		yChange -= moveSpeedFlyVertical;
-	}
-	if(keyboard_check(ord("S"))) {
-		yChange += moveSpeedFlyVertical * 1.25;
-	}
-}
-
-if(_tileStanding != 0) {
-	xChange *= speedDecay;
-	image_angle = 0;
-	
-	if(flying) {
-		flying = false;
-	}
-} else {
-	xChange *= speedDecayAir;
 	if(!flying) {
-		yChange += grav; // gravity
-		yChange *= .995; // tiny bit of falling slow down
-	} else {
-		yChange *= speedDecayAir;
+		if(image_speed != 0) {
+			image_speed = 0;
+		}
+		if(keyboard_check(ord("W")) || keyboard_check(vk_space)) {
+			if(_tileStanding != 0) {
+				yChange = -jumpSpeed;
+				_tileStanding = 0;
+			}
+		}
 		
-		image_angle += angle_difference(point_direction(0, 0, xChange, yChange - 3.5) - 90, image_angle) * .08;
+		if(keyboard_check(ord("A"))) {
+			if(_tileStanding != 0) {
+				xChange -= moveSpeed;
+				if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
+					var _sound = global.tileStepSounds[_tileStanding];
+					if(is_array(_sound)) {
+						_sound = _sound[irandom(array_length(_sound) - 1)];
+					}
+					audio_play_sound(_sound, 0, 0, 1.25);
+				}
+			} else {
+				xChange -= moveSpeedAir;
+			}
+			
+			directionFacing = -1;
+			pickaxeAngleBase = 90 + 30 * directionFacing;
+		} else if(keyboard_check(ord("D"))) {
+			if(_tileStanding != 0) {
+				xChange += moveSpeed;
+				if(_timer % (20 - floor(abs(xChange))) == 0) { // if ANY step sound playing then don't play the sound
+					var _sound = global.tileStepSounds[_tileStanding];
+					if(is_array(_sound)) {
+						_sound = _sound[irandom(array_length(_sound) - 1)];
+					}
+					audio_play_sound(_sound, 0, 0, 1.25);
+				}
+			} else {
+				xChange += moveSpeedAir;
+			}
+			directionFacing = 1;
+			pickaxeAngleBase = 90 + 30 * directionFacing;
+		}
+	} else {
+		mana -= .06; 
+		if(mana <= 0) {
+			flying = false;
+			mana = 0;
+		}
+		
+		if(image_speed != 12) {
+			if(sprite_index == spr_playerAbyssLord) {
+				image_speed = 12;
+			}
+		}
+		
+		// flying costs mana
+		part_particles_create_color(sys, x + xChange + irandom_range(-2, 2), y + yChange + irandom_range(-2, 2), thickTrailPart, #251030, 1);
+		
+		if(keyboard_check(ord("A"))) {
+			xChange -= moveSpeedFly;
+			
+			directionFacing = -1;
+		}
+		if(keyboard_check(ord("D"))) {
+			xChange += moveSpeedFly;
+			
+			directionFacing = 1; // direction facing should be determined by angle of fly not input
+		}
+		
+		if(keyboard_check(ord("W"))) { // if in edge lands just move as in fly mode...
+			yChange -= moveSpeedFlyVertical;
+		}
+		if(keyboard_check(ord("S"))) {
+			yChange += moveSpeedFlyVertical * 1.25;
+		}
 	}
-}
-
-if(flying) { // argggggg flying checks redundant
-	chestX = x + dcos(image_angle + 90) * chestOff;
-	chestY = y - dsin(image_angle + 90) * chestOff;
-} else {
-	chestX = x;
-	chestY = y - chestOff;
-}
+	
+	if(_tileStanding != 0) {
+		xChange *= speedDecay;
+		image_angle = 0;
+		
+		if(flying) {
+			flying = false;
+		}
+	} else {
+		xChange *= speedDecayAir;
+		if(!flying) {
+			yChange += grav; // gravity
+			yChange *= .995; // tiny bit of falling slow down
+		} else {
+			yChange *= speedDecayAir;
+			
+			image_angle += angle_difference(point_direction(0, 0, xChange, yChange - 3.5) - 90, image_angle) * .08;
+		}
+	}
+	
+	if(flying) { // argggggg flying checks redundant
+		chestX = x + dcos(image_angle + 90) * chestOff;
+		chestY = y - dsin(image_angle + 90) * chestOff;
+	} else {
+		chestX = x;
+		chestY = y - chestOff;
+	}
+	}
 
 audio_listener_set_position(0, x, y, 0);
 #endregion
 
 #region item use controls
-if(mouse_check_button(mb_left)) {
-	directionFacing = sign(mouse_x - chestX);
-	if(directionFacing == 0) {
-		directionFacing = 1;
+if(alive) {
+	if(mouse_check_button(mb_left)) {
+		directionFacing = sign(mouse_x - chestX);
+		if(directionFacing == 0) {
+			directionFacing = 1;
+		}
+		
+		if(usingPickaxeNotSpell) {
+			if(!flying) {
+				if(pickaxeTimer <= 0) {
+					if(pickaxeMineTileLine) {
+						var _dist = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
+						var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
+						
+						var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
+						if(instance_exists(_hit)) {
+							if(global.gameGoreSelected != 0) {
+								part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+								part_particles_create_color(sys, _hit.x, _hit.y, bloodSpurtPart, c_maroon, 7);
+							} else {
+								part_particles_create_color(sys, _hit.x, _hit.y, starPart, c_white, 3);
+							}
+							_hit.hit(.5, _dir, 2);
+						} else { // line check mining
+							
+							for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
+								if(miningFunc(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
+									break;
+								}
+							}
+							
+						}
+					} else if(point_distance(chestX, chestY, mouse_x, mouse_y) < pickaxeRange) { // single mine target
+						
+						var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
+						if(instance_exists(_hit)) {
+							var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
+							if(global.gameGoreSelected != 0) {
+								part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
+								part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
+							} else {
+								part_particles_create_color(sys, mouse_x, mouse_y, starPart, c_white, 3);
+							}
+							_hit.hit(.5, _dir, 2);
+						} else {
+							miningFunc(mouse_x, mouse_y);
+						}
+						
+					}
+					
+					pickaxeAngleChange -= directionFacing * 65 * pickaxeSwingAngleAddMult;
+						
+					pickaxeTimer = pickaxeTimerDelay;
+				}
+			}
+		} else { // spell
+			if(spellTimer <= 0) {
+				castSpell(mouse_x, mouse_y);
+				
+				spellXChange = dcos(dirToMouse) * 5.2;
+				spellYChange = -dsin(dirToMouse) * 4.4;
+				
+				spellTimer = spellTimerDelay;
+			}
+		}
+	} else if(!flying && mouse_check_button(mb_right)) {
+		directionFacing = sign(mouse_x - x);
+		if(directionFacing == 0) {
+			directionFacing = 1;
+		}
+		
+		if(heldResourceTimer <= 0) {
+			if(point_distance(x, y - chestOff, mouse_x, mouse_y) < blockPlacementRange) {
+				if(script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex)) {
+					heldResourceXChange = dcos(dirToMouse) * 5.2;
+					heldResourceYChange = -dsin(dirToMouse) * 4.4;
+					
+					heldResourceTimer = heldResourceTimerDelay;
+				}
+			}
+		}
+	} else if(mouse_check_button_released(mb_middle)) {
+		if(bombCount > 0) {
+			bombCount--;
+			
+			var _bombType = obj_bomb;
+			if(robeIndex == E_robe.bananaYellow) {
+				_bombType = obj_bananaBomb;
+			}
+			
+			var _bomb = instance_create_layer(chestX, chestY, "Instances", _bombType);
+			_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
+			_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
+		}
 	}
 	
-	if(usingPickaxeNotSpell) {
-		if(!flying) {
-			if(pickaxeTimer <= 0) {
-				if(pickaxeMineTileLine) {
-					var _dist = min(point_distance(chestX, chestY, mouse_x, mouse_y), pickaxeRange);
-					var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
+	if(canTeleport && mana > 25) {
+		if(keyboard_check_released(ord("T"))) {
+			if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || global.worldTiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
+				mana -= 25;
+				x = mouse_x;
+				y = mouse_y;
+				
+				audio_play_sound(snd_teleportWarble, 0, 0, random_range(.9, 1.15), undefined, random_range(1.85, 2.25));
+				
+				var _shimmer = global.radialShimmerPart;
+				repeat(25) {
+					var _spawnX = mouse_x + irandom_range(-25, 25);
+					var _spawnY = mouse_y + irandom_range(-25, 25);
 					
-					var _hit = collision_line(chestX, chestY, chestX + dcos(_dir) * _dist, chestY - dsin(_dir) * _dist, obj_creature, false, true);
-					if(instance_exists(_hit)) {
-						if(global.gameGoreSelected != 0) {
-							part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
-							part_particles_create_color(sys, _hit.x, _hit.y, bloodSpurtPart, c_maroon, 7);
-						} else {
-							part_particles_create_color(sys, _hit.x, _hit.y, starPart, c_white, 3);
-						}
-						_hit.hit(.5, _dir, 2);
-					} else { // line check mining
-						
-						for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
-							if(miningFunc(chestX + dcos(_dir) * _checkDist, chestY - dsin(_dir) * _checkDist)) {
-								break;
-							}
-						}
-						
-					}
-				} else if(point_distance(chestX, chestY, mouse_x, mouse_y) < pickaxeRange) { // single mine target
+					var _dir = point_direction(mouse_x, mouse_y, _spawnX, _spawnY);
 					
-					var _hit = collision_circle(mouse_x, mouse_y, 10, obj_creature, false, true);
-					if(instance_exists(_hit)) {
-						var _dir = point_direction(chestX, chestY, mouse_x, mouse_y);
-						if(global.gameGoreSelected != 0) {
-							part_type_direction(bloodSpurtPart, _dir - 20, _dir + 20, 0, 0);
-							part_particles_create_color(sys, mouse_x, mouse_y, bloodSpurtPart, c_maroon, 7);
-						} else {
-							part_particles_create_color(sys, mouse_x, mouse_y, starPart, c_white, 3);
-						}
-						_hit.hit(.5, _dir, 2);
-					} else {
-						miningFunc(mouse_x, mouse_y);
-					}
+					part_type_orientation(_shimmer, _dir, _dir, 0, 0, false);
+					part_type_direction(_shimmer, _dir, _dir, 0, 0);
+					part_type_speed(_shimmer, 1.7, 2.8, -.035, 0);
 					
+					part_particles_create(sys, _spawnX, _spawnY, _shimmer, 1);
 				}
 				
-				pickaxeAngleChange -= directionFacing * 65 * pickaxeSwingAngleAddMult;
-					
-				pickaxeTimer = pickaxeTimerDelay;
+				if(x < 0 || x >= global.worldSizePixels || y < 0 || y >= global.worldSizePixels) {
+					inWorld = false;
+				}
 			}
 		}
-	} else { // spell
-		if(spellTimer <= 0) {
-			castSpell(mouse_x, mouse_y);
-			
-			spellXChange = dcos(dirToMouse) * 5.2;
-			spellYChange = -dsin(dirToMouse) * 4.4;
-			
-			spellTimer = spellTimerDelay;
-		}
-	}
-} else if(!flying && mouse_check_button(mb_right)) {
-	directionFacing = sign(mouse_x - x);
-	if(directionFacing == 0) {
-		directionFacing = 1;
 	}
 	
-	if(heldResourceTimer <= 0) {
-		if(point_distance(x, y - chestOff, mouse_x, mouse_y) < blockPlacementRange) {
-			if(script_placeTileAtPos(mouse_x, mouse_y, heldResourceIndex)) {
-				heldResourceXChange = dcos(dirToMouse) * 5.2;
-				heldResourceYChange = -dsin(dirToMouse) * 4.4;
-				
-				heldResourceTimer = heldResourceTimerDelay;
-			}
-		}
+	if(keyboard_check_released(ord("R"))) {
+		heldResourceArrayPos = (heldResourceArrayPos + 1) % array_length(heldMaterialsUnlocked);
+		heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
 	}
-} else if(mouse_check_button_released(mb_middle)) {
-	if(bombCount > 0) {
-		bombCount--;
-		
-		var _bombType = obj_bomb;
-		if(robeIndex == E_robe.bananaYellow) {
-			_bombType = obj_bananaBomb;
-		}
-		
-		var _bomb = instance_create_layer(chestX, chestY, "Instances", _bombType);
-		_bomb.xChange = dcos(dirToMouse) * 3.1 * random_range(.85, 1.2);
-		_bomb.yChange = -dsin(dirToMouse) * 3.1 * random_range(.85, 1.2);
-	}
-}
-
-if(canTeleport && mana > 25) {
-	if(keyboard_check_released(ord("T"))) {
-		if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || global.worldTiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
-			mana -= 25;
-			x = mouse_x;
-			y = mouse_y;
-			
-			audio_play_sound(snd_teleportWarble, 0, 0, random_range(.9, 1.15), undefined, random_range(1.85, 2.25));
-			
-			var _shimmer = global.radialShimmerPart;
-			repeat(25) {
-				var _spawnX = mouse_x + irandom_range(-25, 25);
-				var _spawnY = mouse_y + irandom_range(-25, 25);
-				
-				var _dir = point_direction(mouse_x, mouse_y, _spawnX, _spawnY);
-				
-				part_type_orientation(_shimmer, _dir, _dir, 0, 0, false);
-				part_type_direction(_shimmer, _dir, _dir, 0, 0);
-				part_type_speed(_shimmer, 1.7, 2.8, -.035, 0);
-				
-				part_particles_create(sys, _spawnX, _spawnY, _shimmer, 1);
-			}
-			
-			if(x < 0 || x >= global.worldSizePixels || y < 0 || y >= global.worldSizePixels) {
-				inWorld = false;
-			}
-		}
-	}
-}
-
-if(keyboard_check_released(ord("R"))) {
-	heldResourceArrayPos = (heldResourceArrayPos + 1) % array_length(heldMaterialsUnlocked);
-	heldResourceIndex = heldMaterialsUnlocked[heldResourceArrayPos];
-}
-
-if(keyboard_check_released(ord("Q"))) {
-	spellArrayPos = (spellArrayPos + 1) % array_length(spellsUnlocked);
-	spell = spellsUnlocked[spellArrayPos];
 	
-	equipSpell();
-}
+	if(keyboard_check_released(ord("Q"))) {
+		spellArrayPos = (spellArrayPos + 1) % array_length(spellsUnlocked);
+		spell = spellsUnlocked[spellArrayPos];
+		
+		equipSpell();
+	}
+	
+	if(keyboard_check_released(vk_shift)) {
+		usingPickaxeNotSpell = !usingPickaxeNotSpell; // toggle between pick and spell
+	}
+	
+	if(keyboard_check_released(ord("N"))) {
+		pickaxeMineTileLine = !pickaxeMineTileLine;
+	}
+} // ^ alive
 
-if(keyboard_check_released(vk_shift)) {
-	usingPickaxeNotSpell = !usingPickaxeNotSpell; // toggle between pick and spell
-}
-
-if(keyboard_check_released(ord("N"))) {
-	pickaxeMineTileLine = !pickaxeMineTileLine;
-}
 
 pickaxeTimer--;
 heldResourceTimer--;
@@ -365,4 +370,16 @@ if(_timer % 60 == 0) { // delete or disable all far enemies
 
 if(keyboard_check_released(vk_insert)) {
 	script_loadStructure(mouse_x div tileSize, mouse_y div tileSize, "STRUCTUREDATA/exampleStructure.txt");
+}
+
+deathSpin *= .975;
+
+if(!alive) {
+	respawnTimer--;
+	if(respawnTimer <= 0) {
+		respawn();
+	} else {
+		image_angle += deathSpin;
+		yChange += grav * 1.2; // gravity
+	}
 }

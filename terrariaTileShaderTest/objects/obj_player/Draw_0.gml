@@ -1,15 +1,17 @@
-if(!flying) {
+if(!flying && alive) {
 	draw_sprite_ext(spr_resourceHeldIcons, heldResourceIndex, chestX + 5 * directionFacing + heldResourceXOff, chestY + heldResourceYOff, 1, 1, current_time * .2, heldResourceIndex >= 0 ? global.tileColors[heldResourceIndex] : global.tileColorsDecorative[abs(heldResourceIndex)], 1);
 }
 
 event_inherited();
 
-if(usingPickaxeNotSpell) {
-	if(!flying) {
-		draw_sprite_ext(pickaxeSprite, 0, chestX - 2 * directionFacing, chestY, 1, 1, pickaxeAngle, c_white, 1);
+if(alive) {
+	if(usingPickaxeNotSpell) {
+		if(!flying) {
+			draw_sprite_ext(pickaxeSprite, 0, chestX - 2 * directionFacing, chestY, 1, 1, pickaxeAngle, c_white, 1);
+		}
+	} else {
+		draw_sprite_ext(spr_talisman, 0, chestX + 3 * directionFacing + spellXOff, chestY + spellYOff, 1, 1, 60 + dsin(current_time * .15) * 15, c_white, 1);
 	}
-} else {
-	draw_sprite_ext(spr_talisman, 0, chestX + 3 * directionFacing + spellXOff, chestY + spellYOff, 1, 1, 60 + dsin(current_time * .15) * 15, c_white, 1);
 }
 
 if(pickaxeMineTileLine && pickaxeTimer > 0) {
