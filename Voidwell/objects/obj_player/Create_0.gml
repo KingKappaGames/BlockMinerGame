@@ -55,7 +55,7 @@ canFly = false;
 canTeleport = false;
 canBeInVoid = false;
 
-usingPickaxeNotSpell = true; // bool to use pickaxe "instead" of spell, aka toggle between those two based on this
+usingPickaxeNotSpell = false; // bool to use pickaxe "instead" of spell, aka toggle between those two based on this
 
 //pickaxe values
 pickaxeMineTileLine = false;
@@ -191,6 +191,18 @@ die = function() {
 respawn = function() {
 	alive = true;
 	
+	with(obj_creature) {
+		if(object_index != obj_player) {
+			if(object_index == obj_abyssLord) { // clear enemies on death (mostly)
+				instance_destroy();
+			} else {
+				if(random(1) < .7) {
+					instance_destroy();
+				}
+			}
+		}
+	}
+	
 	image_angle = 0;
 	xChange = 0;
 	yChange = 0;
@@ -210,10 +222,10 @@ respawn = function() {
 		
 		robePreviousId = noone;
 	} else {
-		setRobe(E_robe.basicPurple,, true);
+		setRobe(E_robe.basicPurple,, true, false);
 		
 		x = irandom_range(global.worldSizePixels * .33, global.worldSizePixels * .66);
-		y = script_findGroundBelow(x, 200, 3, false, 300);
+		y = script_findGroundBelow(x, 200, 3, false, 1000);
 		if(y == -1) {
 			y = 1000; 
 		}

@@ -26,9 +26,23 @@ global.screenTileTop = screenWorldTileY;
 screenWorldX = 0;
 screenWorldY = 0;
 
+screenSurf = -1;
+
+getScreenSurf = function() {
+	if(!surface_exists(screenSurf)) {
+		screenSurf = surface_create(camera_get_view_width(view_camera[0]) + tileSize * screenBorder * 2, camera_get_view_height(view_camera[0]) + tileSize * screenBorder* 2);
+	}
+	
+	return screenSurf;
+}
+
 updateScreen = function(rightX = undefined, topY = undefined, sizeChanged = false) {
 	rightX ??= camera_get_view_x(cam);
 	topY ??= camera_get_view_y(cam);
+	
+	if(sizeChanged) {
+		surface_free(screenSurf);
+	}
 	
 	var _tileWorldRange = global.tileRangeWorld;
 	

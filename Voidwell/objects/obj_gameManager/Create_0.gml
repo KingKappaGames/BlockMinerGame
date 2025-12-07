@@ -163,9 +163,9 @@ view_visible[0] = true;
 
 cam = view_camera[0];
 
-surface_resize(application_surface, 960, 540);
-view_set_wport(0, 960);
-view_set_hport(0, 540);
+surface_resize(application_surface, 1920, 1080);
+view_set_wport(0, 1920);
+view_set_hport(0, 1080);
 #endregion
 
 #region particle stuff
@@ -364,13 +364,17 @@ startGameWorld = function(worldIndex, exists = false) {
 			}
 		}
 		
-		repeat(3) {
+		instance_create_layer(_player.x, _player.y - 100, "Instances", obj_bouncingBookIntro);
+		
+		var _worldVolume = sqr(global.tileRangeWorld);
+		
+		repeat(_worldVolume / 10000) {
 			script_createRobePickup(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
 		}
-		repeat(7) {
+		repeat(_worldVolume / 6000) {
 			script_createPickaxe(-1, irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200));
 		}
-		repeat(3) {
+		repeat(_worldVolume / 25000) {
 			var _materialOrb = script_createMaterialNode(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), irandom_range(1, 7));
 		}
 	}

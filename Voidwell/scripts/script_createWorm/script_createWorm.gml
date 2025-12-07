@@ -31,7 +31,7 @@ function script_createWorm(xx, yy, length, healthSet = length, color = undefined
 		_tailSpr = spr_wormTailThick;
 		
 		if(_randomVisualSet) {
-			healthSet *= 2;
+			healthSet *= 1.7;
 			length += 6;
 		}
 	}

@@ -38,13 +38,13 @@ startTransition = function() {
 
 setCutscene = function(cutscene) {
 	if(cutscene == "intro") {
-		spriteList = [spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene];
-		imageList = [0, 1, 2, 3, 4];
-		textList = ["From the very beginning you were interested in secrets. You wondered from an early age about the city, life, death, and the abyss.", "It was difficult, and as the years went on it took more and more to keep your mind from breaking.", "Beyond the walls lay chaos. The city was a bastion of order, peace, and light; standing above chaos.", "But there is something in the void. The voices are savage, loving, meaningless, and truth. You can hear them. Every second. Of every day.", "One may be borne from nothing, and the world may return them to nothing. Blood grants you passage, passage beyond; in chains; their blood, precious exile."];                                        
+		spriteList = [spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene];
+		imageList = [0, 1, 2, 3, 4, 5, 6];
+		textList = ["Your life was a simple one, contained in a small pocket of civilization called the Bastion.", "Every day was the same. The tiny city seems to hold you prisoner for your own good.", "Beyond the walls lay chaos. The city was a bastion of order, peace, and light. And so you must stay, or else be lost in the darkness.", "But there is something in the void waiting to be found, and the only way to find it is by getting out. So one day you make your escape, it's not hard. Perhaps they let you go.", "But you're free now, alone... Free to follow the whims of your quickly deteriorating mind.", "You can only think one thing now: Delve to the bottom of the world, to the base of the Voidwell. Find... Find...", "COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN COME DOWN"];
 	} else if(cutscene == "boss") {
 		spriteList = [spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene];
 		imageList = [0, 1, 2, 3];
-		textList = ["So much power... So much life in darkness.", "But the abyss is still there, there is no satisfaction here.", "All of this. Everything that has ever happened has been crawling away from chaos.", "Even you. No, that is not enough. You ran towards the abyss. Entered by force... You never learn."];
+		textList = ["So much power... So much life in darkness.", "But the abyss is still there, it is so empty below you. No amount of power will change that.", "All of this. Your search for answers has brought you no closer to the truth. Only sealed your fate.", "Now you are stuck in the Voidwell, locked out of the Bastion, to become yet another creature of darkness."];
 	}
 	
 	sceneCount = array_length(spriteList);

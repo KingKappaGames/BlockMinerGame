@@ -12,7 +12,7 @@ if(transition > 0 && transition != 1) {
 		script_setPauseState(false);
 	}
 } else if(textProgress < textProgressMax) {
-	if(global.timer % 5 == 0) {
+	if(global.timer % 4 == 0) {
 		if(periodStopTime > 0) {
 			periodStopTime--;
 		} else {

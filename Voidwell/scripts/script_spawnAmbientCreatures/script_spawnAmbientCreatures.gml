@@ -10,12 +10,12 @@ function script_spawnAmbientCreatures() {
 	
 	if(_spawnX < tileSize || _spawnY < tileSize || _spawnX >= global.worldSizePixels - tileSize || _spawnY >= global.worldSizePixels - tileSize) { exit; } // don't spawn outside of the map... (maybe it depends on the enemy?)
 	
-	if(irandom(40) == 0) {
+	if(irandom(28) == 0) {
 		if(irandom(2) == 0) {
 			if(_camCenterY > global.worldSizePixels * .68) {
-				script_createWorm(_spawnX, _spawnY, 20);
+				script_createWorm(_spawnX, _spawnY, 18);
 			} else {
-				script_createWorm(_spawnX, _spawnY, 20,,, irandom(1));
+				script_createWorm(_spawnX, _spawnY, 18,,, irandom(1));
 			}
 		} else {
 			script_spawnCreature(obj_pixie, _spawnX, _spawnY);
@@ -27,7 +27,7 @@ function script_spawnAmbientCreatures() {
 			if(global.worldTiles[_spawnX div tileSize][_spawnY div tileSize + 1] > 0) { // standing over solid ground
 				script_spawnCreature(obj_person, _spawnX, _spawnY, 5);
 			} else {
-				if(irandom(42) == 0) {
+				if(irandom(32) == 0) {
 					script_spawnCreature(obj_flyingEnemy, _spawnX, _spawnY);
 				}
 			}

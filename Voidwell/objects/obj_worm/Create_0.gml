@@ -1,6 +1,6 @@
 event_inherited();
 
-HealthMax = 25;
+HealthMax = 15;
 Health = HealthMax;
 
 speedDecay = .97;

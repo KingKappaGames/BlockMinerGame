@@ -1,6 +1,6 @@
 event_inherited();
 
-pickUpRange = 32;
+pickUpRange = 40;
 available = false; // whether it can be picked up
 
 glimmerPart = global.itemGlimmerPart;

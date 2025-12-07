@@ -1,0 +1,8 @@
+#macro textBubbleMargin 8
+
+#macro textBubbleXOff 0
+#macro textBubbleYOff -36
+
+#macro inputKeyPopupIconHeight 32
+
+#macro textLineSeperation 34

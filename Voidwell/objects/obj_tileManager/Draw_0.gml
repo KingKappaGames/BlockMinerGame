@@ -1,3 +1,13 @@
+var _camX = camera_get_view_x(view_camera[0]);
+var _camY = camera_get_view_y(view_camera[0]);
+var _camW = camera_get_view_width(view_camera[0]);
+var _camH = camera_get_view_height(view_camera[0]);
+
+var _surf = getScreenSurf();
+surface_set_target(_surf);
+
+draw_clear_alpha(c_black, 0);
+
 var _tileVal = 0;
 var _tileX = 0;
 var _tileY = 0;
@@ -30,7 +40,7 @@ for(var _x = 1; _x < _screenTileWidth - 1; _x++) {
 				
 				_tileFrameIndex = ((_screenWorldTileX + _x) * 17 + (_screenWorldTileY + _y) * 73) % 5; //clamp(dsin(current_time) * 7 + 4, 0, 10); // bah (arbitary mix up values)
 				
-				draw_sprite_ext(_tSpriteDec[abs(_tileVal)], _tileFrameIndex, _screenWorldX + _x * tileSize + tileSize * .5, _screenWorldY + _y * tileSize + tileSize * .5, _tileFrameIndex % 2 == 0 ? 1 : 1, 1, 0, _color, 1);
+				draw_sprite_ext(_tSpriteDec[abs(_tileVal)], _tileFrameIndex, _x * tileSize + tileSize * .5, _y * tileSize + tileSize * .5, _tileFrameIndex % 2 == 0 ? 1 : 1, 1, 0, _color, 1);
 			} else { // physical, real tiles
 				//_color = tileColors[_tileVal];
 				
@@ -64,7 +74,7 @@ for(var _x = 1; _x < _screenTileWidth - 1; _x++) {
 					//show_debug_message($"_tileFrameIndex: {_tileFrameIndex}   _x: {_x}   _y: {_y}   _color: {_color}    screenWorldX: {screenWorldX}    screenWorldY: {screenWorldY}");
 				//}
 				
-				draw_sprite_ext(_tSprite[_tileVal], _tileFrameIndex, _screenWorldX + _x * tileSize + tileSize * .5, _screenWorldY + _y * tileSize + tileSize * .5, 1, 1, 0, _color, 1);
+				draw_sprite_ext(_tSprite[_tileVal], _tileFrameIndex, _x * tileSize + tileSize * .5, _y * tileSize + tileSize * .5, 1, 1, 0, _color, 1);
 			}
 			
 			//draw_text_transformed(screenWorldX + _x * tileSize + tileSize * .375, screenWorldY + _y * tileSize + tileSize * .25, _tileVal, .5, .5, 0);
@@ -73,6 +83,26 @@ for(var _x = 1; _x < _screenTileWidth - 1; _x++) {
 		
 		//draw_text(_x * tileSize + tileSize * .5, _y * tileSize + tileSize * .5, _tileVal)
 	}
+}
+
+surface_reset_target();
+
+shader_set(shd_terrainDetails);
+
+var _drawX = _camX - (_camX - screenWorldX);
+var _drawY = _camY - (_camY - screenWorldY);
+
+shader_set_uniform_f(shader_get_uniform(shd_terrainDetails, "pos"), screenWorldX, screenWorldY);
+shader_set_uniform_f(shader_get_uniform(shd_terrainDetails, "camSize"), surface_get_width(_surf), surface_get_height(_surf));
+shader_set_uniform_f(shader_get_uniform(shd_terrainDetails, "aspectRatio"), surface_get_width(_surf) / surface_get_height(_surf));
+
+var _camToGuiScale = view_wport[0] / _camW;
+draw_surface(screenSurf, _drawX, _drawY);
+
+shader_reset();
+
+if(global.timer % 30 == 0) {
+	show_debug_message($"View size: {view_wport[0]}/{view_hport[0]} and CamSize: {_camW}/{_camH} and pos: {_camX}/{_camY} and screenUpdateXY: {screenWorldX}/{screenWorldY} and surf size: {surface_get_width(screenSurf)}/{surface_get_height(screenSurf)}");
 }
 
 /*

@@ -341,7 +341,7 @@ heldResourceYChange *= .84;
 var _camChange = keyboard_check(vk_subtract) - keyboard_check(vk_add);
 if(_camChange != 0) {
 	var _camScaleChange = 1 + _camChange * .01;
-	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 240, 960), clamp(camera_get_view_height(cam) * _camScaleChange, 135, 540));
+	camera_set_view_size(cam, clamp(camera_get_view_width(cam) * _camScaleChange, 80, 960), clamp(camera_get_view_height(cam) * _camScaleChange, 45, 540)); // 240/960 & 135/540
 }
 
 var _mousePush = 3; // inverse

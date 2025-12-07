@@ -47,6 +47,8 @@ function script_loadWorld(filename) {
 	_player.x = _loadData[1];
 	_player.y = _loadData[2];
 	
+	instance_create_layer(_player.x, _player.y - 100, "Instances", obj_bouncingBookIntro);
+	
 	//_player.spellsUnlocked = _loadData[3]; // when robe is loaded all robe related spells are updated, however if I bring back the permanent unlocked spells then this becomes more complex...
 	_player.heldMaterialsUnlocked = _loadData[4];
 	_player.setRobe(_loadData[5],, true, false);
