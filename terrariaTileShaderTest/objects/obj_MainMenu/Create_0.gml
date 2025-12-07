@@ -96,7 +96,7 @@ gameFullscreenOptions = [false, true];
 gameFullscreenDisplayOptions = ["windowed", "Fullscreen"];
 
 gameColorFilterSelected = global.gameColorFilterSelected;
-gameColorFilterDisplayOptions = ["normal", "color blind", "grey-scale", "muted", "vibrant", "computer lab", "mosaic dots", "mosaic tiles", "pure pixel ):"];
+gameColorFilterDisplayOptions = ["normal", "CB not working", "grey-scale", "muted", "vibrant", "computer lab", "mosaic dots", "mosaic tiles", "pure pixel ):"];
 
 gameBrightnessSelected = global.gameBrightnessSelected;
 gameBrightnessOptions = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; // 3 being neutral, all others being increments of brighter or darker in .2 for now, might change tho

@@ -9,7 +9,7 @@ waitTimer = 0;
 
 damage = 2;
 
-HealthMax = irandom_range(6, 10);
+HealthMax = irandom_range(8, 12);
 Health = HealthMax;
 
 knockbackMult = 1.6;
