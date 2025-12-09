@@ -25,12 +25,14 @@ if(dealDamage) {
 	for(var _hitI = ds_list_size(hitList) - 1; _hitI >= 0; _hitI--) {
 		_hitId = hitList[| _hitI];
 		
-		_hitX = _hitId.x;
-		_hitY = _hitId.y;
-		var _distForce = 1 - power(point_distance(x, y, _hitX, _hitY) / radius, 2);
-		var _dir = point_direction(x, y, _hitX, _hitY);
-		
-		_hitId.hit(1, _dir, _distForce, true);
+		if(_hitId != source) {
+			_hitX = _hitId.x;
+			_hitY = _hitId.y;
+			var _distForce = 1 - power(point_distance(x, y, _hitX, _hitY) / radius, 2);
+			var _dir = point_direction(x, y, _hitX, _hitY);
+			
+			_hitId.hit(1, _dir, _distForce, true);
+		}
 	}
 }
 

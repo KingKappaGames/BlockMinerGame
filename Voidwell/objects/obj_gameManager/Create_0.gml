@@ -36,6 +36,7 @@ enum E_spell {
 	streamer = 6,
 	balista = 7,
 	bouncyBolt = 8,
+	laser = 9,
 }
 
 enum E_robe {
@@ -301,7 +302,6 @@ part_type_speed(_streamerTrail, 0, .3, -.004, 0);
 part_type_direction(_streamerTrail, 0, 360, 0, 0);
 part_type_orientation(_streamerTrail, 0, 360, 1.7, 0, 0);
 
-
 global.partSmallStreamerTrail = part_type_create();
 var _smallStreamerTrail = global.partSmallStreamerTrail;
 part_type_life(_smallStreamerTrail, 27, 27);
@@ -318,6 +318,14 @@ part_type_size(_itemGlimmer, .06, .09, -.0004, 0);
 part_type_speed(_itemGlimmer, 0.2, .4, -.001, 0);
 part_type_direction(_itemGlimmer, 0, 360, 0, 0);
 part_type_gravity(_itemGlimmer, -.003, 270);
+
+global.bossTrail = part_type_create();
+var _bossTrail = global.bossTrail;
+part_type_life(_bossTrail, 150, 150);
+part_type_shape(_bossTrail, pt_shape_disk);
+part_type_size(_bossTrail, .5, .7, -.005, 0);
+part_type_speed(_bossTrail, 0.0, .1, -.001, 0);
+part_type_direction(_bossTrail, 0, 360, 0, 0);
 
 breakPart = global.breakPart; // annoying!
 #endregion

@@ -1,0 +1,1 @@
+draw_line_width_color(x, y, x + lengthdir_x(length, directionLaser), y + lengthdir_y(length, directionLaser), duration * .8, image_blend, image_blend);

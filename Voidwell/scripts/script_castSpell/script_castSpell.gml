@@ -43,6 +43,11 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell = instance_create_layer(xx, yy, "Instances", obj_bouncingBolt);
 		_spell.xChange = dcos(_dir) * 5.1 * speedMult;
 		_spell.yChange = -dsin(_dir) * 5.1 * speedMult;
+	} else if(spellIndex == E_spell.laser) {
+		var _dir = point_direction(xx, yy, targetX, targetY);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_laser);
+		_spell.directionLaser = _dir;
 	}
 	
 	_spell.source = id;
