@@ -2,6 +2,8 @@ if(active) {
 	width = lerp(width, widthMax, lerpRateOpen);
 	height = lerp(height, heightMax, lerpRateOpen);
 } else {
+	depth++;
+	
 	width = lerp(width, 0, lerpRateClose);
 	height = lerp(height, 0, lerpRateClose);
 	

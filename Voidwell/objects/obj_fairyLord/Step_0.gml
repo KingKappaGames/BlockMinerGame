@@ -10,6 +10,8 @@ part_type_direction(_bossTrail, 0, 360, 0, 0);
 
 trailPart = global.bossTrail;
 
+part_particles_create(global.sys, x + irandom_range(-1000, 1000),  + irandom_range(-500, 500), global.thickTrail, 1);
+
 event_inherited();
 
 if(state == "die") {
@@ -60,7 +62,7 @@ if(state == "die") {
 	
 	moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 	
-	if(_distToPlayer < 40) {
+	if(_distToPlayer < 32) {
 		if(global.timer % 5 == 0) {
 			player.hit(3, _dirToPlayer, 6);
 		}
@@ -71,38 +73,47 @@ if(state == "die") {
 	} else if(state == "barrage") {
 		if(stateTimer < stateTimerMax - 15) {
 			if(stateTimer % 10 == 0) {
-				var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-10, 10), global.player.y + irandom_range(-10, 10));
+				var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-100, 100), global.player.y + irandom_range(-100, 100), .5);
 				_spell.image_blend = c_white;
 			}
 		}
 	} else if(state == "circle") {
-		var _spinDir = current_time * .25;
-		x += lengthdir_x(6.4, _spinDir);
-		y += lengthdir_y(6.4, _spinDir);
+		var _stateProgress = (stateTimerMax - stateTimer) / stateTimerMax;
+		var _spinMult = min(1, _stateProgress * 3);
+		var _spinDir = current_time * .24;
+		x += lengthdir_x(6.4 * _spinMult, _spinDir);
+		y += lengthdir_y(6.4 * _spinMult, _spinDir);
 		
-		if(stateTimer > stateTimerMax * .7) {
+		if(stateTimer < stateTimerMax * .75) {
 			if(stateTimer % 3 == 0) {
 				script_castSpell(E_spell.streamer, x, y, x + lengthdir_x(100, _spinDir), y + lengthdir_y(100, _spinDir));
 			}
 		}
 	} else if(state == "laser") {
-		var _x = x;
-		var _y = y;
-		with(spell) {
-			x = _x;
-			y = _y;
-			
-			var _angleChange = angle_difference(_dirToPlayer, directionLaser);
-			directionLaser += _angleChange * .03 + sign(_angleChange) * .05;
-			duration = 10;
+		if(stateTimer < stateTimerMax * .9 && stateTimer > stateTimerMax * .125) {
+			if(!instance_exists(spell)) {
+				spell = script_castSpell(E_spell.laser, x, y, x, y - 1, 0, 1);
+			} else {
+				
+				var _x = x;
+				var _y = y;
+				with(spell) {
+					x = _x;
+					y = _y;
+					
+					var _angleChange = angle_difference(_dirToPlayer, directionLaser);
+					directionLaser += _angleChange * .04 + sign(_angleChange) * .05;
+					duration = 10;
+				}
+			}
 		}
 	} else if(state == "rush") {
-		if(stateTimer == round(stateTimerMax * .75)) {
+		if(stateTimer % round(stateTimerMax * .27) == 0) {
 			xChange = lengthdir_x(dashSpeed, _dirToPlayer);
 			yChange = lengthdir_y(dashSpeed, _dirToPlayer);
 		}
 	} else if(state == "rise") {
-		yChange -= moveSpeed * 1.5;
+		yChange -= moveSpeed * 1.2;
 		
 		if(stateTimer > stateTimerMax * .5) {
 			if(stateTimer % 10 == 0) {
@@ -112,7 +123,8 @@ if(state == "die") {
 		}
 	} else if(state == "shockwave") {
 		if(stateTimer == round(stateTimerMax * .3)) {
-			script_createShockwaveSpell(x, y, 45, 64, 1.035,,,, c_white);
+			var _shockwave = script_createShockwaveSpell(x, y, 50, 64, 1.032,, .1,, c_white);
+			_shockwave.source = id;
 		}
 	}
 	

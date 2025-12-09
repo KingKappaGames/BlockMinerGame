@@ -101,9 +101,9 @@ draw_surface(screenSurf, _drawX, _drawY);
 
 shader_reset();
 
-if(global.timer % 30 == 0) {
-	show_debug_message($"View size: {view_wport[0]}/{view_hport[0]} and CamSize: {_camW}/{_camH} and pos: {_camX}/{_camY} and screenUpdateXY: {screenWorldX}/{screenWorldY} and surf size: {surface_get_width(screenSurf)}/{surface_get_height(screenSurf)}");
-}
+//if(global.timer % 30 == 0) {
+	//show_debug_message($"View size: {view_wport[0]}/{view_hport[0]} and CamSize: {_camW}/{_camH} and pos: {_camX}/{_camY} and screenUpdateXY: {screenWorldX}/{screenWorldY} and surf size: {surface_get_width(screenSurf)}/{surface_get_height(screenSurf)}");
+//}
 
 /*
 Take our tileArray for the screen and normalize the top left and bottom right, this is our range

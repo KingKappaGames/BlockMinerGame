@@ -35,7 +35,7 @@ image_blend = c_random;
 
 depth -= 5;
 
-hit = function(damage, dir, force, destroyBody = false) {
+hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	if(alive) {
 		Health -= damage;
 		

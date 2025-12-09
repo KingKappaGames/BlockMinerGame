@@ -25,6 +25,8 @@ chestOff = 9;
 chestX = x;
 chestY = y - chestOff;
 
+heldItem = E_item.none;
+
 flying = false; // whether the player is flying around or walking/jumping
 
 deathSpin = 0;
@@ -43,6 +45,8 @@ horizontalBounce = 0;
 verticalBounce = 0;
 
 materialWearingType = 0;
+
+tpCost = 15;
 
 depth -= 10;
 
@@ -193,7 +197,7 @@ respawn = function() {
 	
 	with(obj_creature) {
 		if(object_index != obj_player) {
-			if(object_index == obj_abyssLord) { // clear enemies on death (mostly)
+			if(isBoss) { // clear enemies on death (mostly)
 				instance_destroy();
 			} else {
 				if(random(1) < .7) {

@@ -1,5 +1,7 @@
 randomize();
 
+window_set_caption(choose("It's alive!", "Uh-oh...", "Come to the dark side-", "What's that chemical smell?", "The lights are going dark all around the world.", "When will it all be over?", "The end is near.", "You don't belong here.", "You are my favorite."))
+
 global.manager = id;
 
 global.timer = 0;
@@ -26,54 +28,7 @@ application_surface_draw_enable(false);
 
 #region macros and enums set up
 
-enum E_spell {
-	none = 0,
-	bolt = 1,
-	shockwave = 2,
-	bananaShimmer = 3,
-	explosiveBolt = 4,
-	shockwaveMaterial = 5,
-	streamer = 6,
-	balista = 7,
-	bouncyBolt = 8,
-	laser = 9,
-}
 
-enum E_robe {
-	basicPurple = 0,
-	superRed = 1,
-	teleporterWhite = 2,
-	bananaYellow = 3,
-	materialGrass = 4,
-	materialCrystal = 5,
-	materialFlesh = 6, 
-	materialMetal = 7,
-	abyssLord = 8
-}
-
-enum E_pickaxe {
-	basicRed = 0,
-	blue = 1,
-	long = 2,
-	banana = 3,
-	cycle = 4
-}
-
-enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSomething?, smooth granite, bookBlock (block of books yes), toad block (yeah), 
-	decMushroom = -3,
-	decRock = -2,
-	decGrass = -1,
-	empty = 0,
-	grass = 1,
-	diamond = 2,
-	dirt = 3,
-	wood = 4,
-	flesh = 5,
-	banana = 6,
-	explosive = 7,
-	metal = 8,
-	stone = 9,
-}
 
 #macro c_random make_color_rgb(irandom_range(0, 255), irandom_range(0, 255), irandom_range(0, 255))
 
@@ -120,15 +75,6 @@ global.tileColorsDecorative =        [c_black,                  c_green,        
 audio_group_load(sndGrp_sfx);
 audio_group_load(sndGrp_music);
 audio_group_load(sndGrp_ambient);
-
-enum E_musicLayer {
-	sky = 0,
-	surface = 1,
-	underground = 2,
-	abyssCeiling = 3,
-	abyssDepths = 4,
-	musicLayerCount = 5
-}
 
 menuMusic = -1;
 musicCurrentLayer = E_musicLayer.surface; // surface
@@ -370,6 +316,8 @@ startGameWorld = function(worldIndex, exists = false) {
 			if(y == -1) {
 				y = 1000; 
 			}
+			
+			refreshCondition(true);
 		}
 		
 		instance_create_layer(_player.x, _player.y - 100, "Instances", obj_bouncingBookIntro);
@@ -498,7 +446,7 @@ updateDepthEffects = function() {
 			}
 		} else {
 			if(!audio_is_playing(musicDepthTracks[_i])) {
-				musicDepthTracks[_i] = 0; // ready to be set to something else
+				musicDepthTracks[_i] = irandom_range(3600, 14400); //song over, insert period of silence before next track starts
 			}
 		}
 	}

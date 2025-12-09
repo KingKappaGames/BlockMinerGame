@@ -10,6 +10,10 @@ dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 
 iFrames--;
 
+if(keyboard_check_released(vk_alt)) {
+	heldItem = irandom(E_item.itemCount - 1);
+}
+
 #region movement checks and forces
 if(canFly && alive) {
 	if(keyboard_check_released(ord("X"))) {
@@ -160,6 +164,10 @@ audio_listener_set_position(0, x, y, 0);
 
 #region item use controls
 if(alive) {
+	if(keyboard_check_released(vk_tab)) {
+		script_useHeldItem();
+	}
+	
 	if(mouse_check_button(mb_left)) {
 		directionFacing = sign(mouse_x - chestX);
 		if(directionFacing == 0) {
@@ -255,10 +263,10 @@ if(alive) {
 		}
 	}
 	
-	if(canTeleport && mana > 25) {
+	if(canTeleport && mana > tpCost) {
 		if(keyboard_check_released(ord("T"))) {
 			if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || global.worldTiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
-				mana -= 25;
+				mana -= tpCost;
 				x = mouse_x;
 				y = mouse_y;
 				

@@ -17,11 +17,15 @@ moveSpeed = .21;
 deathTimer = 0;
 deathTimerMax = 500;
 
+isBoss = true;
+
+global.bossSpawned = true;
+
 image_blend = make_color_rgb(irandom_range(100, 255), irandom_range(100, 255), irandom_range(100, 255)); // lower range
 
 depth -= 5; // go ahead of tiles.. you a boss bro
 
-hit = function(damage, dir, force, destroyBody = false) {
+hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	if(alive) {
 		Health -= damage;
 		

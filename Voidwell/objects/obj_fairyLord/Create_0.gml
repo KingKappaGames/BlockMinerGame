@@ -7,21 +7,22 @@ radialGlimmer = global.radialShimmerPart;
 
 trailPart = global.bossTrail;
 
-HealthMax = 120;
+HealthMax = 200;
 Health = HealthMax;
 
-knockbackMult = .4;
+knockbackMult = .5;
 
 spell = noone;
 
 speedDecay = .98;
 speedDecayAir = .98;
+speedDecayAirBase = .98;
 
 moveDir = irandom(360);
-moveSpeedBase = .13;
+moveSpeedBase = .12;
 moveSpeed = moveSpeedBase;
 
-dashSpeed = 15;
+dashSpeed = 9.5;
 
 deathTimer = 0;
 deathTimerMax = 500;
@@ -33,12 +34,16 @@ wingFlapChannel = animcurve_get_channel(curve_wingFlap, 0);
 
 floatOverHeight = 100;
 
+isBoss = true;
+
+global.bossSpawned = true;
+
 #region states 
 state = "idle";
 stateTimer = 0;
 stateTimerMax = 0;
 
-setState = function(stateSet) {
+setState = function(stateSet, duration = undefined) {
 	live_auto_call
 	
 	endState();
@@ -46,30 +51,31 @@ setState = function(stateSet) {
 	state = stateSet;
 	
 	if(stateSet == "idle") {
-		stateTimer = 210;
+		duration ??= 210;
 		moveSpeed = moveSpeedBase;
 	} else if(stateSet == "barrage") {
-		stateTimer = 140;
+		duration ??= 140;
 		moveSpeed = moveSpeedBase * .5;
 	} else if(stateSet == "circle") {
-		stateTimer = 180;
+		duration ??= 210;
 		moveSpeed = moveSpeedBase * .2;
 	} else if(stateSet == "laser") {
-		stateTimer = 320;
+		duration ??= 240;
 		moveSpeed = moveSpeedBase * .4;
-		
-		spell = script_castSpell(E_spell.laser, x, y, x, y - 1, 0, 1);
 	} else if(stateSet == "rush") {
-		stateTimer = 150;
+		duration ??= 300;
 		moveSpeed = moveSpeedBase * .2;
+		speedDecayAir = 1;
 	} else if(stateSet == "rise") {
-		stateTimer = 180;
+		duration ??= 180;
 		moveSpeed = moveSpeedBase * .8;
 	} else if(stateSet == "shockwave") {
-		stateTimer = 380;
+		duration ??= 380;
 		moveSpeed = 0;
+		speedDecayAir = .992; // easier to push away
 	}
 	
+	stateTimer = duration;
 	stateTimerMax = stateTimer;
 }
 
@@ -82,16 +88,26 @@ endState = function() { // what do
 		
 	} else if(state == "laser") {
 		spell = noone;
+	} else if(state == "rush") {
+		speedDecayAir = speedDecayAirBase;
+	} else if(state == "rise") {
+		
+	} else if(state == "shockwave") {
+		speedDecayAir = speedDecayAirBase;
 	}
 }
 
 newState = function() {
-	setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
+	if(state == "idle") {
+		setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
+	} else {
+		setState("idle", 45);
+	}
 }
 
 #endregion
 
-hit = function(damage, dir, force, destroyBody = false) {
+hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	if(alive) {
 		Health -= damage;
 		

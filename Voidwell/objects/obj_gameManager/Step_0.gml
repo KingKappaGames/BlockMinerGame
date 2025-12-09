@@ -10,7 +10,17 @@ if(inGame) {
 		pauseNextFrame = noone;
 	} else {
 		if(!global.gamePaused) {
-			if(global.timer % surfaceEffectsUpdateTick == 0) {
+			var _timer = global.timer;
+			if(_timer % 300 == 0) {
+				if(instance_number(obj_abyssLord) > 0) {
+					global.bossSpawned = true;
+				} else if(instance_number(obj_fairyLord) > 0) {
+					global.bossSpawned = true;
+				} else {
+					global.bossSpawned = false;
+				}
+			}
+			if(_timer % surfaceEffectsUpdateTick == 0) {
 				updateDepthEffects();
 				
 				var _rainEvent = global.gameRainSelected;

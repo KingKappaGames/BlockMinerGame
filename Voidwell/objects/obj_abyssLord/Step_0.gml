@@ -73,6 +73,8 @@ if(alive) {
 	}
 	
 	if(deathTimer >= deathTimerMax) {
+		script_createRobePickup(E_robe.abyssLord, x, y);
+		
 		instance_destroy();
 	}
 }

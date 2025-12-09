@@ -12,7 +12,9 @@ hitFlash = 0;
 
 directionFacing = 1;
 
-hit = function(damage, dir = -1, force = 0, destroyBody = false) {
+isBoss = false;
+
+hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	Health -= damage;
 	
 	audio_play_sound(snd_hit, 0, 0, random_range(.75, .9), undefined, random_range(.85, 1.25));

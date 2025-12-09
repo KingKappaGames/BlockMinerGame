@@ -19,4 +19,4 @@ hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall d
 	//audio_play_sound_at(snd_banana, x, y, 0, audioRefQuiet, audioMaxQuiet, 2, false, 0);
 }
 
-depth -= 10;
+depth -= 5;
