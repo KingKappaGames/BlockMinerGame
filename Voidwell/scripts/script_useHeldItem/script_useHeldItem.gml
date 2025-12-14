@@ -12,6 +12,10 @@ function script_useHeldItem() {
 				_bomb.yChange = -dsin(dirToMouse) * 7.1 * random_range(.7, 1.3);
 				_bomb.duration *= random_range(.7, 2);
 			}
+		} else if(heldItem == E_item.materialSpray) {
+			repeat(21) {
+				script_createMovingTile(chestX, chestY, lengthdir_x(7.1 * random_range(.7, 1.35) + random_range(-1, 1), dirToMouse), lengthdir_y(7.1 * random_range(.7, 1.35) + random_range(-1, 1), dirToMouse), irandom(E_tile.tileIndexMax - 1));
+			}
 		}
 	}
 }

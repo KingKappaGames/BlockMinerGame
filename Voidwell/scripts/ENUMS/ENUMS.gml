@@ -45,6 +45,7 @@ enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSome
 	explosive = 7,
 	metal = 8,
 	stone = 9,
+	tileIndexMax = 10
 }
 
 enum E_musicLayer {
@@ -61,5 +62,6 @@ enum E_item {
 	memento = 1,
 	fairySummon = 2,
 	clusterBomb = 3,
-	itemCount = 4,
+	materialSpray = 4,
+	itemCount = 5,
 }

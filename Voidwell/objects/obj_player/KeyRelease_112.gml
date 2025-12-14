@@ -10,7 +10,7 @@ if (live_call()) return live_result;
 //instance_create_layer(x + 120, y - 100, "Instances", obj_itemPickUpFloat);
 //instance_create_layer(x - 120, y - 100, "Instances", obj_itemPickUpStatic);
 
-instance_create_layer(x, y - 100, "Instances", obj_fairyLord);
+instance_create_layer(x, y - 100, "Instances", obj_striderLord);
 
 //instance_create_layer(x, y, "Instances", obj_book);
 

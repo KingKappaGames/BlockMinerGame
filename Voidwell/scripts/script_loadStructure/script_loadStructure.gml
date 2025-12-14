@@ -28,7 +28,7 @@ function script_loadStructure(rightTileX, topTileY, filename) {
 	var _placeTileX = 0;
 	var _placeTileY = 0;
 	
-	var _worldTiles = global.worldTiles;
+	var _worldTiles = tiles;
 	var _worldTileRange = global.tileRangeWorld;
 	
 	for (var _x = 0; _x < _sWidth; _x++) {

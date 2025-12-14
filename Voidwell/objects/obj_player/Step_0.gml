@@ -43,7 +43,7 @@ if(inWorld) {
 }
 
 if(alive) {
-	var _tileInside = inWorld ? max(global.worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
+	var _tileInside = inWorld ? max(tiles[x div tileSize][(y) div tileSize], 0) : 0;
 	
 	if(_tileInside) {
 		if(_timer % 50 == 0) {
@@ -51,7 +51,7 @@ if(alive) {
 		}
 	}
 	
-	var _tileStanding = inWorld ? max(global.worldTiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
+	var _tileStanding = inWorld ? max(tiles[x div tileSize][(y + 1) div tileSize], 0) : 0;
 	
 	if(!flying) {
 		if(image_speed != 0) {
@@ -265,7 +265,7 @@ if(alive) {
 	
 	if(canTeleport && mana > tpCost) {
 		if(keyboard_check_released(ord("T"))) {
-			if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || global.worldTiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
+			if(((mouse_x < 0 || mouse_x > global.worldSizePixels) || (mouse_y < 0 || mouse_y > global.worldSizePixels)) || tiles[mouse_x div tileSize][mouse_y div tileSize] <= 0) {
 				mana -= tpCost;
 				x = mouse_x;
 				y = mouse_y;

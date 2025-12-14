@@ -11,7 +11,7 @@ hits = ds_list_create();
 hitTimerMax = 10;
 hitTimer = 0;
 
-duration = 0;
+duration = 2;
 
 source = noone;
 

@@ -17,7 +17,7 @@ if(instance_exists(_hitId) && source != _hitId) {
 	xChange = dcos(_dir) * _speed * bounceStrengthEnemy;
 	yChange = -dsin(_dir) * _speed * bounceStrengthEnemy;
 	
-	_hitId.hit(.2 + sqr(_speed * .09), _originalDir, .65 * _speed);
+	_hitId.hit(.2 + sqr(_speed * .11), _originalDir, .65 * _speed);
 }
 
 x += xChange;
@@ -27,14 +27,14 @@ yChange += grav;
 
 
 if(inWorld) {
-	var _tileHitX = worldTiles[(x + xChange) div tileSize][(y) div tileSize];
+	var _tileHitX = tiles[(x + xChange) div tileSize][(y) div tileSize];
 	if(_tileHitX > 0) {
 		xChange *= -bounceStrengthGround;
 		if(_speed > 1.25) {
 			audio_play_sound_at(global.tileBreakSounds[_tileHitX], x, y, 0, audioRefQuiet, audioMaxMedium, 2, false, 0, .2 + _speed * .032,, random_range(.7, 1.08));
 		}
 	}
-	var _tileHitY = worldTiles[x div tileSize][(y + yChange) div tileSize];
+	var _tileHitY = tiles[x div tileSize][(y + yChange) div tileSize];
 	if(_tileHitY > 0) {
 		yChange *= -bounceStrengthGround;
 		if(_speed > 1.25) {

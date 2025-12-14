@@ -1,22 +1,21 @@
 {
   "$GMObject":"",
-  "%Name":"obj_abyssLord",
+  "%Name":"obj_tileMovingDebris",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_abyssLord",
+  "name":"obj_tileMovingDebris",
   "overriddenProperties":[],
   "parent":{
-    "name":"creatures",
-    "path":"folders/Objects/creatures.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"obj_boss",
-    "path":"objects/obj_boss/obj_boss.yy",
+    "name":"obj_gameObject",
+    "path":"objects/obj_gameObject/obj_gameObject.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -36,9 +35,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_abyssBossBody",
-    "path":"sprites/spr_abyssBossBody/spr_abyssBossBody.yy",
+    "name":"spr_box4",
+    "path":"sprites/spr_box4/spr_box4.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_defaultMask",
+    "path":"sprites/spr_defaultMask/spr_defaultMask.yy",
+  },
   "visible":true,
 }

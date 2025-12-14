@@ -12,6 +12,6 @@ cam = view_camera[0];
 
 player = global.player;
 
-worldTiles = global.worldTiles;
+tiles = global.worldTiles;
 
 essential = false;

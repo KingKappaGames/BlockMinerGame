@@ -15,8 +15,8 @@
     "path":"folders/Objects/creatures.yy",
   },
   "parentObjectId":{
-    "name":"obj_creature",
-    "path":"objects/obj_creature/obj_creature.yy",
+    "name":"obj_boss",
+    "path":"objects/obj_boss/obj_boss.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

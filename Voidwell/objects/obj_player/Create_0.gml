@@ -197,7 +197,7 @@ respawn = function() {
 	
 	with(obj_creature) {
 		if(object_index != obj_player) {
-			if(isBoss) { // clear enemies on death (mostly)
+			if(object_is_ancestor(object_index, obj_boss)) { // clear enemies on death (mostly)
 				instance_destroy();
 			} else {
 				if(random(1) < .7) {

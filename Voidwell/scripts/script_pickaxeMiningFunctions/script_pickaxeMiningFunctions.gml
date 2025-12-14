@@ -6,7 +6,7 @@ function script_pickaxeMineNormal(xx, yy) {
 
 function script_pickaxeMineBanana(xx, yy) {
 	if(irandom(3) == 0) {
-		var _tiles = global.worldTiles;
+		var _tiles = tiles;
 		var _tileX = xx div tileSize;
 		var _tileY = yy div tileSize;
 		if(_tiles[_tileX][_tileY] > 0) {

@@ -1,6 +1,6 @@
 {
   "$GMObject":"",
-  "%Name":"obj_abyssLord",
+  "%Name":"obj_striderLord",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
@@ -8,7 +8,7 @@
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_abyssLord",
+  "name":"obj_striderLord",
   "overriddenProperties":[],
   "parent":{
     "name":"creatures",
@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_abyssBossBody",
-    "path":"sprites/spr_abyssBossBody/spr_abyssBossBody.yy",
+    "name":"spr_playerCrystal",
+    "path":"sprites/spr_playerCrystal/spr_playerCrystal.yy",
   },
   "spriteMaskId":null,
   "visible":true,

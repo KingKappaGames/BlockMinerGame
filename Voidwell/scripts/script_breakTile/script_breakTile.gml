@@ -10,7 +10,7 @@ function script_breakTile(worldTileX, worldTileY, soundVolume = 1, updateScreen 
 		exit;
 	}
 
-	var _worldTiles = worldTiles;
+	var _worldTiles = tiles;
 	var _tileIndex = _worldTiles[worldTileX][worldTileY];
 	
 	if(_tileIndex != 0) {

@@ -20,7 +20,7 @@ if(alive) {
 	} else {
 		directionFacing = xChange > 0 ? 1 : -1;
 		
-		var _tileOn = global.worldTiles[x div tileSize][(y + 1) div tileSize];
+		var _tileOn = tiles[x div tileSize][(y + 1) div tileSize];
 		if(_tileOn > 0) {
 			if(sprite_index != standingSprite) {
 				sprite_index = standingSprite;

@@ -34,10 +34,6 @@ wingFlapChannel = animcurve_get_channel(curve_wingFlap, 0);
 
 floatOverHeight = 100;
 
-isBoss = true;
-
-global.bossSpawned = true;
-
 #region states 
 state = "idle";
 stateTimer = 0;

@@ -49,3 +49,5 @@ if(inGame) {
 		splashIntroProgress += .03;
 	}
 }
+
+draw_text(200, 280, global.bossSpawned);

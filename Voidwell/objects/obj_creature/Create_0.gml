@@ -12,8 +12,6 @@ hitFlash = 0;
 
 directionFacing = 1;
 
-isBoss = false;
-
 hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	Health -= damage;
 	

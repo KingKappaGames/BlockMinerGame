@@ -7,3 +7,5 @@ image_blend = make_color_rgb(irandom(24), irandom(24), irandom(36)); // lower ra
 duration = 120;
 
 depth -= 10;
+
+breakTileChance = .05;

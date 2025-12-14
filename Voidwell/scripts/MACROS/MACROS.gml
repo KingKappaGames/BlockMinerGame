@@ -6,3 +6,5 @@
 #macro inputKeyPopupIconHeight 32
 
 #macro textLineSeperation 34
+
+#macro msg show_debug_message

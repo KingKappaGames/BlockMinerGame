@@ -14,6 +14,6 @@ function script_checkDepthAtTile(tileX, firstTileY, depthCheckMax) {
 		}
 	};
 	
-	var _foundY = array_find_index(global.worldTiles[tileX], _func, firstTileY, depthCheckMax);
+	var _foundY = array_find_index(tiles[tileX], _func, firstTileY, depthCheckMax);
 	return _foundY == -1 ? -1 : _foundY - firstTileY; // search this column of the world for a solid block until a give up depth
 }

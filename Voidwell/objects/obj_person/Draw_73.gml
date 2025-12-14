@@ -1,4 +1,4 @@
-var _tiles = global.worldTiles;
+var _tiles = tiles;
 var _len = array_length(debugTileDraw);
 for (var _i = 0; _i < _len; _i++) {
 	var _debugTile = debugTileDraw[_i];

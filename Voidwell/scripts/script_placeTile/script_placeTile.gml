@@ -4,7 +4,7 @@ function script_placeTile(worldTileX, worldTileY, tileIndex, replaceExisting = f
 	}
 	
 	var _manager = global.tileManager;
-	var _worldTiles = global.worldTiles;
+	var _worldTiles = tiles;
 	
 	if(!coverEntities) {
 		var _entities = ds_list_create();

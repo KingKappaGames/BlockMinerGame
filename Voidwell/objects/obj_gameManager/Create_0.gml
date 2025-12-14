@@ -19,7 +19,9 @@ pauseSurface = -1;
 
 ppxSurface = -1;
 
-worldTiles = -1; // maybe doesn't exist at times since manager is above the law... updated for world effects that need to run scripts with the variable
+tiles = -1; // maybe doesn't exist at times since manager is above the law... updated for world effects that need to run scripts with the variable
+
+global.bossSpawned = false;
 
 cursor_sprite = spr_cursor;
 window_set_cursor(cr_none);
@@ -349,7 +351,7 @@ startGameWorld = function(worldIndex, exists = false) {
 	
 	inGame = true;
 	worldCurrent = worldIndex;
-	worldTiles = global.worldTiles;
+	tiles = global.worldTiles;
 	
 	if(!exists) {
 		script_saveWorld("worldSave" + string(worldCurrent) + ".txt"); // save newly generated world
@@ -374,7 +376,7 @@ exitGameWorld = function() {
 	}
 	
 	inGame = false;
-	worldTiles = -1;
+	tiles = -1;
 }
 
 initMainMenuScreen = function() {

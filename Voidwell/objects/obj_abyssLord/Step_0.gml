@@ -9,7 +9,7 @@ if(alive) {
 	xChange += dcos(_dirToPlayer) * moveSpeed * .21;
 	yChange -= dsin(_dirToPlayer) * moveSpeed * .21;
 	
-	var _tileIn = inWorld ? max(worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
+	var _tileIn = inWorld ? max(tiles[x div tileSize][(y) div tileSize], 0) : 0;
 	
 	var _speed = .5 + dsin(current_time * .073) * .5 + dsin(current_time * .262) * .05;
 	xChange += dcos(moveDir) * moveSpeed * _speed * .1;

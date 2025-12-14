@@ -1,4 +1,9 @@
 function script_spawnAmbientCreatures() {
+	if(global.bossSpawned) { 
+		if(irandom(3) != 0) { // tank spawn rates while boss exists
+			exit;
+		}
+	}
 	var _camW = camera_get_view_width(cam);
 	var _camH = camera_get_view_height(cam);
 	var _camCenterX = camera_get_view_x(cam) + _camW * .5;
@@ -23,8 +28,8 @@ function script_spawnAmbientCreatures() {
 	} else if(irandom(200) == 0 && _camCenterY > global.worldSizePixels * .96 - 250) {
 		script_spawnCreature(obj_abyssLord, _spawnX, _spawnY);
 	} else {
-		if(global.worldTiles[_spawnX div tileSize][_spawnY div tileSize] <= 0) {
-			if(global.worldTiles[_spawnX div tileSize][_spawnY div tileSize + 1] > 0) { // standing over solid ground
+		if(tiles[_spawnX div tileSize][_spawnY div tileSize] <= 0) {
+			if(tiles[_spawnX div tileSize][_spawnY div tileSize + 1] > 0) { // standing over solid ground
 				script_spawnCreature(obj_person, _spawnX, _spawnY, 5);
 			} else {
 				if(irandom(32) == 0) {

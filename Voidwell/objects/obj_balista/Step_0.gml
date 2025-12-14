@@ -63,7 +63,7 @@ if(!stuck) {
 	image_angle = point_direction(0, 0, xChange, yChange);
 	
 	
-	var _tileOn = inWorld ? worldTiles[x div tileSize][y div tileSize] : 0;
+	var _tileOn = inWorld ? tiles[x div tileSize][y div tileSize] : 0;
 	
 	if(_tileOn > 0) {
 		var _resistance = 0;

@@ -38,7 +38,7 @@ x += xChange;
 y += yChange;
 
 
-var _tileOn = inWorld ? worldTiles[x div tileSize][y div tileSize] : 0;
+var _tileOn = inWorld ? tiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	if(_tileOn > 0) {

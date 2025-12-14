@@ -96,7 +96,7 @@ gameAmbientVolume = global.gameAmbientVolume;
 
 
 gameRainSelected = global.gameRainSelected;
-gameRainOptions = ["none", "bombs", "banana bombs", "enemies"];
+gameRainOptions = ["none", "bombs", "banana bombs", "enemies", "blocks"];
 
 gameCorruptionSelected = global.gameCorruptionSelected;
 gameCorruptionOptions = ["none", "break blocks", "flesh", "crystal", "metal", "explosives"];

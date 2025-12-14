@@ -13,7 +13,7 @@ if(instance_exists(_hitId) && source != _hitId) {
 x += xChange;
 y += yChange;
 
-var _tileOn = inWorld ? worldTiles[x div tileSize][y div tileSize] : 0;
+var _tileOn = inWorld ? tiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	audio_play_sound_at(snd_explosion, x, y, 0, audioRefLoud, audioMaxLoud, 1, false, 0);

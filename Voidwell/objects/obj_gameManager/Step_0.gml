@@ -11,15 +11,6 @@ if(inGame) {
 	} else {
 		if(!global.gamePaused) {
 			var _timer = global.timer;
-			if(_timer % 300 == 0) {
-				if(instance_number(obj_abyssLord) > 0) {
-					global.bossSpawned = true;
-				} else if(instance_number(obj_fairyLord) > 0) {
-					global.bossSpawned = true;
-				} else {
-					global.bossSpawned = false;
-				}
-			}
 			if(_timer % surfaceEffectsUpdateTick == 0) {
 				updateDepthEffects();
 				
@@ -29,26 +20,32 @@ if(inGame) {
 						var _rainType = noone;
 						if(_rainEvent == 1) {
 							_rainType = obj_bomb;
-						} else if(_rainEvent == 2) {
-							_rainType = obj_bananaBomb;
-						} else if(_rainEvent == 3) {
-							if(irandom(2) == 0) {
-								_rainType = obj_person;
-							}
-						}
-						
-						if(_rainType != noone) {
 							var _bomb = instance_create_layer(camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100, "Instances", _rainType);
 							_bomb.xChange = random_range(-6, 6);
 							_bomb.duration = 720;
+						} else if(_rainEvent == 2) {
+							_rainType = obj_bananaBomb;
+							var _bomb = instance_create_layer(camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100, "Instances", _rainType);
+							_bomb.xChange = random_range(-6, 6);
+							_bomb.duration = 720;
+						} else if(_rainEvent == 3) {
+							if(irandom(2) == 0) {
+								_rainType = obj_person;
+								var _person = script_spawnCreature(_rainType, camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100);
+								_person.xChange = random_range(-6, 6);
+							}
+						} else if(_rainEvent == 4) {
+							_rainType = obj_tileMovingDebris;
+							script_createMovingTile(camera_get_view_x(cam) + irandom(camera_get_view_width(cam)), 100, random_range(-1, 1), random_range(-1, 1), irandom(E_tile.tileIndexMax - 1));
 						}
+						
 					}
 				}
 				
 				var _corruptionEvent = global.gameCorruptionSelected;
 				if(_corruptionEvent != 0) {
 					repeat(10) {
-						var _worldTiles = worldTiles;
+						var _worldTiles = tiles;
 						var _tileX = 1 + irandom(global.tileRangeWorld - 3);
 						var _tileY = 1 + irandom(global.tileRangeWorld - 3);
 						var _corruptTileType = global.corruptionBlocks[global.gameCorruptionSelected];
