@@ -18,7 +18,7 @@ float round_(float x) {
 void main() {
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 
-	if(random( vec2(round_((v_vTexcoord.x + pos.x / camSize.x) * 180. * aspectRatio) * .01, round_((v_vTexcoord.y + pos.y / camSize.y) * 180.) * .01) ) > .997) {
+	if(random( vec2(round_((v_vTexcoord.x + pos.x / camSize.x) * 130. * aspectRatio) * .01, round_((v_vTexcoord.y + pos.y / camSize.y) * 130.) * .01) ) > .997) {
 		gl_FragColor.rgb += (1.0-gl_FragColor.rgb) * .3;
 	}
 }

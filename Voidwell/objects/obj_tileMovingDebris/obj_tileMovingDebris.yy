@@ -10,8 +10,8 @@
   "name":"obj_tileMovingDebris",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"debris",
+    "path":"folders/Objects/debris.yy",
   },
   "parentObjectId":{
     "name":"obj_gameObject",

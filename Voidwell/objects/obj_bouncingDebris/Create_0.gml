@@ -6,12 +6,12 @@ image_angle = irandom(360);
 
 partTrail = global.partSmallStreamerTrail;
 
-duration = 100 + irandom(50);
+duration = 80 + irandom(90);
 
 speedDecay = 1;
 
-horizontalBounce = -.7;
-verticalBounce = -.5;
+horizontalBounce = -.65;
+verticalBounce = -.45;
 
 spinSpeed = random_range(-15, 15);
 

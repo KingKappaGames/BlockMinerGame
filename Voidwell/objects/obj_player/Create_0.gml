@@ -48,6 +48,8 @@ materialWearingType = 0;
 
 tpCost = 15;
 
+pickaxeDamage = 1;
+
 depth -= 10;
 
 essential = true;
@@ -119,7 +121,15 @@ bombCount = bombMax;
 
 hitGround = function(fallSpeed, tileIndex) {
 	if(fallSpeed > 3.5) {
-		audio_play_sound(global.tileFallSounds[tileIndex], 0, 0, .35);
+		audio_play_sound(global.tileFallSounds[tileIndex], 0, 0, .32 + min(fallSpeed, 25) * .025);
+		
+		var _dustCol = global.tileColors[tileIndex];
+		var _partTypeDust = global.partPoofDust;
+		part_type_direction(_partTypeDust, 70, 110, 0, 0);
+		repeat(3 + fallSpeed * 1.7) {
+			part_particles_create_color(sysUnder, x + random_range(-tileSize * .8, tileSize * .8), y, _partTypeDust, _dustCol, 1);
+		}
+		
 		if(fallSpeed > 6) {
 			hit((power(fallSpeed - 5, 1.75) - 1) * 2 * global.tileFallDamage[tileIndex]);
 			
@@ -255,6 +265,8 @@ refreshCondition = function(useDifficulty = false) {
 setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = undefined, angleFlatApproachMult = undefined, angleSpeedDecay = undefined) {
 	pickaxeIndex = index;
 	
+	pickaxeDamage = 1; // default
+	
 	if(index == E_pickaxe.basicRed) {
 		pickaxeSprite = spr_pickaxe;
 		pickaxeRange = 70;
@@ -270,16 +282,19 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 		pickaxeRange = 140;
 		pickaxeTimerDelay = 90;
 		miningFunc = script_pickaxeMineNormal;
+		pickaxeDamage = 2;
 	} else if(index == E_pickaxe.banana) {
 		pickaxeSprite = spr_pickaxeBanana;
 		pickaxeRange = 90;
 		pickaxeTimerDelay = 40;
 		miningFunc = script_pickaxeMineBanana;
+		pickaxeDamage = 3;
 	} else if(index == E_pickaxe.cycle) {
 		pickaxeSprite = spr_pickaxeCycle;
 		pickaxeRange = 40;
 		pickaxeTimerDelay = 5;
 		miningFunc = script_pickaxeMineNormal;
+		pickaxeDamage = .75;
 		
 		swingSpeedAddMult = .25;
 		angleApproachMult = 0;

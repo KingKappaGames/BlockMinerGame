@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_getMusicLayerFromDepth",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"exec",
+    "path":"folders/Scripts/exec.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

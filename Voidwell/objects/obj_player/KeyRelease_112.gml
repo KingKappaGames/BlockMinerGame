@@ -10,7 +10,11 @@ if (live_call()) return live_result;
 //instance_create_layer(x + 120, y - 100, "Instances", obj_itemPickUpFloat);
 //instance_create_layer(x - 120, y - 100, "Instances", obj_itemPickUpStatic);
 
-instance_create_layer(x, y - 100, "Instances", obj_striderLord);
+script_createConglomerate(mouse_x, mouse_y, 30, 1);
+
+//script_spawnCreature(obj_burstingSack, mouse_x, mouse_y);
+
+//instance_create_layer(x, y - 100, "Instances", obj_striderLord);
 
 //instance_create_layer(x, y, "Instances", obj_book);
 

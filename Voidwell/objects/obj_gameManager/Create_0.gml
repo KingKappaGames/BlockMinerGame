@@ -37,9 +37,9 @@ application_surface_draw_enable(false);
 global.tileSprites =                 [spr_tile,                 spr_tile,                spr_tileCrystal,         spr_tile,                    spr_tileWood,            spr_tileFlesh,        spr_tileBanana,          spr_tileExplosive,  spr_tileMetal, spr_tileWood];
 global.tileColors =                  [c_black,                  c_green,                 c_aqua,                  #884411,                     #cbb29f,                 #ff8888,              #ffff00,                 #ff4014,            #393939, #aaaaaa];
 global.tilePlaceSounds =             [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_placeBlockMud,           snd_placeBlock,          snd_placeBlockMud,     snd_banana,             snd_placeBlock,     snd_placeBlockMetal, snd_placeBlock];
-global.tileBreakSounds =             [snd_breakBlockWood,       snd_breakBlockGrass,      snd_breakBlockCrystal,   snd_breakBlockMud,           snd_breakBlockWood,      snd_breakBlockWood,    snd_banana,             snd_breakBlockWood, snd_breakBlockMetal, snd_breakBlockStone];
-global.tileStepSounds =              [snd_stepSoundStone,[snd_stepSoundMud1, snd_stepSoundMud2],snd_stepSoundStone,snd_stepSoundDirt,      snd_stepSoundStone,[snd_stepSoundMud1, snd_stepSoundMud2],snd_banana,     snd_stepSoundStone, [snd_stepSoundMetal1, snd_stepSoundMetal2, snd_stepSoundMetal3, snd_stepSoundMetal4], snd_stepSoundStone];
-global.tileFallSounds =              [snd_explosion,            snd_explosion,           snd_explosion,           snd_fallOntoMud,             snd_explosion,           snd_fallOntoMud,       snd_fallOntoMud,          snd_explosion,      snd_explosion, snd_explosion];
+global.tileBreakSounds =             [snd_breakBlockWood,       snd_breakBlockGrass,      snd_breakBlockCrystal,   snd_breakBlockMud,          snd_breakBlockWood,      snd_breakBlockWood,    snd_banana,             snd_breakBlockWood, snd_breakBlockMetal, snd_breakBlockStone];
+global.tileStepSounds =              [snd_stepSoundStone,[snd_stepSoundMud1, snd_stepSoundMud2],snd_stepSoundStone,snd_stepSoundDirt,     snd_stepSoundStone, [snd_stepSoundMud1, snd_stepSoundMud2], snd_banana,      snd_stepSoundStone, [snd_stepSoundMetal1, snd_stepSoundMetal2, snd_stepSoundMetal3, snd_stepSoundMetal4], snd_stepSoundStone];
+global.tileFallSounds =              [snd_explosion,            snd_explosion,           snd_fallOntoCrystal,      snd_fallOntoMud,            snd_explosion,           snd_fallOntoMud,       snd_fallOntoMud,          snd_explosion,    snd_placeBlockMetal, snd_explosion];
 global.tileFallDamage =              [0,                        .6,                      2,                       .8,                          1.2,                     .5,                    .75,                    .7,                 1.3, 1.4];
 
 global.tilePlaceSoundsDecorative =   [snd_placeBlock,           snd_placeBlock,          snd_placeBlock,          snd_banana];                                            
@@ -274,6 +274,16 @@ part_type_shape(_bossTrail, pt_shape_disk);
 part_type_size(_bossTrail, .5, .7, -.005, 0);
 part_type_speed(_bossTrail, 0.0, .1, -.001, 0);
 part_type_direction(_bossTrail, 0, 360, 0, 0);
+
+global.partPoofDust = part_type_create();
+var _dustPoof = global.partPoofDust;
+part_type_life(_dustPoof, 120, 210);
+part_type_shape(_dustPoof, pt_shape_square);
+part_type_size(_dustPoof, .035, .09, -.00038, 0);
+part_type_speed(_dustPoof, 0.2, .8, -.005, 0);
+part_type_direction(_dustPoof, 70, 110, 0, 0);
+part_type_orientation(_dustPoof, 0, 360, 0, 5, 0);
+part_type_gravity(_dustPoof, -.0075, 90);
 
 breakPart = global.breakPart; // annoying!
 #endregion

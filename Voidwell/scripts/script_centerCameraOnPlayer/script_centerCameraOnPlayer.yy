@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_centerCameraOnPlayer",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"exec",
+    "path":"folders/Scripts/exec.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

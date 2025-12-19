@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_spawnCreature",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"combat",
+    "path":"folders/Scripts/combat.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

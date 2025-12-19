@@ -11,8 +11,8 @@
   "name":"obj_bouncingBookIntro",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"debris",
+    "path":"folders/Objects/debris.yy",
   },
   "parentObjectId":{
     "name":"obj_bouncingDebris",

@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_fallOntoCrystal",
+  "audioGroupId":{
+    "name":"sndGrp_ambient",
+    "path":"audiogroups/sndGrp_ambient",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.2633107,
+  "exportDir":"",
+  "name":"snd_fallOntoCrystal",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_fallOntoCrystal.mp3",
+  "volume":1.0,
+}

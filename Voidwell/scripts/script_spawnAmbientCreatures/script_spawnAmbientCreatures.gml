@@ -33,7 +33,7 @@ function script_spawnAmbientCreatures() {
 				script_spawnCreature(obj_person, _spawnX, _spawnY, 5);
 			} else {
 				if(irandom(32) == 0) {
-					script_spawnCreature(obj_flyingEnemy, _spawnX, _spawnY);
+					script_spawnCreature(choose(obj_flyingEnemy, obj_flyingEnemy, obj_burstingSack), _spawnX, _spawnY);
 				}
 			}
 		}

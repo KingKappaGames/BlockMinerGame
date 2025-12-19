@@ -32,4 +32,6 @@ function script_spawnCreature(creature, xx, yy, healthSet = undefined, direction
 			}
 		}
 	}
+	
+	return _creature;
 }

@@ -10,8 +10,8 @@
   "name":"obj_bouncingDebris",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"debris",
+    "path":"folders/Objects/debris.yy",
   },
   "parentObjectId":{
     "name":"obj_gameObject",
@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_box4",
-    "path":"sprites/spr_box4/spr_box4.yy",
+    "name":"spr_chunk",
+    "path":"sprites/spr_chunk/spr_chunk.yy",
   },
   "spriteMaskId":{
     "name":"spr_defaultMask",

@@ -189,7 +189,7 @@ if(alive) {
 							} else {
 								part_particles_create_color(sys, _hit.x, _hit.y, starPart, c_white, 3);
 							}
-							_hit.hit(.5, _dir, 2);
+							_hit.hit(pickaxeDamage, _dir, 2);
 						} else { // line check mining
 							
 							for(var _checkDist = 0; _checkDist < _dist - .1; _checkDist = min(_dist, _checkDist + tileSize * .2)) { // check at intervals up to final pixel of check for blocks to break
@@ -210,7 +210,7 @@ if(alive) {
 							} else {
 								part_particles_create_color(sys, mouse_x, mouse_y, starPart, c_white, 3);
 							}
-							_hit.hit(.5, _dir, 2);
+							_hit.hit(pickaxeDamage, _dir, 2);
 						} else {
 							miningFunc(mouse_x, mouse_y);
 						}

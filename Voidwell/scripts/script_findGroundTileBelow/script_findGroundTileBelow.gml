@@ -37,4 +37,4 @@ function script_findGroundBelow(xx, yy, precisionInTiles = 4, useTiles = false, 
 	} else {
 		return -1;
 	}
-}
+} // shouldn't this just be an array check like checkDepthAtTile???
