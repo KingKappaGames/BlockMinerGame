@@ -20,11 +20,13 @@ if(parent == noone) {
 		yChange *= speedDecay;
 		
 		if(_tileIn isSolid) {
-			xChange *= .97;
-			yChange *= .97;
+			xChange *= .98;
+			yChange *= .98;
 			
-			if(global.timer % 15 == 0) {
+			if(global.timer % 12 == 0) {
 				audio_play_sound_at(snd_banana, x, y, 0, audioRefMedium, audioMaxLoud, .5, 0, 0);
+				
+				part_particles_create_color(sys, x, y, global.partPoofDustRadial, global.tileColors[_tileIn], 7);
 			}
 		}
 		
