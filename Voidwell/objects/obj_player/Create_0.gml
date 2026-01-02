@@ -499,6 +499,12 @@ equipSpell = function() {
 	}
 }
 
+setHeldItem = function(item) {
+	heldItem = item;
+	
+	//effect or audio for it
+}
+
 removeSpell = function(index) {
 	var _removed = array_get_index(spellsUnlocked, index);
 	if(_removed != -1) {

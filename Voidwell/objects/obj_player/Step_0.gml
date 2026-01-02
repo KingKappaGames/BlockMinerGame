@@ -358,7 +358,14 @@ var _goalY = ((y * _mousePush) + mouse_y) / (_mousePush + 1)
 var _camX = lerp(camera_get_view_x(cam), _goalX - camera_get_view_width(cam) * .5, .065);
 var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * .5, .065);
 
-camera_set_view_pos(cam, _camX, _camY);
+var _camShake = global.cameraShake;
+
+if(_camShake > 0) {
+	camera_set_view_pos(cam, _camX + random_range(-_camShake, _camShake), _camY + random_range(-_camShake, _camShake));
+} else {
+	camera_set_view_pos(cam, _camX, _camY);
+}
+
 global.tileManager.updateScreen(_camX, _camY, _camChange != 0);
 
 if(_timer % 60 == 0) { // delete or disable all far enemies

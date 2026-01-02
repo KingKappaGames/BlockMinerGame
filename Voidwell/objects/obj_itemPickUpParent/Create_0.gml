@@ -16,19 +16,7 @@ image_angle = choose(45, 135, 225, 315) + irandom_range(-8, 8); // i just prefer
 image_xscale = 2;
 image_yscale = 2;
 
-pickUp = function() {
-	var _player = player;
-	
-	if(pickupType == "pickaxe") {
-		var _droppedPickaxe = instance_create_layer(_player.x, _player.y, "Instances", object_index);
-		_droppedPickaxe.pickupIndex = _player.pickaxeIndex;
-		_droppedPickaxe.sprite_index = script_getPickaxeSprite(_player.pickaxeIndex);
-		
-		_player.setPickaxe(pickupIndex);
-	} else if(pickupType == "robe") {
-		_player.setRobe(id);
-	}
-	
+pickUp = function() { // overriden in children 
 	part_particles_create_color(sys, x, y, explosionPart, #ffffaa, 50);
 	
 	//sound and particles

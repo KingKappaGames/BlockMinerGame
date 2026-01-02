@@ -59,9 +59,10 @@ enum E_musicLayer {
 
 enum E_item {
 	none = 0,
-	memento = 1,
-	fairySummon = 2,
-	clusterBomb = 3,
-	materialSpray = 4,
-	itemCount = 5,
+	memento,
+	fairySummon,
+	clusterBomb,
+	materialSpray,
+	tremorInducer,
+	itemCount,
 }

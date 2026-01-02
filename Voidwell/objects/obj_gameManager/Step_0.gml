@@ -11,6 +11,9 @@ if(inGame) {
 	} else {
 		if(!global.gamePaused) {
 			var _timer = global.timer;
+			
+			global.cameraShake *= .95;
+			
 			if(_timer % surfaceEffectsUpdateTick == 0) {
 				updateDepthEffects();
 				

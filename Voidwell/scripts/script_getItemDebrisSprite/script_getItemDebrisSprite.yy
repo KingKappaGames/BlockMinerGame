@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_getItemDebrisSprite",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_getItemDebrisSprite",
+  "parent":{
+    "name":"items",
+    "path":"folders/Scripts/items.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

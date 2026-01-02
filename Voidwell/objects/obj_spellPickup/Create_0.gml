@@ -10,3 +10,15 @@ pickupIndex = E_spell.explosiveBolt;
 //image_yscale = 1;
 
 //image_angle = 0;
+
+pickUp = function() {
+	var _player = player;
+	
+	//??
+	
+	part_particles_create_color(sys, x, y, explosionPart, #ffffaa, 50);
+	
+	//sound and particles
+	
+	instance_destroy();
+}

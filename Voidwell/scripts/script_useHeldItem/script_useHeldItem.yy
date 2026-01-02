@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_useHeldItem",
   "parent":{
-    "name":"items",
-    "path":"folders/Scripts/items.yy",
+    "name":"HELD ITEMS",
+    "path":"folders/HELD ITEMS.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

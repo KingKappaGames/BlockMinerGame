@@ -19,6 +19,15 @@ if(parent == noone) {
 		xChange *= speedDecay;
 		yChange *= speedDecay;
 		
+		if(_tileIn isSolid) {
+			xChange *= .97;
+			yChange *= .97;
+			
+			if(global.timer % 15 == 0) {
+				audio_play_sound_at(snd_banana, x, y, 0, audioRefMedium, audioMaxLoud, .5, 0, 0);
+			}
+		}
+		
 		moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 		
 		if(collision_circle(x, y, 5, obj_player, false, false) != noone) {

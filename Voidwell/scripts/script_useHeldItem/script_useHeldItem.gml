@@ -16,6 +16,10 @@ function script_useHeldItem() {
 			repeat(21) {
 				script_createMovingTile(chestX, chestY, lengthdir_x(7.1 * random_range(.7, 1.35) + random_range(-1, 1), dirToMouse), lengthdir_y(7.1 * random_range(.7, 1.35) + random_range(-1, 1), dirToMouse), irandom(E_tile.tileIndexMax - 1));
 			}
+		} else if(heldItem == E_item.tremorInducer) {
+			audio_play_sound(snd_chime, 0, 0, .18);
+			
+			script_createTremor(x, y, 120, 1, true);
 		}
 	}
 }

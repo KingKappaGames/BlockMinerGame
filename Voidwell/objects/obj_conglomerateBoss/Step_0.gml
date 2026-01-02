@@ -22,26 +22,14 @@ if(alive) {
 		
 		moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 		
-		if(_distToPlayer < 16) {
-			if(global.timer % 15 == 0) {
+		xChange *= speedDecayAir;
+		yChange *= speedDecayAir;
+		
+		if(_distToPlayer < 21) {
+			if(global.timer % 10 == 0) {
 				player.hit(3, _dirToPlayer, 3);
 			}
 		}
-	}
-} else {
-	deathTimer++;
-	
-	yChange += grav * .75; // bugs have less gravity yo
-	
-	xChange *= speedDecay;
-	yChange *= .98; // hard coded, yes. CAI
-	
-	if(irandom(11) == 0) {
-		part_particles_create_color(sys, x + irandom_range(-8, 8), y + irandom_range(-8, 8), global.partSwirl, #aa9933, 1 + irandom(1));
-	}
-	
-	if(deathTimer >= deathTimerMax) {
-		instance_destroy();
 	}
 }
 

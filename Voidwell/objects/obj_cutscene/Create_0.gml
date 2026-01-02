@@ -44,7 +44,7 @@ setCutscene = function(cutscene) {
 	} else if(cutscene == "boss") {
 		spriteList = [spr_introCutscene, spr_introCutscene, spr_introCutscene, spr_introCutscene];
 		imageList = [0, 1, 2, 3];
-		textList = ["So much power... So much life in darkness.", "But the abyss is still there, it is so empty below you. No amount of power will change that.", "All of this. Your search for answers has brought you no closer to the truth. Only sealed your fate.", "Now you are stuck in the Voidwell, locked out of the Bastion, to become yet another creature of darkness."];
+		textList = ["So much power... So much life in darkness.", "But the abyss is still there, it is so empty below you. No amount of power will change that.", "All of this. Your search for answers has brought you no closer to the truth. Only sealed your fate.", "Now you are stuck in the Voidwell, locked out of the Bastion, to become yet another creation of darkness, another victim of forces beyond your comprehension."];
 	}
 	
 	sceneCount = array_length(spriteList);

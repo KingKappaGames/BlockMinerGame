@@ -28,6 +28,8 @@ window_set_cursor(cr_none);
 
 application_surface_draw_enable(false);
 
+global.cameraShake = 0;
+
 #region macros and enums set up
 
 
@@ -284,6 +286,16 @@ part_type_speed(_dustPoof, 0.2, .8, -.005, 0);
 part_type_direction(_dustPoof, 70, 110, 0, 0);
 part_type_orientation(_dustPoof, 0, 360, 0, 5, 0);
 part_type_gravity(_dustPoof, -.0075, 90);
+
+global.partPoofDustRadial = part_type_create();
+var _dustPoofRadial = global.partPoofDustRadial;
+part_type_life(_dustPoofRadial, 120, 210);
+part_type_shape(_dustPoofRadial, pt_shape_square);
+part_type_size(_dustPoofRadial, .035, .09, -.00038, 0);
+part_type_speed(_dustPoofRadial, 0.2, .8, -.005, 0);
+part_type_direction(_dustPoofRadial, 0, 360, 0, 0);
+part_type_orientation(_dustPoofRadial, 0, 360, 0, 5, 0);
+part_type_gravity(_dustPoofRadial, -.0075, 90);
 
 breakPart = global.breakPart; // annoying!
 #endregion

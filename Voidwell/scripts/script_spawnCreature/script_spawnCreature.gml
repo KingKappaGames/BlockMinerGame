@@ -10,20 +10,21 @@ function script_spawnCreature(creature, xx, yy, healthSet = undefined, direction
 		directionFacing = directionFacing;
 		
 		if(object_index == obj_person) {
-			sprite_index = choose(spr_player, spr_playerCrystal, spr_playerGrass, spr_playerMetal);
+			material = choose(E_tile.empty, E_tile.diamond, E_tile.grass, E_tile.metal);
+			sprite_index = script_getRobeSpriteForMaterial(material);
 	
-			if(sprite_index == spr_playerCrystal) {
+			if(material == E_tile.diamond) {
 				HealthMax *= .7;
 				Health = HealthMax;
 				damage *= 3;
 				moveSpeed *= .9;
-			} else if(sprite_index == spr_playerMetal) {
+			} else if(material == E_tile.metal) {
 				HealthMax *= 2;
 				Health = HealthMax;
 				damage *= 1.25;
 				moveSpeed *= .7;
 				knockbackMult = .2;
-			} else if(sprite_index == spr_playerGrass) {
+			} else if(material == E_tile.grass) {
 				HealthMax *= 1;
 				Health = HealthMax;
 				damage *= 1;

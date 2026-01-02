@@ -13,7 +13,7 @@ Health = HealthMax;
 knockbackMult = 1;
 
 speedDecay = .8;
-speedDecayAir = .97;
+speedDecayAir = .98;
 
 moveDir = irandom(360);
 moveSpeed = .21;
