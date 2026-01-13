@@ -115,7 +115,7 @@ worldOptionSizeSelected = 3;
 worldOptionSizeOptions = [100, 250, 500, 1000, 1500, 2000, 3000, 4000, 5000, 8000];
 
 worldOptionGenerationTypeSelected = 0;
-worldOptionGenerationTypeOptions = ["overworld", "normal", "layers", "random"];
+worldOptionGenerationTypeOptions = ["biomes", "overworld", "normal", "layers", "random"];
 
 worldOptionStructureMultSelected = 4;
 worldOptionStructureMultOptions = [0, .1, .25, .5, 1, 1.25, 1.5, 2, 3, 5, 10, 25];

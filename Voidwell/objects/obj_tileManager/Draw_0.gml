@@ -76,10 +76,9 @@ for(var _x = 1; _x < _screenTileWidth - 1; _x++) {
 				
 				draw_sprite_ext(_tSprite[_tileVal], _tileFrameIndex, _x * tileSize + tileSize * .5, _y * tileSize + tileSize * .5, 1, 1, 0, _color, 1);
 			}
-			
-			//draw_text_transformed(screenWorldX + _x * tileSize + tileSize * .375, screenWorldY + _y * tileSize + tileSize * .25, _tileVal, .5, .5, 0);
 			//draw_rectangle_color(screenWorldX + _x * tileSize, screenWorldY + _y * tileSize, screenWorldX + _x * tileSize + tileSize - 1, screenWorldY + _y * tileSize + tileSize - 1, _color, _color, _color, _color, false);
 		}
+		
 		
 		//draw_text(_x * tileSize + tileSize * .5, _y * tileSize + tileSize * .5, _tileVal)
 	}

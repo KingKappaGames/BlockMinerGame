@@ -175,8 +175,8 @@ die = function() {
 		
 		deathSpin += random_range(-10, 10);
 		
-		horizontalBounce = -.35;
-		verticalBounce = -.5;
+		horizontalBounce = -.32;
+		verticalBounce = -.35;
 		
 		part_particles_create_color(sys, x, y - 10, breakPart, c_purple, 50);
 		
@@ -291,8 +291,8 @@ setPickaxe = function(index, swingSpeedAddMult = undefined, angleApproachMult = 
 		pickaxeDamage = 3;
 	} else if(index == E_pickaxe.cycle) {
 		pickaxeSprite = spr_pickaxeCycle;
-		pickaxeRange = 40;
-		pickaxeTimerDelay = 5;
+		pickaxeRange = 42;
+		pickaxeTimerDelay = 7;
 		miningFunc = script_pickaxeMineNormal;
 		pickaxeDamage = .75;
 		

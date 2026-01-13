@@ -21,7 +21,7 @@ function script_saveWorld(filename) {
 	instance_deactivate_object(obj_materialOrbNode);
 	instance_deactivate_object(obj_itemPickUpParent);
 	
-	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups]; // 9 length so far
+	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups, variable_clone(global.tileBiomes)]; // 10 length so far
 	var _jsonWorld = json_stringify(_saveData);
 	
     var _worldSavebuffer = buffer_create(string_byte_length(_jsonWorld) + 1, buffer_fixed, 1);
@@ -33,6 +33,7 @@ function script_saveWorld(filename) {
 
 function script_loadWorld(filename) {
 	global.worldTiles = []; // not necessary but nice feeling
+	global.tileBiomes = [];
 	
 	var _worldLoadBuffer = buffer_load(filename);
 	
@@ -41,6 +42,7 @@ function script_loadWorld(filename) {
 	var _loadData = json_parse(_worldLoadData);
 	
 	global.worldTiles = _loadData[0];
+	global.tileBiomes = _loadData[10];
 	
 	var _player = instance_create_layer(0, 0, "Instances", obj_player);
 	

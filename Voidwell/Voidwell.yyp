@@ -127,6 +127,7 @@
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"computer_lab_nineteen_eighty_and_six","path":"scripts/computer_lab_nineteen_eighty_and_six/computer_lab_nineteen_eighty_and_six.yy",},},
     {"id":{"name":"ENUMS","path":"scripts/ENUMS/ENUMS.yy",},},
+    {"id":{"name":"GLOBALS","path":"scripts/GLOBALS/GLOBALS.yy",},},
     {"id":{"name":"GMLive_notOnce","path":"scripts/GMLive_notOnce/GMLive_notOnce.yy",},},
     {"id":{"name":"GMLive","path":"scripts/GMLive/GMLive.yy",},},
     {"id":{"name":"GMLiveAPI_js","path":"scripts/GMLiveAPI_js/GMLiveAPI_js.yy",},},

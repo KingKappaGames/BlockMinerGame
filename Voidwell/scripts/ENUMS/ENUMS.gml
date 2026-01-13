@@ -45,7 +45,18 @@ enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSome
 	explosive = 7,
 	metal = 8,
 	stone = 9,
-	tileIndexMax = 10
+	deepStone = 9,
+	tileIndexMax
+}
+
+enum E_biome {
+	surface, 
+	underground,
+	depths,
+	sky,
+	biomeStructure1,
+	biomeStructure2,
+	biomeStructure3,
 }
 
 enum E_musicLayer {
