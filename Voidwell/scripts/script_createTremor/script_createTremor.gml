@@ -1,4 +1,4 @@
-function script_createTremor(xx = x, yy = y, durationSet, strengthSet, knockdownBlocks = true, volumeSet = 1, soundToRepeat = snd_stepSoundMud2) {
+function script_createTremor(xx = x, yy = y, durationSet, strengthSet, knockdownBlocks = true, volumeSet = 1, soundToRepeat = snd_rumbleLong) {
 	var _tremor = instance_create_layer(xx, yy, "Instances", obj_tremorWiggler);
 	
 	with(_tremor) {

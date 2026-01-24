@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ENUMS",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Voidwell",
+    "path":"Voidwell.yyp",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

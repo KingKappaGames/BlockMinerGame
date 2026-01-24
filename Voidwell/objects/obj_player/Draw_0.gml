@@ -21,7 +21,7 @@ if(pickaxeMineTileLine && pickaxeTimer > 0) {
 	draw_set_alpha(1);
 }
 
-draw_text(mouse_x, mouse_y, global.tileBiomes[mouse_x div tileSize][mouse_y div tileSize]);
+//draw_text(mouse_x, mouse_y, global.tileBiomes[mouse_x div tileSize][mouse_y div tileSize]);
 
 //draw_text(x, y - 50, Health);
 

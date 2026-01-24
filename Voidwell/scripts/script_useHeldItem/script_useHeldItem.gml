@@ -1,7 +1,7 @@
 function script_useHeldItem() {
 	if(heldItem != E_item.none) {
 		if(heldItem == E_item.memento) {
-			script_createShockwaveSpell(mouse_x, mouse_y, 50, 64, 1.06,,,, c_red);
+			script_createShockwaveSpell(mouse_x, mouse_y, 90, 64, 1.014,, .3,, c_red);
 			heldItem = E_item.none;
 		} else if(heldItem == E_item.fairySummon) {
 			script_spawnCreature(obj_fairyLord, mouse_x, mouse_y);
@@ -20,6 +20,12 @@ function script_useHeldItem() {
 			audio_play_sound(snd_chime, 0, 0, .18);
 			
 			script_createTremor(x, y, 120, 1, true);
+		} else if(heldItem == E_item.heartLantern) {
+			audio_play_sound(snd_breakBlockMetal, 0, 0, .4);
+			
+			var _item = instance_create_layer(chestX, chestY, "Instances", obj_heartVortex);
+				_item.xChange = dcos(dirToMouse) * 1.6 * random_range(.9, 1.1);
+				_item.yChange = -dsin(dirToMouse) * 1.6 * random_range(.9, 1.1);
 		}
 	}
 }

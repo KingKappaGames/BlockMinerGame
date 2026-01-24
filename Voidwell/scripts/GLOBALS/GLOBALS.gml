@@ -41,11 +41,10 @@ part_type_direction(_radialShimmer, 0, 360, 0, 0);
 global.roundTrail = part_type_create();
 var _roundTrail = global.roundTrail;
 part_type_life(_roundTrail, 45, 55);
-part_type_shape(_roundTrail, pt_shape_square);
-part_type_size(_roundTrail, .05, .05, -.001, 0);
+part_type_shape(_roundTrail, pt_shape_disk);
+part_type_size_x(_roundTrail, .12, .12, 0, 0);
+part_type_size_y(_roundTrail, .03, .03, -.0003, 0);
 part_type_alpha2(_roundTrail, 1, .3);
-part_type_speed(_roundTrail, 0, .4, -.004, 0);
-part_type_direction(_roundTrail, 0, 360, 0, 0);
 part_type_orientation(_roundTrail, 0, 0, 1.7, 0, 0);
 part_type_color1(_roundTrail, #ffffff)
 

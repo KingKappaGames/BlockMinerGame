@@ -50,6 +50,8 @@ if(alive) {
 		global.tileManager.updateScreenStatic();
 	}
 } else {
+	script_cameraShake(.2);
+	
 	xChange *= .9;
 	yChange *= .9;
 	deathTimer++;

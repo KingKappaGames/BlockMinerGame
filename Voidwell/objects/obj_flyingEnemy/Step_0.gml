@@ -20,23 +20,25 @@ if(alive) {
 	} else {
 		directionFacing = xChange > 0 ? 1 : -1;
 		
-		var _tileOn = tiles[x div tileSize][(y + 1) div tileSize];
-		if(_tileOn > 0) {
-			if(sprite_index != standingSprite) {
-				sprite_index = standingSprite;
-				image_speed = 2;
+		if(inWorld) {
+			var _tileOn = tiles[x div tileSize][(y + 1) div tileSize];
+			if(_tileOn > 0) {
+				if(sprite_index != standingSprite) {
+					sprite_index = standingSprite;
+					image_speed = 2;
+				}
+				
+				xChange *= speedDecay;
+				yChange *= speedDecay;
+			} else {
+				if(sprite_index != flyingSprite) {
+					sprite_index = flyingSprite;
+					image_speed = 15;
+				}
+				
+				xChange *= speedDecayAir;
+				yChange *= speedDecayAir;
 			}
-			
-			xChange *= speedDecay;
-			yChange *= speedDecay;
-		} else {
-			if(sprite_index != flyingSprite) {
-				sprite_index = flyingSprite;
-				image_speed = 15;
-			}
-			
-			xChange *= speedDecayAir;
-			yChange *= speedDecayAir;
 		}
 	}
 	

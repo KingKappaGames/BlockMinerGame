@@ -2,9 +2,9 @@ event_inherited();
 
 radius *= radiusMult;
 
-var _angle = 0;
+var _angle = irandom(360);
 repeat((radius * .5 + 8) * strength) {
-	_angle += 138.508;
+	_angle += 139.838;
 	if(materialType == 0) {
 		script_breakTileAtPos(x + dcos(_angle) * radius * .9 + irandom_range(-15, 15), y - dsin(_angle) * radius * .9 + irandom_range(-15, 15), .15, false);
 	} else {

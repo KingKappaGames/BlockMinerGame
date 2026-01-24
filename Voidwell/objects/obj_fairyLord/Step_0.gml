@@ -15,6 +15,8 @@ part_particles_create(global.sys, x + irandom_range(-1000, 1000),  + irandom_ran
 event_inherited();
 
 if(state == "die") {
+	script_cameraShake(.2);
+	
 	xChange *= .9;
 	yChange *= .9;
 	deathTimer++;

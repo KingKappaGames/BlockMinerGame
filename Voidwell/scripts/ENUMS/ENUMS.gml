@@ -75,5 +75,6 @@ enum E_item {
 	clusterBomb,
 	materialSpray,
 	tremorInducer,
+	heartLantern,
 	itemCount,
 }

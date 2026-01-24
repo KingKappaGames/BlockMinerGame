@@ -6,7 +6,7 @@ if(duration <= 0) {
 	if(blockKnockdown) {
 		var _tileX, _tileY;
 		
-		repeat(10 * strength) {
+		repeat(25 * strength) {
 			var _x = x + irandom_range(-500, 500);
 			var _y = y + irandom_range(-300, 300);
 			
