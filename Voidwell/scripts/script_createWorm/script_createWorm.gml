@@ -1,4 +1,4 @@
-function script_createWorm(xx, yy, length, healthSet = length, color = undefined, visualType = undefined) {
+function script_createWorm(xx, yy, length, healthSet = length * .85, color = undefined, visualType = undefined) {
 	var _previousSegment = noone;
 	var _head = noone;
 	

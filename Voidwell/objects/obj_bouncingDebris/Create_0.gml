@@ -4,7 +4,7 @@ image_blend = make_color_rgb(irandom_range(220, 255), irandom_range(220, 255), i
 
 image_angle = irandom(360);
 
-partTrail = global.partSmallStreamerTrail;
+partTrail = global.partStreamerSpellTrail;
 
 duration = 80 + irandom(90);
 

@@ -7,7 +7,7 @@ audio_listener_orientation(0, 1, 0, 0, 0, 1);
 audio_falloff_set_model(audio_falloff_linear_distance);
 
 HealthMax = 10;
-Health = HealthMax;
+Health = HealthMax; // jump player, bug wing buzz, spell cast sound Add sounds // TODO
 healthRegen = 1;
 
 iFrames = 0;
@@ -24,8 +24,6 @@ robePreviousId = noone; // id of last robe pick up (the one that's left behind w
 chestOff = 9;
 chestX = x;
 chestY = y - chestOff;
-
-heldItem = E_item.none;
 
 flying = false; // whether the player is flying around or walking/jumping
 
@@ -115,6 +113,10 @@ spellXOff = 0;
 spellYOff = 0;
 spellXChange = 0;
 spellYChange = 0;
+
+heldItem = E_item.none;
+heldItemText = script_getHeldItemText(E_item.none);
+heldItemTextAlpha = 0;
 
 bombMax = 3;
 bombCount = bombMax;
@@ -501,6 +503,8 @@ equipSpell = function() {
 
 setHeldItem = function(item) {
 	heldItem = item;
+	
+	heldItemText = script_getHeldItemText(item);
 	
 	//effect or audio for it
 }

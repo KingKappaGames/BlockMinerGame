@@ -1,5 +1,8 @@
 if (live_call()) return live_result;
 
+var _mouseX = device_mouse_x_to_gui(0);
+var _mouseY = device_mouse_y_to_gui(0);
+
 var _size = 56;
 
 draw_circle(90, 90, _size, true);
@@ -47,3 +50,19 @@ draw_sprite_ext(spr_spellIcons, spell, 90, 90, 2, 2, 0, c_white, 1);
 
 draw_circle(90, 220, 48, true);
 draw_sprite_ext(spr_itemHeldIcons, heldItem, 90, 220, 2, 2, 0, c_white, 1);
+
+msg(window_mouse_get_x());
+
+
+
+if(point_distance(90, 220, _mouseX, _mouseY) < 48) {
+	heldItemTextAlpha = min(1, heldItemTextAlpha + .09);
+} else {
+	heldItemTextAlpha *= .52;
+}
+
+if(heldItemTextAlpha > .01) {
+	draw_set_valign(fa_middle);
+	draw_text_transformed_color(_mouseX + 50, _mouseY, heldItemText, 1.7 * sqrt(heldItemTextAlpha), 1.7 * sqrt(heldItemTextAlpha), dsin(current_time * .2), c_white, c_white, c_white, c_white, heldItemTextAlpha);
+	draw_set_valign(fa_top);
+}

@@ -11,7 +11,7 @@ dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 iFrames--;
 
 if(keyboard_check_released(vk_alt)) {
-	heldItem = irandom(E_item.itemCount - 1);
+	setHeldItem(irandom(E_item.itemCount - 1));
 }
 
 #region movement checks and forces

@@ -48,13 +48,6 @@ part_type_alpha2(_roundTrail, 1, .3);
 part_type_orientation(_roundTrail, 0, 0, 1.7, 0, 0);
 part_type_color1(_roundTrail, #ffffff)
 
-global.overwrittenTrailerPart = part_type_create(); // no visuals?
-var _trailerPart = global.overwrittenTrailerPart;
-part_type_life(_trailerPart, 25, 90);
-part_type_direction(_trailerPart, 0, 360, 0, 0); // over write speed per particle use case in code, no default
-part_type_gravity(_trailerPart, .04, 270);
-part_type_step(_trailerPart, -2, _roundTrail);
-
 global.smokeTrailPart = part_type_create();
 var _smokeTrail = global.smokeTrailPart;
 part_type_life(_smokeTrail, 75, 110);
@@ -165,3 +158,10 @@ part_type_speed(_dustPoofRadial, 0.2, .8, -.005, 0);
 part_type_direction(_dustPoofRadial, 0, 360, 0, 0);
 part_type_orientation(_dustPoofRadial, 0, 360, 0, 5, 0);
 part_type_gravity(_dustPoofRadial, -.0075, 90);
+
+global.overwrittenTrailerPart = part_type_create(); // no visuals?
+var _trailerPart = global.overwrittenTrailerPart;
+part_type_life(_trailerPart, 25, 90);
+part_type_direction(_trailerPart, 0, 360, 0, 0); // over write speed per particle use case in code, no default
+part_type_gravity(_trailerPart, .04, 270);
+part_type_step(_trailerPart, -2, _streamerTrail);

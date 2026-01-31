@@ -2,7 +2,7 @@ function script_useHeldItem() {
 	if(heldItem != E_item.none) {
 		if(heldItem == E_item.memento) {
 			script_createShockwaveSpell(mouse_x, mouse_y, 90, 64, 1.014,, .3,, c_red);
-			heldItem = E_item.none;
+			setHeldItem(E_item.none);
 		} else if(heldItem == E_item.fairySummon) {
 			script_spawnCreature(obj_fairyLord, mouse_x, mouse_y);
 		} else if(heldItem == E_item.clusterBomb) {

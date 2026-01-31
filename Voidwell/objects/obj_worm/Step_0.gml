@@ -7,6 +7,12 @@ if(parent == noone) {
 	if(alive) {
 		var _dirToPlayer = point_direction(x, y, player.x, player.y);
 		
+		if(abs(angle_difference(_dirToPlayer, image_angle)) < 20 && point_distance(x, y, player.x, player.y) < 100) {
+			image_index = 1; // mouth open
+		} else {
+			image_index = 0;
+		}
+		
 		xChange += dcos(_dirToPlayer) * moveSpeed * .55;
 		yChange -= dsin(_dirToPlayer) * moveSpeed * .55;
 		
@@ -27,6 +33,10 @@ if(parent == noone) {
 				audio_play_sound_at(snd_banana, x, y, 0, audioRefMedium, audioMaxLoud, .5, 0, 0);
 				
 				part_particles_create_color(sys, x, y, global.partPoofDustRadial, global.tileColors[_tileIn], 7);
+			}
+		} else {
+			if(irandom(600) == 0) {
+				audio_play_sound_at(choose(snd_monsterWarbleScreech, snd_monsterWarbleScreechVariation), x, y, 0, audioRefMedium, audioMaxLoud, .75, 0, 0);
 			}
 		}
 		
