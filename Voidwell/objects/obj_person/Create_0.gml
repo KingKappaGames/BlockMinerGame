@@ -25,8 +25,12 @@ move = function(xx, yy) {
 }
 
 previousDieFunc = die;
-die = function() {
-	previousDieFunc();
+die = function(destroyBody = false) {
+	previousDieFunc(destroyBody);
+	
+	if(!destroyBody) {
+		script_createDebrisChunk(obj_debrisBody, x, y, xChange, yChange,, 1, 1, 300, sprite_index, image_index,,, false);
+	}
 	
 	var _material = material;
 	

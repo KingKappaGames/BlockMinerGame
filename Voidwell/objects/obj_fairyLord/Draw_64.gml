@@ -4,8 +4,8 @@ if(alive) {
 	var _viewW = view_wport[view_camera[0]];
 	var _viewH = view_hport[view_camera[0]];
 	var _health = Health / HealthMax;
-	draw_rectangle_color(_viewW * .5 - _viewW * .3 * _health, _viewH * .9, _viewW * .5 + _viewW * .3 * _health, _viewH * .86, c_white, c_white, c_white, c_yellow, false);
-	draw_rectangle_color(_viewW * .2, _viewH * .875, _viewW * .8, _viewH * .885, c_white, c_white, c_white, c_yellow, false);
+	draw_rectangle_color(_viewW * .5 - _viewW * .3 * _health, _viewH * .92, _viewW * .5 + _viewW * .3 * _health, _viewH * .88, c_white, c_white, c_white, c_yellow, false);
+	draw_rectangle_color(_viewW * .2, _viewH * .895, _viewW * .8, _viewH * .905, c_white, c_white, c_white, c_yellow, false);
 } else {
 	if(deathTimer > 0) {
 		var _timer = deathTimer * 1.42;

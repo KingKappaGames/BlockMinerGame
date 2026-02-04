@@ -108,7 +108,7 @@ hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 		Health -= damage;
 		
 		if(Health <= 0) {
-			die();
+			die(destroyBody);
 		} else {
 			hitFlash = 5;
 		}
@@ -118,7 +118,7 @@ hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	}
 }
 
-die = function() {
+die = function(destroyBody = false) {
 	alive = false;
 	
 	setState("die");

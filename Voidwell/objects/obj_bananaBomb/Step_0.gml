@@ -1,4 +1,4 @@
-if (live_call()) return live_result;
+//if (live_call()) return live_result;
 
 event_inherited();
 
@@ -24,6 +24,9 @@ image_angle += spinSpeed;
 duration--;
 if(duration <= 0) {
 	script_explodeTiles(x, y, 25, .15,,, false, true, .6);
+	
+	script_createVisual(x, y, 24, spr_explosionFXgreyscale,,, 3, , #ffff92);
+	
 	
 	repeat(irandom_range(5, 8)) {
 		script_placeTileAtPos(x + irandom_range(-90, 90) + irandom_range(-90, 90), y + irandom_range(-60, 60) + irandom_range(-60, 60), E_tile.banana, true);

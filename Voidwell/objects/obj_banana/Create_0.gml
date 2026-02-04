@@ -8,8 +8,8 @@ duration = 480 + irandom(60);
 
 speedDecay = .99;
 
-horizontalBounce = -.9;
-verticalBounce = -.8;
+horizontalBounce = -.8;
+verticalBounce = -.62;
 
 spinSpeed = random_range(-15, 15);
 

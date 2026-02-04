@@ -36,7 +36,7 @@ hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	}
 }
 
-die = function() {
+die = function(destroyBody = false) {
 	alive = false;
 	//uh, then what?
 }

@@ -54,7 +54,7 @@ hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 	//knockdown
 }
 
-die = function() {
+die = function(destroyBody = false) {
 	alive = false;
 	
 	audio_play_sound_at(snd_bugDie, x, y, 0, audioRefMedium, audioMaxMedium, 1, 0, 0, 1,, random_range(.9, 1.1));

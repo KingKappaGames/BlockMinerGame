@@ -157,6 +157,14 @@ if(alive) {
 		chestX = x;
 		chestY = y - chestOff;
 	}
+} else {
+	respawnTimer--;
+	if(respawnTimer <= 0) {
+		respawn();
+	} else {
+		image_angle += deathSpin;
+		yChange += grav * 1.2; // gravity
+	}
 }
 
 audio_listener_set_position(0, x, y, 0);
@@ -388,13 +396,3 @@ if(keyboard_check_released(vk_insert)) {
 }
 
 deathSpin *= .975;
-
-if(!alive) {
-	respawnTimer--;
-	if(respawnTimer <= 0) {
-		respawn();
-	} else {
-		image_angle += deathSpin;
-		yChange += grav * 1.2; // gravity
-	}
-}

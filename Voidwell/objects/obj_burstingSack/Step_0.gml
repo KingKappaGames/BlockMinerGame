@@ -1,4 +1,4 @@
-if (live_call()) return live_result;
+//if (live_call()) return live_result;
 
 event_inherited();
 	
@@ -20,7 +20,7 @@ if(alive) {
 	} else {
 		directionFacing = xChange > 0 ? 1 : -1;
 		
-		var _tileOn = tiles[x div tileSize][(y + 1) div tileSize];
+		var _tileOn = inWorld ? tiles[x div tileSize][(y + 1) div tileSize] : E_tile.empty;
 		if(_tileOn > 0) {
 			//if(sprite_index != standingSprite) { 
 				//sprite_index = standingSprite;
@@ -41,7 +41,7 @@ if(alive) {
 	}
 	
 	if(_distToPlayer < 16) {
-		if(global.timer % 15 == 0) {
+		if(global.timer % 12 == 0) {
 			if(dashStateTimer > 0) {
 				player.hit(3, _dirToPlayer, 3);
 			} else {

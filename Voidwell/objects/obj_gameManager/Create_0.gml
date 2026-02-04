@@ -128,6 +128,13 @@ sysUnder = part_system_create();
 part_system_depth(sysUnder, depth + 250); // under everything else (not background tho)
 global.sysUnder = sysUnder;
 
+sysOutline = part_system_create();
+part_system_depth(sysOutline, depth); // manual draw, this does nothing
+part_system_automatic_draw(sysOutline, false);
+global.sysOutline = sysOutline;
+
+partOutlineSurf = -1;
+
 breakPart = global.breakPart; // annoying!
 
 #endregion

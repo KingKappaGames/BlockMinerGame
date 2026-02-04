@@ -17,6 +17,8 @@ var _tileOn = inWorld ? tiles[x div tileSize][y div tileSize] : 0;
 
 if(duration <= 0 || _tileOn > 0) {
 	audio_play_sound_at(snd_explosion, x, y, 0, audioRefLoud, audioMaxLoud, 1, false, 0);
+	
+	script_createVisual(x, y, 24, spr_explosionFXgreyscale,,, 1.7);
 		
 	script_createShockwaveSpell(x, y, 3, tileSize * 1.3, 1.26,, 1);
 	

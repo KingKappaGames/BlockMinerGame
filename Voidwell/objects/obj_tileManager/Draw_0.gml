@@ -21,8 +21,8 @@ var _tSpriteDec = global.tileSpritesDecorative;
 var _tColDec = global.tileColorsDecorative;
 
 var _tileScreen = tilesScreen;
-var _screenWorldX = screenWorldX;
-var _screenWorldY = screenWorldY; // yes this is meaningfully faster
+//var _screenWorldX = screenWorldX;
+//var _screenWorldY = screenWorldY; // yes this is meaningfully faster
 var _screenWorldTileX = screenWorldTileX;
 var _screenWorldTileY = screenWorldTileY; // since drawing the tiles is slow go through effort of localizing these big loop vars (that might get called 2000 times a frame here...)
 var _screenTileWidth = tileScreenWidth;

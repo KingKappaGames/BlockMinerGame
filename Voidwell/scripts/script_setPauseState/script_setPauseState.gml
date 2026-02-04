@@ -10,6 +10,7 @@ function script_setPauseState(pauseState){
 		
 		part_system_automatic_update(global.sys, true);
 		part_system_automatic_update(global.sysUnder, true);
+		part_system_automatic_update(global.sysOutline, true);
 		part_system_automatic_draw(global.sys, true);
 		part_system_automatic_draw(global.sysUnder, true);
 	} else if(pauseState == true) {
@@ -30,6 +31,7 @@ function script_setPauseState(pauseState){
 		
 		part_system_automatic_update(global.sys, false);
 		part_system_automatic_update(global.sysUnder, false);
+		part_system_automatic_update(global.sysOutline, false);
 		part_system_automatic_draw(global.sys, false);
 		part_system_automatic_draw(global.sysUnder, false);
 	}

@@ -5,7 +5,9 @@ if(!inWorld) {
 	exit;
 }
 
-part_particles_create_color(sys, x, y, partTrail, image_blend, 1);
+if(makeTrailParts) {
+	part_particles_create_color(sys, x, y, partTrail, image_blend, 1);
+}
 
 yChange += grav; // gravity
 

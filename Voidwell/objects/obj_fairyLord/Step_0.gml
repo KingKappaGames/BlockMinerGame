@@ -10,7 +10,7 @@ part_type_direction(_bossTrail, 0, 360, 0, 0);
 
 trailPart = global.bossTrail;
 
-part_particles_create(global.sys, x + irandom_range(-1000, 1000),  + irandom_range(-500, 500), global.thickTrail, 1);
+part_particles_create_color(global.sysOutline, x + irandom_range(-1000, 1000),  + irandom_range(-500, 800), global.itemGlimmerPart, c_yellow, 1);
 
 event_inherited();
 
@@ -43,7 +43,9 @@ if(state == "die") {
 		instance_destroy();
 	}
 } else {
-	part_particles_create(sysUnder, x + random_range(-6, 6), y + random_range(-6, 6), trailPart, 1);
+	repeat(2) {
+		part_particles_create_color(sysOutline, x + random_range(-6, 6), y + random_range(-6, 6), trailPart, #ffff99, 1);
+	}
 	
 	var _dirToHover = point_direction(x, y, player.x, player.y - floatOverHeight);
 	var _distToHover = point_distance(x, y, player.x, player.y - floatOverHeight);

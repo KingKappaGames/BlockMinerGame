@@ -1,6 +1,8 @@
 sys = global.sys;
 sysUnder = global.sysUnder;
 
+sysOutline = global.sysOutline;
+
 breakPart = global.breakPart; // localizing globals... Hm
 explosionPart = global.explosionPart;
 thickTrailPart = global.thickTrail;

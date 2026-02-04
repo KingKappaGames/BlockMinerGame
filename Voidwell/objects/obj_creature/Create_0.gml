@@ -18,13 +18,13 @@ hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	audio_play_sound(snd_hit, 0, 0, random_range(.75, .9), undefined, random_range(.85, 1.25));
 	
 	if(object_index != obj_abyssLord) {
-		if(irandom(12) == 0) {
+		if(irandom(11) == 0) {
 			audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
 		}
 	}
 	
 	if(Health <= 0) {
-		die();
+		die(destroyBody);
 	} else {
 		hitFlash = 6;
 	}
@@ -41,9 +41,15 @@ hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	}
 }
 
-die = function() {
+die = function(destroyBody = false) {
 	if(global.gameGoreSelected != 0) {
 		part_particles_create_color(sys, x, y - 10, breakPart, c_maroon, HealthMax * 3 + 15);
+		
+		if(destroyBody) {
+			repeat(irandom_range(3, 5)) {
+				script_createDebrisChunk(obj_bouncingDebris, x, y, random_range(-2, 2), random_range(-2, 2),, .3, 1, 180,,, c_maroon);
+			}
+		}
 	} else {
 		part_particles_create_color(sys, x, y - 10, starPart, c_white, HealthMax * 1 + 7);
 	}

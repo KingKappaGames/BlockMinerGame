@@ -170,7 +170,7 @@ hit = function(damage = 0, dir, force = 0, destroyBody = false, iFramesSet = und
 	}
 }
 
-die = function() { 
+die = function(destroyBody = false) { 
 	if(alive) {
 		xChange += random_range(-8, 8);
 		yChange += random_range(-8, 8);
