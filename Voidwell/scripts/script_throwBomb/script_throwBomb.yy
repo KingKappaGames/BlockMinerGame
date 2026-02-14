@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"script_throwBomb",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"script_throwBomb",
+  "parent":{
+    "name":"combat",
+    "path":"folders/Scripts/combat.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

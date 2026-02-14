@@ -7,11 +7,11 @@ if(duration <= 0) {
 		var _tileX, _tileY;
 		
 		repeat(25 * strength) {
-			var _x = x + irandom_range(-500, 500);
-			var _y = y + irandom_range(-300, 300);
+			var _x = x + irandom_range(-550, 550);
+			var _y = y + irandom_range(-420, 420);
 			
-			_tileX = _x div tileSize;
-			_tileY = _y div tileSize;
+			_tileX = clamp(_x div tileSize, 0, global.tileRangeWorld - 1);
+			_tileY = clamp(_y div tileSize, 0, global.tileRangeWorld - 1);
 			
 			var _tile = tiles[_tileX][_tileY];
 			var _tileBelow = tiles[_tileX][_tileY + 1];

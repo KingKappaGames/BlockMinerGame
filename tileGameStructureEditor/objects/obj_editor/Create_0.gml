@@ -13,7 +13,7 @@ tileCenterY = 0;
 
 tileSize = 40;
 #macro minTileIndex -3
-#macro maxTileIndex 4
+#macro maxTileIndex 11
 
 inputTimer = 0;
 inputTimerMax = 5;

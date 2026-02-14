@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"snd_fallOntoMud",
+  "%Name":"snd_jumpLarger",
   "audioGroupId":{
     "name":"sndGrp_sfx",
     "path":"audiogroups/sndGrp_sfx",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.6074377,
+  "duration":0.27312925,
   "exportDir":"",
-  "name":"snd_fallOntoMud",
+  "name":"snd_jumpLarger",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_fallOntoMud.mp3",
+  "soundFile":"snd_jumpLarger.mp3",
   "volume":1.0,
 }

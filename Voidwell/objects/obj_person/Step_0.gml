@@ -67,12 +67,13 @@ if(inWorld) {
 							var _aboveClear3 = _aboveClear2 && move(0, 3) isClear;
 							
 							var _underPlayer = player.y + tileSize < y;
-							var _alreadyJumped = false;
+							var _alreadyActed = false;
 							if(_underPlayer) {
-								if(irandom(15) == 0) {
+								if(irandom(closeRangeLineOfSightChange) == 0) {
 									var _pX = player.x;
 									var _pY = player.y;
-									if(point_distance(x, y - 8, _pX, _pY) < 70) { // jump AT player in air
+									var _pDist = point_distance(x, y - 8, _pX, _pY);
+									if(_pDist < closeRangeLineOfSightRange) {
 										var _lineOfSight = true;
 										for(var _pathI = 1; _pathI < 5; _pathI++) {
 											if(tiles[(lerp(x, _pX, _pathI * .2)) div tileSize][(lerp(y, _pY, _pathI * .2)) div tileSize] isSolid) {
@@ -82,38 +83,33 @@ if(inWorld) {
 										}
 										
 										if(_lineOfSight) {
-											yChange = -sqrt(abs(_pY - y)) * .6 + .8;
-											xChange = (_pX - x) * .055;
-											waitTimer = 30;
-											
-											audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
-											
-											_alreadyJumped = true;
+											_alreadyActed = true;
+											closeRangeLineOfSightBehavior(point_direction(x, y, _pX, _pY), _pDist, _pX, _pY);
 										}
 									}
 								}
 								
-								if(!_alreadyJumped) {
+								if(!_alreadyActed) {
 									if(_underPlayer && _aboveClear3 && move(1, 3) isSolid && move(1, 4) isClear) {
 										yChange = -5.7;
 										xChange = _facing * 0.2;
 										waitTimer = 29;
-										_alreadyJumped = true;
+										_alreadyActed = true;
 									} else if(_underPlayer && _aboveClear2 && move(1, 2) isSolid && move(1, 3) isClear) {
 										yChange = -4.7;
 										xChange = _facing * .4;
 										waitTimer = 29;
-										_alreadyJumped = true;
+										_alreadyActed = true;
 									} else if(_underPlayer && _aboveClear && move(1, 1) isSolid && move(1, 2) isClear) { // jump up optional tile ahead
 										yChange = -3.8;
 										xChange = _facing * .7;
 										waitTimer = 25;
-										_alreadyJumped = true;
+										_alreadyActed = true;
 									}
 								}
 							}
 	
-							if(!_alreadyJumped) {
+							if(!_alreadyActed) {
 							
 								if(move(1, 0) isClear) { 
 									if(move(1, -1) isClear) {

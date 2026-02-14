@@ -12,6 +12,11 @@ hitFlash = 0;
 
 directionFacing = 1;
 
+/// @desc This function runs after the script and create event as a sort of wrap up stage, not all creatures have logic for this but all will get called. (similar to event_2 from old WanderRPG coding)
+spawn = function() {
+	
+}
+
 hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	Health = min(HealthMax, Health - damage);
 	

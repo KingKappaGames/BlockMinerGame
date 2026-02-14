@@ -2,8 +2,8 @@
   "$GMSound":"v2",
   "%Name":"snd_fallOntoCrystal",
   "audioGroupId":{
-    "name":"sndGrp_ambient",
-    "path":"audiogroups/sndGrp_ambient",
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
   },
   "bitDepth":1,
   "channelFormat":0,

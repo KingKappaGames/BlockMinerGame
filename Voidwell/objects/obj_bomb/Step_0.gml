@@ -33,6 +33,10 @@ if(duration <= 0) {
 		}
 	}
 	
+	if(irandom(120) == 0) { // TODO make this an option? Like, tremor frequency in the options, could be a cool thing to customize, i dunno
+		script_createTremor(x, y, irandom_range(240, 500), random_range(.12, .5), true);
+	}
+	
 	script_createVisual(x, y, 24, spr_explosionFXgreyscale,,, 2.1);
 	
 	script_createShockwaveSpell(x, y, 4, tileSize * 1.5, 1.24,, 1.5);

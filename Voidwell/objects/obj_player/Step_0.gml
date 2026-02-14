@@ -59,6 +59,12 @@ if(alive) {
 		}
 		if(keyboard_check(ord("W")) || keyboard_check(vk_space)) {
 			if(_tileStanding != 0) {
+				if(jumpSpeed > 4) {
+					audio_play_sound(snd_jumpLarger, 0, 0);
+				} else {
+					audio_play_sound(snd_jumpSmall, 0, 0);
+				}
+				
 				yChange = -jumpSpeed;
 				_tileStanding = 0;
 			}

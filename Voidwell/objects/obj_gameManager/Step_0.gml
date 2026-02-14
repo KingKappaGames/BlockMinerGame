@@ -17,6 +17,12 @@ if(inGame) {
 			if(_timer % surfaceEffectsUpdateTick == 0) {
 				updateDepthEffects();
 				
+				if(irandom(1500) == 0) {
+					var _cam = view_camera[0];
+					var _power = random_range(.05, .3) + random_range(.1, .4) + random_range(.1, .4);
+					script_createTremor(camera_get_view_x(_cam) + camera_get_view_width(_cam) * .5, camera_get_view_y(_cam) + camera_get_view_height(_cam) * .5, irandom_range(40, 250) + irandom_range(40, 250) + irandom_range(40, 250), _power, true, .5 + _power * .5);
+				}
+				
 				var _rainEvent = global.gameRainSelected;
 				if(_rainEvent != 0) {
 					if(irandom(7) == 0) {

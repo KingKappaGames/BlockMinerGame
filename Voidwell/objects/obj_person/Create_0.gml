@@ -16,12 +16,45 @@ knockbackMult = 1.6;
 
 material = -1; // if this person is a material robe
 
+closeRangeLineOfSightRange = 70;
+closeRangeLineOfSightChange = 15;
+closeRangeLineOfSightBehavior = function(dir, dist, xx, yy) {
+	yChange = -sqrt(abs(yy - y)) * .6 + .8;
+	xChange = (xx - x) * .055;
+	waitTimer = 30;
+	
+	audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
+}
+
+spawn = function() {
+	material = choose(E_tile.empty, E_tile.diamond, E_tile.grass, E_tile.metal);
+	sprite_index = script_getRobeSpriteForMaterial(material);
+
+	if(material == E_tile.diamond) {
+		HealthMax *= .7;
+		Health = HealthMax;
+		damage *= 3;
+		moveSpeed *= .9;
+	} else if(material == E_tile.metal) {
+		HealthMax *= 2;
+		Health = HealthMax;
+		damage *= 1.25;
+		moveSpeed *= .7;
+		knockbackMult = .2;
+	} else if(material == E_tile.grass) {
+		HealthMax *= 1;
+		Health = HealthMax;
+		damage *= 1;
+		moveSpeed *= 1.5;
+		knockbackMult = 1.8;
+	}
+}
+
 /// @desc Check tiles in a normalized way in the world map (eg +1 x is forward, not +1 coord, and +1 y is up, not down.)
 /// @param {real} xx The relative x movement (normalized to forward vs backward, not left vs right!)
 /// @param {real} yy The relative y movement flipped so that +1 is up 1!
 move = function(xx, yy) {
-	var _debug = tiles[x div tileSize + xx * directionFacing][y div tileSize - yy];
-	return _debug;
+	return tiles[x div tileSize + xx * directionFacing][y div tileSize - yy];
 }
 
 previousDieFunc = die;
