@@ -358,7 +358,8 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 				if(irandom(10000 / structureMult) == 0) { // spawning structures randomly through the world   STRUCTURES
 					if(_tiles[_worldX][_worldY] == 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
 						if(_tiles[_worldX][_worldY + 2] > 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
-							script_loadStructure(_worldX, _worldY, "STRUCTUREDATA/exampleStructure.txt");
+							var _structure = choose("crystalTower", "earthHovel", "explosiveDepot", "explosivePocketMine", "bananaTree");
+							script_loadStructure(_worldX, _worldY, "STRUCTUREDATA/" + _structure + ".txt");
 						}
 					}
 				} else { // DECORATION TILES

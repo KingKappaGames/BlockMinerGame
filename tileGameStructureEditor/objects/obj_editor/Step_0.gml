@@ -1,3 +1,5 @@
+if (live_call()) return live_result;
+
 var _change = 1;
 if(keyboard_check(vk_shift)) {
 	_change *= -1;
@@ -90,7 +92,7 @@ if(keyboard_check_released(vk_enter)) {
 }
 
 if(keyboard_check_released(vk_insert)) {
-	var _dataBuffer = buffer_load("exampleStructure.txt");
+	var _dataBuffer = buffer_load("bananaTree.txt");
 	
 	var _dataString = buffer_read(_dataBuffer, buffer_string);
 	

@@ -13,12 +13,12 @@ tileCenterY = 0;
 
 tileSize = 40;
 #macro minTileIndex -3
-#macro maxTileIndex 11
+#macro maxTileIndex 10
 
 inputTimer = 0;
 inputTimerMax = 5;
 
-colors = [c_black, c_green, c_aqua, #994400, #eecca8];
+colors = [c_black, c_green, c_aqua, #884411, #cbb29f, #ff8888, #ffff00, #ff4014, #393939, #aaaaaa, #555555];
 colorsDec = [c_black, c_lime, c_grey, c_maroon, c_blue];
 
 placingIndex = 0;

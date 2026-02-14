@@ -16,7 +16,7 @@ function script_useHeldItem() {
 		} else if(heldItem == E_item.tremorInducer) {
 			audio_play_sound(snd_chime, 0, 0, .18);
 			
-			script_createTremor(x, y, 120, 1, true);
+			script_createTremor(x, y, irandom_range(240, 600), 1, true);
 		} else if(heldItem == E_item.heartLantern) {
 			audio_play_sound(snd_breakBlockMetal, 0, 0, .4);
 			

@@ -45,7 +45,7 @@ enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSome
 	explosive = 7,
 	metal = 8,
 	stone = 9,
-	deepStone = 9,
+	deepStone = 10,
 	tileIndexMax
 }
 

@@ -12,4 +12,4 @@ volume = 1;
 
 soundPlaying = 0;
 
-essential = true;
+essential = false;
