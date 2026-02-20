@@ -1,4 +1,4 @@
-function script_createShockwaveSpell(xx, yy, durationSet = 13, radiusStart = tileSize, radiusMultSet = 1.165, materialTypeSet = 0, strengthSet = 1, dealDamageSet = true, colorSet = undefined/*, caster = noone*/) {
+function script_createShockwaveSpell(xx, yy, durationSet = 13, radiusStart = tileSize, radiusMultSet = 1.165, materialTypeSet = 0, strengthSet = 1, dealDamageSet = true, colorSet = undefined, damageMult = 1/*, caster = noone*/) {
 	var _spell = instance_create_layer(xx, yy, "Instances", obj_spellShockwave);
 	
 	with(_spell) {
@@ -8,6 +8,7 @@ function script_createShockwaveSpell(xx, yy, durationSet = 13, radiusStart = til
 		radius = radiusStart;
 		strength = strengthSet;
 		dealDamage = dealDamageSet;
+		damage *= damageMult;
 		//source = caster;
 		
 		colorSet ??= materialType >= 0 ? global.tileColors[materialType] : global.tileColorsDecorative[abs(materialType)];

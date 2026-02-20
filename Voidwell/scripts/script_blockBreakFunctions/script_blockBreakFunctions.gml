@@ -12,7 +12,7 @@ function script_tileBreakEffects(xx, yy, index) { // chaos is how mashed around 
 		
 		audio_play_sound_at(snd_explosion, _worldX, _worldY, 0, audioRefLoud, audioMaxLoud, 1, false, 0);
 		
-		script_createShockwaveSpell(_worldX, _worldY, 5, tileSize * 1.4, 1.26,, .8,, #ffffff);
+		script_createShockwaveSpell(_worldX, _worldY, 5, tileSize * 1.4, 1.26,, .8,, #ffffff, 2 + irandom(4));
 		
 		part_particles_create_color(sys, _worldX, _worldY, explosionPart, c_orange, 20); // EXPLOSIVE PARTS
 		

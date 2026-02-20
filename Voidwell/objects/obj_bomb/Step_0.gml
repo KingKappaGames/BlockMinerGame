@@ -39,7 +39,7 @@ if(duration <= 0) {
 	
 	script_createVisual(x, y, 24, spr_explosionFXgreyscale,,, 2.1);
 	
-	script_createShockwaveSpell(x, y, 4, tileSize * 1.5, 1.24,, 1.5);
+	script_createShockwaveSpell(x, y, 4, tileSize * 1.5, 1.24,, 1.5,,, 2 + irandom(4));
 	
 	part_particles_create_color(sys, x, y, explosionPart, image_blend, 25); // EXPLOSIVE PARTS
 	part_type_speed(trailerPart, 1.5, 3.7, 0, 0);

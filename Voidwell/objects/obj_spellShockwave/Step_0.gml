@@ -31,7 +31,7 @@ if(dealDamage) {
 			var _distForce = 1 - power(point_distance(x, y, _hitX, _hitY) / radius, 2);
 			var _dir = point_direction(x, y, _hitX, _hitY);
 			
-			_hitId.hit(1, _dir, _distForce, true);
+			_hitId.hit(damage, _dir, _distForce, true);
 		}
 	}
 }

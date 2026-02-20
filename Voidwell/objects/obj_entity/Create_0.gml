@@ -9,6 +9,7 @@ thickTrailPart = global.thickTrail;
 starPart = global.starPart;
 trailerPart = global.overwrittenTrailerPart;
 bloodSpurtPart = global.bloodSpurt;
+smokeTrailPart = global.smokeTrailPart;
 
 cam = view_camera[0];
 

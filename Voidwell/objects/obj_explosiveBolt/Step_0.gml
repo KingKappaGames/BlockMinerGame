@@ -20,7 +20,7 @@ if(duration <= 0 || _tileOn > 0) {
 	
 	script_createVisual(x, y, 24, spr_explosionFXgreyscale,,, 1.7);
 		
-	script_createShockwaveSpell(x, y, 3, tileSize * 1.3, 1.26,, 1);
+	script_createShockwaveSpell(x, y, 3, tileSize * 1.3, 1.26,, 1,,, 2);
 	
 	repeat(3) {
 		var _debris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);

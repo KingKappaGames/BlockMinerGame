@@ -56,7 +56,7 @@ part_type_size(_smokeTrail, .02, .02, .001, 0);
 part_type_alpha2(_smokeTrail, 1, 0);
 part_type_speed(_smokeTrail, 0.15, .3, -.008, 0);
 part_type_direction(_smokeTrail, 0, 360, 0, 0);
-part_type_gravity(_smokeTrail, -.01, 270);
+part_type_gravity(_smokeTrail, -.005, 270);
 
 global.thickTrail = part_type_create();
 var _thickTrail = global.thickTrail;
