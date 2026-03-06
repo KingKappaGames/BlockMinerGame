@@ -27,7 +27,7 @@ if(canFly && alive) {
 	}
 }
 
-if(inWorld) {
+if(inWorld && !noClip) {
 	script_moveCollide();
 } else {
 	x += xChange;
@@ -141,7 +141,7 @@ if(alive) {
 		xChange *= speedDecay;
 		image_angle = 0;
 		
-		if(flying) {
+		if(flying && !noClip) {
 			flying = false;
 		}
 	} else {

@@ -1,6 +1,6 @@
 event_inherited();
 
-image_blend = make_color_rgb(irandom(255), irandom(255), irandom(255));
+image_blend = make_color_rgb(power(random(1), 2.0) * 255, power(random(1), 4.0) * 255, power(random(1), 4.0) * 255);
 
 duration = 240;
 

@@ -196,13 +196,31 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 				
 				//############################################################################################# first structure
 				
-				_structureNoise = clamp( perlin(_worldXNormal * 10.0, _worldYNormal * 110.0) * power(1.0 - point_distance(_struct1X, _struct1Y, _worldXNormal, _worldYNormal), 4.0), 0.0, 1.0);
+				var _biomeDifX = abs(_struct1X - _worldXNormal);
+				var _biomeDifY = abs(_struct1Y - _worldYNormal);
+				_structureNoise = clamp( perlin(_worldXNormal * 10.0, _worldYNormal * 255.0) * power(1.0 - point_distance(0, 0, _biomeDifX * .02, _biomeDifY * 2.5), 7.0), 0.0, 1.0); // TODO why no spawn scaffolds??
 			
-				if(_structureNoise > .365) {
-					_tile = E_tile.empty; // green light for struct 1 generation
+				if(_structureNoise > .38) {
+					var _scaffoldNoiseX = _worldXNormal + perlin(_worldXNormal * 81.528, _worldYNormal * 81.528) * .012;
+					var _scaffoldNoiseY = _worldYNormal + perlin(_worldXNormal * 79.16, _worldYNormal * 79.16) * .01;
+			
+			        _tile = E_tile.empty; // green light for struct 1 generation
+					
+			        var  _vScaffold = _scaffoldNoiseY % .027;
+					
+			        if(_vScaffold > .024) {
+			            _tile = E_tile.metal;
+			        } else if(_vScaffold < .019 && (_scaffoldNoiseX % .013) > .0115) {
+			            _tile = E_tile.wood;
+			        } else if(_vScaffold > .0226) {
+			            if(random(1) < .05) {
+			                _tile = E_tile.explosive;
+			            }
+			        }
 					_biome = E_biome.biomeStructure1;
 				} else if(_structureNoise > .35) {
-					_tile = E_tile.banana;
+					_tile = E_tile.stone;
+					_biome = E_biome.biomeStructure1;
 				}
 				
 				//############################################################################################# second structure
@@ -214,6 +232,7 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 					_biome = E_biome.biomeStructure2;
 				} else if(_structureNoise > .163) {
 					_tile = E_tile.diamond;
+					_biome = E_biome.biomeStructure2;
 				}
 				
 				//############################################################################################# third structure
@@ -225,6 +244,7 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 					_biome = E_biome.biomeStructure3;
 				} else if(_structureNoise > .29) {
 					_tile = E_tile.explosive;
+					_biome = E_biome.biomeStructure3;
 				}
 				
 				//############################################################################################# 

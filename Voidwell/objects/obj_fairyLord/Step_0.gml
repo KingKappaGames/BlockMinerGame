@@ -1,14 +1,4 @@
 if (live_call()) return live_result;
-	
-global.bossTrail = part_type_create();
-var _bossTrail = global.bossTrail;
-part_type_life(_bossTrail, 150, 150);
-part_type_shape(_bossTrail, pt_shape_disk);
-part_type_size(_bossTrail, .4, .55, -.005, 0);
-part_type_speed(_bossTrail, 0.0, .1, -.001, 0);
-part_type_direction(_bossTrail, 0, 360, 0, 0);
-
-trailPart = global.bossTrail;
 
 part_particles_create_color(global.sysOutline, x + irandom_range(-1000, 1000),  + irandom_range(-500, 800), global.itemGlimmerPart, c_yellow, 1);
 

@@ -26,6 +26,7 @@ chestX = x;
 chestY = y - chestOff;
 
 flying = false; // whether the player is flying around or walking/jumping
+noClip = false;
 
 deathSpin = 0;
 
