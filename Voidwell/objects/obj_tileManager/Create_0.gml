@@ -243,7 +243,7 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 					_tile = E_tile.empty; // this is where all the biome/structure interior specific generation happens.. you've gotten a green light for this being in that structure, now generate in sub layers just inside that area
 					_biome = E_biome.biomeStructure3;
 				} else if(_structureNoise > .29) {
-					_tile = E_tile.explosive;
+					_tile = E_tile.heavenStone;
 					_biome = E_biome.biomeStructure3;
 				}
 				

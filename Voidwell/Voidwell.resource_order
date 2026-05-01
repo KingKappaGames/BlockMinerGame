@@ -49,6 +49,7 @@
     {"name":"obj_bouncingDebris","order":2,"path":"objects/obj_bouncingDebris/obj_bouncingDebris.yy",},
     {"name":"obj_burstingSack","order":9,"path":"objects/obj_burstingSack/obj_burstingSack.yy",},
     {"name":"obj_conglomerateBoss","order":8,"path":"objects/obj_conglomerateBoss/obj_conglomerateBoss.yy",},
+    {"name":"obj_conglomerateShot","order":10,"path":"objects/obj_conglomerateShot/obj_conglomerateShot.yy",},
     {"name":"obj_creature","order":8,"path":"objects/obj_creature/obj_creature.yy",},
     {"name":"obj_debrisBody","order":4,"path":"objects/obj_debrisBody/obj_debrisBody.yy",},
     {"name":"obj_debugMark","order":4,"path":"objects/obj_debugMark/obj_debugMark.yy",},

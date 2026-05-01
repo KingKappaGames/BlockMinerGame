@@ -372,7 +372,7 @@ var _goalY = ((y * _mousePush) + mouse_y) / (_mousePush + 1)
 var _camX = lerp(camera_get_view_x(cam), _goalX - camera_get_view_width(cam) * .5, .065);
 var _camY = lerp(camera_get_view_y(cam), _goalY - camera_get_view_height(cam) * .5, .065);
 
-var _camShake = global.cameraShake;
+var _camShake = global.cameraShake * (global.gameScreenShakeSelected * .5);
 
 if(_camShake > 0) {
 	camera_set_view_pos(cam, _camX + random_range(-_camShake, _camShake), _camY + random_range(-_camShake, _camShake));

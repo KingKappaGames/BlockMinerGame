@@ -9,6 +9,8 @@ enum E_spell {
 	balista = 7,
 	bouncyBolt = 8,
 	laser = 9,
+	conglomerateShot = 10,
+	count
 }
 
 enum E_robe {
@@ -46,6 +48,7 @@ enum E_tile { // ideas, meat, bones, black crystal, hot lava rock, explosiveSome
 	metal = 8,
 	stone = 9,
 	deepStone = 10,
+	heavenStone = 11,
 	tileIndexMax
 }
 

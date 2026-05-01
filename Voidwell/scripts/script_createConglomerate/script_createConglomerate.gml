@@ -1,5 +1,5 @@
 function script_createConglomerate(xx, yy, pieces, healthSetMult = 1, material = undefined) {
-	material ??= irandom(E_tile.tileIndexMax);
+	material ??= irandom(E_tile.tileIndexMax - 1);
 	
 	var _initial = undefined;
 	
@@ -11,7 +11,7 @@ function script_createConglomerate(xx, yy, pieces, healthSetMult = 1, material =
 	for(var _i = 0; _i < pieces; _i++) {
 		_creationProgress = _i / pieces;
 		_scale = 3 * (1 - _creationProgress) + 1;
-		_placementDist = irandom_range(_creationProgress * 15 + 5, _creationProgress * 40 + 10);
+		_placementDist = irandom_range(_creationProgress * 30 + 25, _creationProgress * 80 + 20);
 		_dir = random(360);
 		
 		var _part = script_spawnCreature(obj_conglomerateBoss, xx + lengthdir_x(_placementDist, _dir), yy + lengthdir_y(_placementDist, _dir),, choose(-1, 1));
@@ -36,14 +36,10 @@ function script_createConglomerate(xx, yy, pieces, healthSetMult = 1, material =
 				image_yscale *= 1.5;
 				Health *= 2;
 				HealthMax *= 2;
+				conglomerateCore = true;
+				knockbackMult = .4;
 			} else {
-				var _x = x;
-				
-				x += 100000;
-			
-				source = instance_nearest(_x, y, obj_conglomerateBoss);
-				
-				x -= 100000;
+				source = _initial;
 			}
 		}
 	}

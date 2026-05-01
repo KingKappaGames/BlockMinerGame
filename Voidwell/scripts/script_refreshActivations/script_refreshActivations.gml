@@ -8,11 +8,13 @@ function script_refreshActivations(despawnDistance = undefined) {
 	despawnDistance = _camW * 1.2 + 2000;
 	
 	with(obj_entity) {
-		if(point_distance(x, y, _camCenterX, _camCenterY) > despawnDistance) {
-			if(essential) {
-				instance_deactivate_object(id);
-			} else {
-				instance_destroy(id, false);
+		if(!object_is_ancestor(object_index, obj_boss)) {
+			if(point_distance(x, y, _camCenterX, _camCenterY) > despawnDistance) {
+				if(essential) {
+					instance_deactivate_object(id);
+				} else {
+					instance_destroy(id, false);
+				}
 			}
 		}
 	}

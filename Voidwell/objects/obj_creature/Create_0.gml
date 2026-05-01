@@ -22,7 +22,7 @@ hit = function(damage, dir = 0, force = -1, destroyBody = false) {
 	
 	audio_play_sound(snd_hit, 0, 0, random_range(.75, .9), undefined, random_range(.85, 1.25));
 	
-	if(object_index != obj_abyssLord) {
+	if(!object_is_ancestor(object_index, obj_boss)) {
 		if(irandom(11) == 0) {
 			audio_play_sound(snd_monsterSquak, 0, 0, random_range(.9, 1.15), undefined, random_range(.85, 1.25));
 		}

@@ -69,7 +69,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.2.212",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"Voidwell",
   "resources":[
@@ -95,6 +95,7 @@
     {"id":{"name":"obj_bouncingDebris","path":"objects/obj_bouncingDebris/obj_bouncingDebris.yy",},},
     {"id":{"name":"obj_burstingSack","path":"objects/obj_burstingSack/obj_burstingSack.yy",},},
     {"id":{"name":"obj_conglomerateBoss","path":"objects/obj_conglomerateBoss/obj_conglomerateBoss.yy",},},
+    {"id":{"name":"obj_conglomerateShot","path":"objects/obj_conglomerateShot/obj_conglomerateShot.yy",},},
     {"id":{"name":"obj_creature","path":"objects/obj_creature/obj_creature.yy",},},
     {"id":{"name":"obj_cutscene","path":"objects/obj_cutscene/obj_cutscene.yy",},},
     {"id":{"name":"obj_debrisBody","path":"objects/obj_debrisBody/obj_debrisBody.yy",},},

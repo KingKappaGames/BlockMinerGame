@@ -10,7 +10,7 @@ horizontalBounce = -.5;
 verticalBounce = -.37;
 
 spinSpeed = random_range(-8, 8);
-spinDecay = .98;
+spinDecay = .97;
 
 hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall damage related things?
 	//live_name = "bodyBounceFunc"; // Unique identifier for GMLive

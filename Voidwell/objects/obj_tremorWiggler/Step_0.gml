@@ -4,11 +4,14 @@ if(duration <= 0) {
 	instance_destroy();
 } else {
 	if(blockKnockdown) {
+		var _camX = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) * .5;
+		var _camY = camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) * .5;
+		
 		var _tileX, _tileY;
 		
 		repeat(25 * strength) {
-			var _x = x + irandom_range(-550, 550);
-			var _y = y + irandom_range(-420, 420);
+			var _x = _camX + irandom_range(-550, 550);
+			var _y = _camY + irandom_range(-420, 420);
 			
 			_tileX = clamp(_x div tileSize, 0, global.tileRangeWorld - 2);
 			_tileY = clamp(_y div tileSize, 0, global.tileRangeWorld - 2);

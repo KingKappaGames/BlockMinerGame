@@ -48,6 +48,12 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		
 		_spell = instance_create_layer(xx, yy, "Instances", obj_laser);
 		_spell.directionLaser = _dir;
+	} else if(spellIndex == E_spell.conglomerateShot) {
+		var _dir = point_direction(xx, yy, targetX, targetY) + irandom_range(-3, 3);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_conglomerateShot);
+		_spell.xChange = dcos(_dir) * 6.1 * speedMult;
+		_spell.yChange = -dsin(_dir) * 6.1 * speedMult;
 	}
 	
 	_spell.source = id;

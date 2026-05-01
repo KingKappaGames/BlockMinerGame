@@ -7,10 +7,22 @@ if (live_call()) return live_result;
 event_inherited();
 
 if(state == "die") {
-	script_cameraShake(.2);
+	script_cameraShake(.1);
+	
+	if(irandom(41) == 0) {
+		image_xscale *= .8;
+		image_yscale *= .8;
+		
+		part_particles_create_color(sys, x + random_range(-24, 24), y + random_range(-24, 24), trailerPart, image_blend, irandom(10));
+	}
+	
+	part_particles_create_color(sys, x + random_range(-24, 24), y + random_range(-24, 24), breakPart, image_blend, irandom(4));
 	
 	xChange *= .9;
 	yChange *= .9;
+	
+	yChange += grav;
+	
 	deathTimer++;
 	if(deathTimer < deathTimerMax * .7) {
 		if(deathTimer < deathTimerMax * .35) {
@@ -35,28 +47,12 @@ if(state == "die") {
 		instance_destroy();
 	}
 } else {
-	repeat(2) {
-		part_particles_create_color(sysOutline, x + random_range(-6, 6), y + random_range(-6, 6), trailPart, #ffff99, 1);
+	if(irandom(7) == 0) {
+		part_particles_create_color(sysUnder, x + random_range(-6, 6), y + random_range(-6, 6), trailPart, merge_color(#aa3311, #30110f, random(1)), 1);
 	}
 	
-	var _dirToHover = point_direction(x, y, player.x, player.y - floatOverHeight);
-	var _distToHover = point_distance(x, y, player.x, player.y - floatOverHeight);
 	var _dirToPlayer = point_direction(x, y, player.x, player.y);
 	var _distToPlayer = point_distance(x, y, player.x, player.y);
-	
-	xChange += dcos(_dirToHover) * moveSpeed;
-	yChange -= dsin(_dirToHover) * moveSpeed;
-	
-	//var _tileIn = inWorld ? max(worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
-	
-	var _speed = .5 + dsin(current_time * .073) * .5 + dsin(current_time * .262) * .05;
-	xChange += dcos(moveDir) * moveSpeed * _speed * .1;
-	yChange -= dsin(moveDir) * moveSpeed * _speed * .1;
-	
-	xChange *= speedDecay;
-	yChange *= speedDecay;
-	
-	moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
 	
 	if(_distToPlayer < 32) {
 		if(global.timer % 5 == 0) {
@@ -64,64 +60,116 @@ if(state == "die") {
 		}
 	}
 	
-	if(state == "idle") {
+	if(conglomerateCore) {
 		
-	} else if(state == "barrage") {
-		if(stateTimer < stateTimerMax - 15) {
-			if(stateTimer % 10 == 0) {
-				var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-100, 100), global.player.y + irandom_range(-100, 100), .5);
-				_spell.image_blend = c_white;
-			}
-		}
-	} else if(state == "circle") {
-		var _stateProgress = (stateTimerMax - stateTimer) / stateTimerMax;
-		var _spinMult = min(1, _stateProgress * 3);
-		var _spinDir = current_time * .24;
-		x += lengthdir_x(6.4 * _spinMult, _spinDir);
-		y += lengthdir_y(6.4 * _spinMult, _spinDir);
+		var _dirToHover = point_direction(x, y, player.x, player.y - floatOverHeight);
+		var _distToHover = point_distance(x, y, player.x, player.y - floatOverHeight);
 		
-		if(stateTimer < stateTimerMax * .75) {
-			if(stateTimer % 3 == 0) {
-				script_castSpell(E_spell.streamer, x, y, x + lengthdir_x(100, _spinDir), y + lengthdir_y(100, _spinDir));
+		xChange += dcos(_dirToHover) * moveSpeed;
+		yChange -= dsin(_dirToHover) * moveSpeed;
+		
+		//var _tileIn = inWorld ? max(worldTiles[x div tileSize][(y) div tileSize], 0) : 0;
+		
+		var _speed = .5 + dsin(current_time * .073) * .5 + dsin(current_time * .262) * .05;
+		xChange += dcos(moveDir) * moveSpeed * _speed * .1;
+		yChange -= dsin(moveDir) * moveSpeed * _speed * .1;
+		
+		xChange *= speedDecay;
+		yChange *= speedDecay;
+		
+		moveDir += (dsin(current_time * .03) + dsin(current_time * .21) * .4) * 3 * (.5 + dsin(current_time * .0731) * .5); // eh
+		
+		if(state == "idle") {
+			
+		} else if(state == "barrage") {
+			if(stateTimer < stateTimerMax - 15) {
+				if(stateTimer % 10 == 0) {
+					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-100, 100), global.player.y + irandom_range(-100, 100), .5);
+					_spell.image_blend = c_white;
+				}
 			}
-		}
-	} else if(state == "laser") {
-		if(stateTimer < stateTimerMax * .9 && stateTimer > stateTimerMax * .125) {
-			if(!instance_exists(spell)) {
-				spell = script_castSpell(E_spell.laser, x, y, x, y - 1, 0, 1);
-			} else {
-				
-				var _x = x;
-				var _y = y;
-				with(spell) {
-					x = _x;
-					y = _y;
-					
-					var _angleChange = angle_difference(_dirToPlayer, directionLaser);
-					directionLaser += _angleChange * .04 + sign(_angleChange) * .05;
-					duration = 10;
+		} else if(state == "rush") {
+			if(stateTimer % round(stateTimerMax * .27) == 0) {
+				xChange = lengthdir_x(dashSpeed, _dirToPlayer);
+				yChange = lengthdir_y(dashSpeed, _dirToPlayer);
+			}
+		} else if(state == "rise") {
+			yChange -= moveSpeed * 1.2;
+			
+			if(stateTimer > stateTimerMax * .5) {
+				if(stateTimer % 10 == 0) {
+					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), x + irandom_range(-100, 100), y + irandom_range(-100, 100), .5);
+					_spell.image_blend = c_white;
 				}
 			}
 		}
-	} else if(state == "rush") {
-		if(stateTimer % round(stateTimerMax * .27) == 0) {
-			xChange = lengthdir_x(dashSpeed, _dirToPlayer);
-			yChange = lengthdir_y(dashSpeed, _dirToPlayer);
-		}
-	} else if(state == "rise") {
-		yChange -= moveSpeed * 1.2;
 		
-		if(stateTimer > stateTimerMax * .5) {
-			if(stateTimer % 10 == 0) {
-				var _spell = script_castSpell(E_spell.bouncyBolt, x + irandom_range(-40, 40), y + irandom_range(-40, 40), x + irandom_range(-100, 100), y + irandom_range(-100, 100), .5);
-				_spell.image_blend = c_white;
+		x += xChange;
+		y += yChange;
+	} else if(separate) {
+		
+		if(state == "condense") {
+			var _dir = point_direction(x, y, source.x, source.y);
+			xChange += lengthdir_x(moveSpeed, _dir);
+			yChange += lengthdir_y(moveSpeed, _dir);
+			
+			if(point_distance(x, y, source.x, source.y) < 80) {
+				if(irandom(20) == 0) {
+					setState("idleAttached");
+				}
 			}
+		} else if(state == "swarmSource") {
+			var _dir = point_direction(x, y, source.x, source.y) + sin(current_time * .173 + Health) * 15;
+			xChange += lengthdir_x(moveSpeed, _dir);
+			yChange += lengthdir_y(moveSpeed, _dir);
+		} else if(state == "chaseSolo") {
+			var _dir = _dirToPlayer + sin(current_time * .173 + Health) * 15;
+			xChange += lengthdir_x(moveSpeed, _dir);
+			yChange += lengthdir_y(moveSpeed, _dir);
+		} else if(state == "scatter") {
+			var _dir = ((dsin(current_time * .07 + Health) + dsin(current_time * .17 + Health) * .4) * 3 * (.5 + dsin(current_time * .0631) * .5)) * 360;
+			
+			xChange += lengthdir_x(moveSpeed, _dir);
+			yChange += lengthdir_y(moveSpeed, _dir); // fly random
+			
+			_dir = point_direction(x, y, source.x, source.y); // approach source, this helps keep the pieces on screen and not flying away into nothing...
+			xChange += lengthdir_x(moveSpeed, _dir);
+			yChange += lengthdir_y(moveSpeed, _dir);
+		} else if(state == "scatterFall") {
+			yChange += grav * .7;
+			
+			script_moveCollide();
 		}
-	} else if(state == "shockwave") {
-		if(stateTimer == round(stateTimerMax * .3)) {
-			var _shockwave = script_createShockwaveSpell(x, y, 50, 64, 1.032,, .1,, c_white);
-			_shockwave.source = id;
+		
+		if(state != "scatterFall") {
+			x += xChange;
+			y += yChange;
 		}
+		
+		xChange *= speedDecay;
+		yChange *= speedDecay;
+	} else {
+		
+		if(state == "breakIntoEnemyAttached") {
+			if(stateTimer <= 1) {
+				repeat(3) {
+					var _summon = script_spawnCreature(obj_person, x, y, 8);
+					_summon.xChange = random_range(-3, 3) + xChange;
+					_summon.yChange = random_range(-3, 3) + yChange;
+				}
+				
+				die();
+			}
+		} else if(state == "shotAttached") {
+			if(stateTimer == round(stateTimerMax * .2)) {
+				script_castSpell(E_spell.conglomerateShot, x, y, player.x, player.y, 2, 1, material);
+			}
+			
+			
+		}
+		
+		x = source.x + sourceOffX;
+		y = source.y + sourceOffY;
 	}
 	
 	stateTimer--;
