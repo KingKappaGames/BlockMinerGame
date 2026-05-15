@@ -1,4 +1,4 @@
-function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, damageMult = 1, materialType = 0) {
+function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, damageMult = 1, materialType = 0, allegiance = E_allegiance.hitAll) {
 	var _spell = noone;
 	
 	if(spellIndex == 0)  {
@@ -57,6 +57,7 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 	}
 	
 	_spell.source = id;
+	_spell.allegiance = allegiance;
 	
 	return _spell;
 }

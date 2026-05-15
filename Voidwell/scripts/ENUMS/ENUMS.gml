@@ -81,3 +81,11 @@ enum E_item {
 	heartLantern,
 	itemCount,
 }
+
+enum E_allegiance {
+	hitAll,
+	hitNoone,
+	player,
+	enemies,
+	conglomerate,
+}

@@ -7,3 +7,10 @@ image_blend = make_color_rgb(irandom(24), irandom(24), irandom(36)); // lower ra
 duration = 120;
 
 depth -= 10;
+
+hitRadius = 5;
+
+hit = function(target) {
+	target.hit(1, point_direction(0, 0, xChange, yChange), 1.5); // extra point of damage to direct hits... ?
+	duration = 0;
+}

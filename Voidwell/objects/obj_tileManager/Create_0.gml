@@ -129,10 +129,10 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 		var _structureNoise;
 		var _struct1X = .24;
 		var _struct1Y = .75;
-		var _struct2X = .6;
-		var _struct2Y = .46;
+		var _struct2X = .64;
+		var _struct2Y = .48;
 		var _struct3X = .85;
-		var _struct3Y = .8;
+		var _struct3Y = .62;
 		
 		var _tileIndexRemap = [E_tile.empty, E_tile.grass, E_tile.dirt, E_tile.stone, E_tile.stone, E_tile.stone, E_tile.metal, E_tile.stone, E_tile.deepStone, E_tile.stone, E_tile.deepStone];
 		
@@ -237,15 +237,22 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 				
 				//############################################################################################# third structure
 				
-				_structureNoise = clamp( perlin(_worldXNormal * 120.0, _worldY * 150.0) * power(1.0 - point_distance(_struct3X, _struct3Y, _worldXNormal, _worldYNormal), 9.0), 0.0, 1.0);
+				var _xOffset = _worldXNormal - _struct3X; 
+				var _yOffset = _worldYNormal - _struct3Y; 
+
+			    var _taper = smoothstep(-0.003, 0.3, _yOffset); 
 			
-				if(_structureNoise > .305) {
-					_tile = E_tile.empty; // this is where all the biome/structure interior specific generation happens.. you've gotten a green light for this being in that structure, now generate in sub layers just inside that area
+			    var _falloff = sqrt(power(-_yOffset, 2.0) + power(-_xOffset * 2.4, 2.0)) / (0.2 + _taper * .7);
+			    
+			    _structureNoise = clamp(perlin(_worldXNormal * 340.0, _worldYNormal * 60.0) * power(1.0 - _falloff, 9.0), 0.0, 1.0);
+			    
+			    if(_structureNoise > .015) {
+			        _tile = E_tile.empty; // this is where all the biome/structure interior specific generation happens.. you've gotten a green light for this being in that structure, now generate in sub layers just inside that area
 					_biome = E_biome.biomeStructure3;
-				} else if(_structureNoise > .29) {
-					_tile = E_tile.heavenStone;
+			    } else if(_structureNoise > .0115) {
+			        _tile = E_tile.heavenStone;
 					_biome = E_biome.biomeStructure3;
-				}
+			    }
 				
 				//############################################################################################# 
 				

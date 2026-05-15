@@ -84,7 +84,7 @@ if(state == "die") {
 		} else if(state == "barrage") {
 			if(stateTimer < stateTimerMax - 15) {
 				if(stateTimer % 10 == 0) {
-					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-100, 100), global.player.y + irandom_range(-100, 100), .5);
+					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), global.player.x + irandom_range(-100, 100), global.player.y + irandom_range(-100, 100), .5,,, E_allegiance.conglomerate);
 					_spell.image_blend = c_white;
 				}
 			}
@@ -98,7 +98,7 @@ if(state == "die") {
 			
 			if(stateTimer > stateTimerMax * .5) {
 				if(stateTimer % 10 == 0) {
-					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), x + irandom_range(-100, 100), y + irandom_range(-100, 100), .5);
+					var _spell = script_castSpell(E_spell.conglomerateShot, x + irandom_range(-40, 40), y + irandom_range(-40, 40), x + irandom_range(-100, 100), y + irandom_range(-100, 100), .5,,, E_allegiance.conglomerate);
 					_spell.image_blend = c_white;
 				}
 			}

@@ -10,15 +10,7 @@ duration--;
 
 var _speed = point_distance(0, 0, xChange, yChange);
 
-var _hitId = collision_circle(x + xChange, y + yChange, sqrt(_speed) * .5, obj_creature, false, false);
-if(instance_exists(_hitId) && source != _hitId) {
-	var _originalDir = point_direction(0, 0, xChange, yChange);
-	var _dir = _originalDir + random_range(160, 200);
-	xChange = dcos(_dir) * _speed * bounceStrengthEnemy;
-	yChange = -dsin(_dir) * _speed * bounceStrengthEnemy;
-	
-	_hitId.hit(.2 + sqr(_speed * .11), _originalDir, .65 * _speed);
-}
+checkHit();
 
 x += xChange;
 y += yChange;

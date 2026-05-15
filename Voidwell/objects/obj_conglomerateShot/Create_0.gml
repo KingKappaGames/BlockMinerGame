@@ -8,8 +8,17 @@ duration = 300 + irandom(20);
 
 depth -= 10;
 
-hit = function(playSound = true) {
-	part_particles_create_color(sys, x, y, explosionPart, image_blend, 8);
+hit = function(target, playSound = true) {
+	var _speed = point_distance(0, 0, xChange, yChange);
+	target.hit(.2 + sqr(_speed * .11), point_direction(0, 0, xChange, yChange), .65 * _speed);
+	
+	destroy(playSound);
+}
+
+destroy = function(playSound = true) {
+	part_particles_create_color(sys, x, y, breakPart, image_blend, 12);
+	part_particles_create_color(sys, x, y, global.partPoofDustRadial, image_blend, 20);
+	part_particles_create_color(sys, x, y, explosionPart, image_blend, 5);
 	
 	part_type_speed(starPart, 1.2, 1.4, -.05, 0);
 	part_particles_create_color(sys, x, y, starPart, c_white, 25); // STARS

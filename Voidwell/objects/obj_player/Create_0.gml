@@ -45,6 +45,8 @@ verticalBounce = 0;
 
 materialWearingType = 0;
 
+allegiance = E_allegiance.player;
+
 tpCost = 15;
 
 pickaxeDamage = 1;

@@ -1,21 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"obj_conglomerateShot",
+  "%Name":"obj_spell",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_conglomerateShot",
+  "name":"obj_spell",
   "overriddenProperties":[],
   "parent":{
     "name":"weapons",
     "path":"folders/Objects/weapons.yy",
   },
   "parentObjectId":{
-    "name":"obj_spell",
-    "path":"objects/obj_spell/obj_spell.yy",
+    "name":"obj_gameObject",
+    "path":"objects/obj_gameObject/obj_gameObject.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -35,9 +33,6 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":null,
-  "spriteMaskId":{
-    "name":"spr_defaultMask",
-    "path":"sprites/spr_defaultMask/spr_defaultMask.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

@@ -14,8 +14,8 @@
     "path":"folders/Objects/weapons.yy",
   },
   "parentObjectId":{
-    "name":"obj_gameObject",
-    "path":"objects/obj_gameObject/obj_gameObject.yy",
+    "name":"obj_spell",
+    "path":"objects/obj_spell/obj_spell.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

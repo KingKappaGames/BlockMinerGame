@@ -3,12 +3,9 @@ event_inherited();
 part_particles_create_color(sys, x + irandom_range(-2, 2), y + irandom_range(-2, 2), thickTrailPart, image_blend, 5);
 part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yChange * .5 + irandom_range(-2, 2), thickTrailPart, image_blend, 5);
 
-duration--;
+checkHit();
 
-var _hitId = collision_circle(x, y, 5, obj_creature, false, false);
-if(instance_exists(_hitId) && source != _hitId) {
-	duration = 0;
-}
+duration--;
 
 x += xChange;
 y += yChange;

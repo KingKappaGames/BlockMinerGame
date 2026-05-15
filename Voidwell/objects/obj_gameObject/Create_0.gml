@@ -2,6 +2,8 @@ event_inherited();
 
 inWorld = false;
 
+allegiance = E_allegiance.enemies;
+
 xChange = 0;
 yChange = 0;
 

@@ -5,11 +5,8 @@ part_particles_create_color(sys, x - xChange * .5 + irandom_range(-2, 2), y - yC
 
 duration--;
 
-var _hitId = collision_circle(x, y, 5, obj_creature, false, false);
-if(instance_exists(_hitId) && source != _hitId) {
-	_hitId.hit(1, point_direction(0, 0, xChange, yChange), 1.5);
-	duration = 0;
-}
+
+checkHit();
 
 x += xChange;
 y += yChange;

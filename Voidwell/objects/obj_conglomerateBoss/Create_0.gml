@@ -10,6 +10,8 @@ source = noone;
 sourceOffX = 0;
 sourceOffY = 0;
 
+allegiance = E_allegiance.conglomerate;
+
 conglomerateCore = false;
 
 separate = false; // whether this object should act on its own or just follow 
