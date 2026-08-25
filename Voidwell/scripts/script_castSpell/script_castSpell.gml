@@ -54,6 +54,17 @@ function script_castSpell(spellIndex, xx, yy, targetX, targetY, speedMult = 1, d
 		_spell = instance_create_layer(xx, yy, "Instances", obj_conglomerateShot);
 		_spell.xChange = dcos(_dir) * 6.1 * speedMult;
 		_spell.yChange = -dsin(_dir) * 6.1 * speedMult;
+	} else if(spellIndex == E_spell.materialBolt) {
+		var _dir = point_direction(xx, yy, targetX, targetY) + irandom_range(-3, 3);
+		
+		_spell = instance_create_layer(xx, yy, "Instances", obj_materialBolt);
+		_spell.xChange = dcos(_dir) * 5.5 * speedMult;
+		_spell.yChange = -dsin(_dir) * 5.5 * speedMult;
+		
+		_spell.materialType = materialType;
+		
+		var _color = materialType >= 0 ? global.tileColors[materialType] : global.tileColorsDecorative[abs(materialType)];
+		_spell.image_blend = _color;
 	}
 	
 	_spell.source = id;

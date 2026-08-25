@@ -2,12 +2,15 @@ if (live_call()) return live_result;
 
 event_inherited();
 
+healthBarColorTop = c_yellow;
+healthBarColorBottom = c_white;
+
 bloodSpurtPart = global.bloodSpurt;
 radialGlimmer = global.radialShimmerPart;
 
 trailPart = global.bossTrail;
 
-HealthMax = 200;
+HealthMax = 180;
 Health = HealthMax;
 
 knockbackMult = .5;
@@ -40,7 +43,8 @@ stateTimer = 0;
 stateTimerMax = 0;
 
 setState = function(stateSet, duration = undefined) {
-	live_auto_call
+	live_name = "setAngelState";
+	if (live_call()) return live_result;
 	
 	endState();
 	
@@ -66,7 +70,7 @@ setState = function(stateSet, duration = undefined) {
 		duration ??= 180;
 		moveSpeed = moveSpeedBase * .8;
 	} else if(stateSet == "shockwave") {
-		duration ??= 380;
+		duration ??= 320;
 		moveSpeed = 0;
 		speedDecayAir = .992; // easier to push away
 	}
@@ -95,7 +99,8 @@ endState = function() { // what do
 
 newState = function() {
 	if(state == "idle") {
-		setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
+		setState("laser");
+		//setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
 	} else {
 		setState("idle", 45);
 	}

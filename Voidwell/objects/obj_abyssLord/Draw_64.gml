@@ -13,9 +13,11 @@ if(deathTimer > 0) {
 		draw_set_alpha(_timer / deathTimerMax);
 		
 		if(deathTimer == round(deathTimerMax * .7)) { // frame before switch
-			var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
-			_cutscene.setCutscene("boss");
-			script_setPauseState(true);
+			if(!global.gameInfo.abyssLordKilled) {
+				var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
+				_cutscene.setCutscene("boss");
+				script_setPauseState(true);
+			}
 		}
 	}
 }

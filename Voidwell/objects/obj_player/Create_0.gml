@@ -121,6 +121,11 @@ heldItem = E_item.none;
 heldItemText = script_getHeldItemText(E_item.none);
 heldItemTextAlpha = 0;
 
+heldItemTimer = 0;
+heldItemTimerMax = 0;
+
+heldItemActiveGlowTimer = 0;
+
 bombMax = 3;
 bombCount = bombMax;
 
@@ -508,6 +513,9 @@ setHeldItem = function(item) {
 	heldItem = item;
 	
 	heldItemText = script_getHeldItemText(item);
+	
+	var _timer = scr_getHeldItemTimer(item);
+	heldItemTimerMax = _timer;
 	
 	//effect or audio for it
 }

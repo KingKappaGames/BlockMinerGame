@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"script_isSound",
   "parent":{
-    "name":"utils",
-    "path":"folders/Scripts/utils.yy",
+    "name":"SOUND UTILS",
+    "path":"folders/Sounds/SOUND UTILS.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

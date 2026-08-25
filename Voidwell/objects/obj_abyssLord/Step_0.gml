@@ -22,7 +22,7 @@ if(alive) {
 	
 	if(_distToPlayer < 30) {
 		if(global.timer % 8 == 0) {
-			player.hit(3, _dirToPlayer, 10);
+			player.hit(3, _dirToPlayer, 7);
 		}
 	} else if(_distToPlayer > 80 && _distToPlayer < 350) {
 		if(current_time % 3000 < 600) {
@@ -76,6 +76,8 @@ if(alive) {
 	
 	if(deathTimer >= deathTimerMax) {
 		script_createRobePickup(E_robe.abyssLord, x, y);
+		
+		global.gameInfo.abyssLordKilled = true;
 		
 		instance_destroy();
 	}

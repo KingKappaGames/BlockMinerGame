@@ -3,7 +3,7 @@ function script_createHeldItemPickup(index = -1, xx = x, yy = y) {
 	
 	with(_item) {
 		if(index == -1) {
-			index = irandom(E_item.itemCount - 1);
+			index = irandom(E_item.count - 1);
 		}
 		
 		pickupIndex = index;

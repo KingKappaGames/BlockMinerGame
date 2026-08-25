@@ -1,5 +1,7 @@
 if (live_call()) return live_result;
 
+draw_circle_color(swingPointX, swingPointY, 6, c_aqua, c_white, false);
+
 if(deathTimer < deathTimerMax * .7) {
 	event_inherited();
 	

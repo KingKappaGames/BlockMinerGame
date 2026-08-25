@@ -7,23 +7,30 @@ radialGlimmer = global.radialShimmerPart;
 
 trailPart = global.bossTrail;
 
-HealthMax = 200;
+healthBarColorTop = c_aqua;
+healthBarColorBottom = c_white;
+
+HealthMax = 100;
 Health = HealthMax;
 
 knockbackMult = 1.5;
 
 spell = noone;
 
-speedDecay = .85;
-speedDecayAir = .98;
-speedDecayAirBase = .98;
+speedDecay = .87;
+speedDecayAir = .985;
+speedDecayAirBase = .985;
 
 moveDir = irandom(360);
-moveSpeedBase = .12;
+moveSpeedBase = .2;
 moveSpeed = moveSpeedBase;
 
-leapSpeed = 6.3;
+leapSpeed = 8.3;
 rushSpeed = 9;
+
+swingPointX = 0;
+swingPointY = 0;
+swingDir = 0; // -1 or 1
 
 deathTimer = 0;
 deathTimerMax = 500;
@@ -60,14 +67,16 @@ stateTimerMax = 0;
 // pause and blast upwards to destroy thing overhead (does this when blocked in a jump?) followed immediately by a jump
 
 setState = function(stateSet, duration = undefined, info = undefined) {
-	live_auto_call
+	live_name = "striderSetState";
+	if (live_call(stateSet, duration, info)) return live_result;
+	
 	
 	endState();
 	
 	state = stateSet;
 	
 	if(stateSet == "idle") {
-		duration ??= 210;
+		duration ??= 120;
 		moveSpeed = moveSpeedBase;
 	} else if(stateSet == "fall") {
 		duration ??= 210;
@@ -109,15 +118,24 @@ setState = function(stateSet, duration = undefined, info = undefined) {
 		moveSpeed = 0;
 	} else if(stateSet == "spire") { // creates a spire of material and uses it to launch up, the classic anime post jump..
 		duration ??= 45;
+	} else if(stateSet == "dome") { // creates a dome of material
+		duration ??= 60;
 	} else if(stateSet == "createNode") { // creates floating ball that it can use as anchor points to rope to or swing from (always follows this up by grappling to this node?)
 		duration ??= 45;
 	} else if(stateSet == "grapple") {
 		
 	} else if(stateSet == "swing") {
-		duration ??= 70;
+		duration ??= 160;
+		
+		swingPointX = x + choose(-1, 1) * irandom_range(150, 320);
+		swingPointY = y;
+		
+		swingDir = (swingPointX < x) ? -1 : 1;
 	} else if(stateSet == "bonk") {
 		audio_play_sound_at(snd_bugDie, x, y, 0, audioRefLoud, audioMaxLoud, 1, false, 0,,, random_range(.9, 1.1));
 		duration ??= 80;
+	} else if(stateSet == "materialBombs") {
+		duration ??= 90;
 	}
 	
 	if(duration == -1) {
@@ -129,6 +147,9 @@ setState = function(stateSet, duration = undefined, info = undefined) {
 }
 
 endState = function() { // what do
+	live_name = "striderEndState";
+	if (live_call()) return live_result;
+	
 	if(state == "idle") {
 		
 	} else if(state == "barrage") {
@@ -140,12 +161,22 @@ endState = function() { // what do
 		speedDecayAir = .8;
 	} else if(state == "rush") {
 		speedDecayAir = speedDecayAirBase;
+	} else if(state == "dome") {
+		sound_play_at(snd_monsterWarbleScreechVariation, x, y, 1.4,, .25, .25);
 	} else if(state == "shockwave") {
 		speedDecayAir = speedDecayAirBase;
+	} else if(state == "swing") {
+		xChange = (x - xprevious) * 1.5;
+		yChange = (y - yprevious) * 1.5 - 1; // jump off "rope"
+		
+		part_particles_create_color(sys, swingPointX, swingPointY, explosionPart, c_aqua, 20); // EXPLOSIVE PARTS
 	}
 }
 
 newState = function() {
+	live_name = "striderNewState";
+	if (live_call()) return live_result;
+	
 	var _tX = x div tileSize;
 	var _tY = y div tileSize;
 	var _tiles = tiles;
@@ -154,11 +185,24 @@ newState = function() {
 	} else if(state == "spire") {
 		setState("leap", 90, [random_range(63, 117)]);
 	} else if(state == "idle") {
-		setState(choose("idle", "idle", "barrage", "leap", "laser", "rush", "spire"));
-	} else if(state == "jump" || state == "fall") {
-		setState(choose("barrage", "rush", "laser"));
+		setState(choose("idle", "idle", "barrage", "leap", "laser", "rush", "spire", "materialBombs"));
+	} else if(state == "swing") {
+		setState("leap");
+	} else if(state == "leap" || state == "fall") {
+		if(yChange > 0) {
+			if(irandom(2) == 0) {
+				setState("swing");
+				exit;
+			} else if(irandom(2) == 0) {
+				setState("dome");
+				exit;
+			}
+		}
+		setState(choose("barrage", "rush", "rush", "laser", "materialBombs"));
+	} else if(state == "clearAbove") {
+		setState("spire");
 	} else {
-		setState("idle", 45);
+		setState("idle", 30);
 	}
 }
 

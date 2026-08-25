@@ -3,7 +3,7 @@ event_inherited();
 bloodSpurtPart = global.bloodSpurt;
 radialGlimmer = global.radialShimmerPart;
 
-HealthMax = 40;
+HealthMax = 60;
 Health = HealthMax;
 
 knockbackMult = .4;
@@ -40,3 +40,6 @@ die = function(destroyBody = false) {
 	alive = false;
 	//uh, then what?
 }
+
+healthBarColorTop = #440033;
+healthBarColorBottom = #330000;

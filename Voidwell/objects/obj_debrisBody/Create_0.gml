@@ -4,7 +4,7 @@ image_angle = 0;
 
 makeTrailParts = false;
 
-speedDecay = .8;
+speedDecay = .95;
 
 horizontalBounce = -.5;
 verticalBounce = -.37;

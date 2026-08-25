@@ -194,6 +194,9 @@ startGameWorld = function(worldIndex, exists = false) {
 		repeat(_worldVolume / 25000) {
 			var _materialOrb = script_createMaterialNode(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), irandom_range(1, 7));
 		}
+		repeat(_worldVolume / 15000) {
+			var _materialOrb = script_createLevelPickup(irandom_range(300, _worldSizePixels - 300), irandom_range(300, _worldSizePixels - 300));
+		}
 	}
 	
 	instance_destroy(obj_MainMenu); // hm

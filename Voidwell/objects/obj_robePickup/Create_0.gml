@@ -22,3 +22,11 @@ pickUp = function() {
 	
 	instance_destroy();
 }
+
+checkAccesable = function() {
+	if(global.gameInfo.level >= levelRequirement) {
+		return true;
+	} else {
+		return false;
+	}
+}

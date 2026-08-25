@@ -14,11 +14,4 @@ y += yChange;
 xChange *= speedDecay;
 yChange *= speedDecay;
 
-if(available) {
-	if(keyboard_check_pressed(ord("E"))) {
-		pickUp();
-		keyboard_clear(ord("E"));
-	}
-}
-
 part_particles_create(sys, x, y, glimmerPart, 1);

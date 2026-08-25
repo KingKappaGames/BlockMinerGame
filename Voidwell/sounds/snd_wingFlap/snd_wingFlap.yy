@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_wingFlap",
+  "audioGroupId":{
+    "name":"sndGrp_sfx",
+    "path":"audiogroups/sndGrp_sfx",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.49861678,
+  "exportDir":"",
+  "name":"snd_wingFlap",
+  "parent":{
+    "name":"hits",
+    "path":"folders/Sounds/hits.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_wingFlap.wav",
+  "volume":1.0,
+}

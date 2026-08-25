@@ -33,7 +33,7 @@ if(duration <= 0) {
 		}
 	}
 	
-	if(irandom(120) == 0) { // TODO make this an option? Like, tremor frequency in the options, could be a cool thing to customize, i dunno
+	if(irandom(140) == 0) { // TODO make this an option? Like, tremor frequency in the options, could be a cool thing to customize, i dunno
 		script_createTremor(x, y, irandom_range(240, 500), random_range(.12, .5), true);
 	}
 	

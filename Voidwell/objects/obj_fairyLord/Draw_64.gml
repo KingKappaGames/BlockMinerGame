@@ -1,11 +1,7 @@
 if (live_call()) return live_result;
 
 if(alive) {
-	var _viewW = view_wport[view_camera[0]];
-	var _viewH = view_hport[view_camera[0]];
-	var _health = Health / HealthMax;
-	draw_rectangle_color(_viewW * .5 - _viewW * .3 * _health, _viewH * .92, _viewW * .5 + _viewW * .3 * _health, _viewH * .88, c_white, c_white, c_white, c_yellow, false);
-	draw_rectangle_color(_viewW * .2, _viewH * .895, _viewW * .8, _viewH * .905, c_white, c_white, c_white, c_yellow, false);
+	drawHealthBar();
 } else {
 	if(deathTimer > 0) {
 		var _timer = deathTimer * 1.42;
@@ -20,9 +16,11 @@ if(alive) {
 			draw_set_alpha(_timer / deathTimerMax);
 			
 			if(deathTimer == round(deathTimerMax * .7)) { // frame before switch
-				var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
-				_cutscene.setCutscene("boss");
-				script_setPauseState(true);
+				if(!global.gameInfo.angelKilled) {
+					var _cutscene = instance_create_layer(0, 0, "Instances", obj_cutscene);
+					_cutscene.setCutscene("boss");
+					script_setPauseState(true);
+				}
 			}
 		}
 	}

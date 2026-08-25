@@ -30,6 +30,8 @@ if(state == "die") {
 	}
 	
 	if(deathTimer >= deathTimerMax) {
+		global.gameInfo.angelKilled = true;
+		
 		instance_destroy();
 	}
 } else {
@@ -58,7 +60,7 @@ if(state == "die") {
 	
 	if(_distToPlayer < 32) {
 		if(global.timer % 5 == 0) {
-			player.hit(3, _dirToPlayer, 6);
+			player.hit(3, _dirToPlayer, 4.5);
 		}
 	}
 	
@@ -105,6 +107,8 @@ if(state == "die") {
 		if(stateTimer % round(stateTimerMax * .27) == 0) {
 			xChange = lengthdir_x(dashSpeed, _dirToPlayer);
 			yChange = lengthdir_y(dashSpeed, _dirToPlayer);
+			
+			sound_play_at(snd_bugDie, x, y, 2.,, .1, .2,,, audioRefLoud, audioMaxLoud);
 		}
 	} else if(state == "rise") {
 		yChange -= moveSpeed * 1.2;
@@ -116,9 +120,14 @@ if(state == "die") {
 			}
 		}
 	} else if(state == "shockwave") {
-		if(stateTimer == round(stateTimerMax * .3)) {
+		if(stateTimer == round(stateTimerMax * .35)) {
+			sound_play_at(snd_electricityBlast, x, y, .75, 1.25, .1, .2,,, audioRefLoud, audioMaxLoud);
 			var _shockwave = script_createShockwaveSpell(x, y, 50, 64, 1.032,, .1,, c_white);
 			_shockwave.source = id;
+		}
+		
+		if(stateTimer < stateTimerMax * .4) {
+			script_cameraShake(.2);
 		}
 	}
 	
@@ -129,7 +138,11 @@ if(state == "die") {
 }
 
 //image_angle = point_direction(0, 0, xChange, yChange);
+var _prevWing = flapProgress;
 flapProgress = (flapProgress + .022) % 1;
+if(_prevWing < .8 && flapProgress >= .8) {
+	sound_play_at(snd_wingFlap, x, y,,, .3, .2);
+}
 
 x += xChange;
 y += yChange;

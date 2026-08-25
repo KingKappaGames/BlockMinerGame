@@ -8,6 +8,7 @@ function script_createRobePickup(index = -1, xx = x, yy = y) {
 	_robe.pickupIndex = index;
 	
 	_robe.sprite_index = script_getRobeSprite(index);
+	_robe.levelRequirement = scr_getRobeLevel(index);
 	
 	return _robe;
 	//what to do with this index...

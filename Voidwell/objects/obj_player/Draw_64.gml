@@ -1,4 +1,4 @@
-//if (live_call()) return live_result;
+if (live_call()) return live_result;
 
 var _mouseX = device_mouse_x_to_gui(0);
 var _mouseY = device_mouse_y_to_gui(0);
@@ -48,8 +48,13 @@ shader_reset();
 
 draw_sprite_ext(spr_spellIcons, spell, 90, 90, 2, 2, 0, c_white, 1);
 
+draw_set_alpha(clamp(sqrt(heldItemActiveGlowTimer / 45), 0, 1));
+draw_circle_color(90, 220, 48 + random(power(heldItemActiveGlowTimer, 1.)) * 1, c_yellow, #bbbb00, false);
+draw_set_alpha(1);
+
 draw_circle(90, 220, 48, true);
-draw_sprite_ext(spr_itemHeldIcons, heldItem, 90, 220, 2, 2, 0, c_white, 1);
+
+draw_sprite_ext(spr_itemHeldIcons, heldItem, 90, 220, 2, 2, 0, c_white, clamp(power(1 - (heldItemTimer / (heldItemTimerMax + 1)), 4), 0, 1) * .8 + .2);
 
 //msg(window_mouse_get_x());
 

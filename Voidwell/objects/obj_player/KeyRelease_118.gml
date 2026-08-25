@@ -1,0 +1,1 @@
+script_createHeldItemPickup(irandom(E_item.count - 1));

@@ -5,10 +5,36 @@ sprite_index = spr_pickaxeBlue;
 essential = true;
 
 pickUpRange = 32;
-available = false; // whether it can be picked up
+available = false; // whether it can be picked up overall
+inRange = false;
+accesable = false; // whether the item is available to the player based on criteria or level
+
+levelRequirement = 0; // 0 = none
 
 pickupType = "pickaxe";
 pickupIndex = E_pickaxe.blue;
+
+pickupText = "E to pickup";
+
+drawPickupTextBase = function() {
+	if(available) {
+		if(pickupText != -1) {
+			var _textX = (x * 2 + global.player.x) / 3;
+			var _textY = (y * 2 + global.player.y) / 3 - 50;
+			
+			var _col = #ffff88;
+			draw_text_transformed_color(_textX, _textY, pickupText, .25, .25, 0, _col, _col, _col, _col, 1);
+		}
+	}
+}
+
+drawPickupText = function() {
+	drawPickupTextBase();
+}
+
+checkAccesable = function() {
+	return true; // overriden by children
+}
 
 //parts
 

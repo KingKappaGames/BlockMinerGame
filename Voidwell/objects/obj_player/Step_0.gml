@@ -10,8 +10,16 @@ dirToMouse = point_direction(chestX, chestY, mouse_x, mouse_y);
 
 iFrames--;
 
+if(heldItemTimer > 0) {
+	heldItemTimer--;
+}
+
+if(heldItemActiveGlowTimer > 0) {
+	heldItemActiveGlowTimer--;
+}
+
 if(keyboard_check_released(vk_alt)) {
-	setHeldItem(irandom(E_item.itemCount - 1));
+	setHeldItem(irandom(E_item.count - 1));
 }
 
 #region movement checks and forces
@@ -179,7 +187,11 @@ audio_listener_set_position(0, x, y, 0);
 #region item use controls
 if(alive) {
 	if(keyboard_check_released(vk_tab)) {
-		script_useHeldItem();
+		if(heldItemTimer <= 0 || heldItemTimerMax == 0) { // being 0 is a way to force the timer not to hold over for instant use items... bug prone I'm certain but idc
+			script_useHeldItem();
+		} else {
+			heldItemActiveGlowTimer = max(heldItemActiveGlowTimer, 20);
+		}
 	}
 	
 	if(mouse_check_button(mb_left)) {

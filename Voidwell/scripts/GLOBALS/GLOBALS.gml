@@ -1,3 +1,19 @@
+global.gameInfo = {
+	level: 0, // collectable strength
+	
+	angelKilled: false,
+	conglomerateKilled: false,
+	striderKilled: false,
+	abyssLordKilled: false,
+}
+
+
+
+
+
+
+
+
 #region PARTICLE definitions
 global.breakPart = part_type_create();
 var _break = global.breakPart;

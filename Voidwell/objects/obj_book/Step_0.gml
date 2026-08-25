@@ -1,19 +1,8 @@
+if (live_call()) return live_result;
+
 if(!active) {
-	if(irandom(10) == 0) {
-		if(point_distance(x, y, player.x, player.y) < pickUpRange) {
-			available = true;
-		} else {
-			available = false;
-		}
-	}
-	
-	if(available) {
-		if(keyboard_check_pressed(ord("E"))) {
-			pickUp();
-			keyboard_clear(ord("E"));
-		}
-	}
-} else {
+	event_inherited();
+} else { 
 	var _camX = camera_get_view_x(view_camera[0]);
 	var _camY = camera_get_view_y(view_camera[0]);
 	var _camW = camera_get_view_width(view_camera[0]);

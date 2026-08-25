@@ -1,5 +1,7 @@
 event_inherited();
 
+source = noone;
+
 hitRadius = 5;
 
 hitExclusions = [];

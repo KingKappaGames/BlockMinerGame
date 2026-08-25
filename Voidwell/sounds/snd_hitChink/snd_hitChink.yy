@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_hitChink",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"hits",
+    "path":"folders/Sounds/hits.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

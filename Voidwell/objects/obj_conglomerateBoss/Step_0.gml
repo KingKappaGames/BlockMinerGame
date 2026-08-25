@@ -44,6 +44,8 @@ if(state == "die") {
 	}
 	
 	if(deathTimer >= deathTimerMax) {
+		global.gameInfo.conglomerateKilled = true;
+		
 		instance_destroy();
 	}
 } else {
@@ -56,7 +58,7 @@ if(state == "die") {
 	
 	if(_distToPlayer < 32) {
 		if(global.timer % 5 == 0) {
-			player.hit(3, _dirToPlayer, 6);
+			player.hit(3, _dirToPlayer, 5);
 		}
 	}
 	

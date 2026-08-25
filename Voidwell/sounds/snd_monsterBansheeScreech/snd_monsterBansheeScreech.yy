@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_monsterBansheeScreech",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"animals",
+    "path":"folders/Sounds/animals.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

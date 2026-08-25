@@ -2,6 +2,9 @@ if (live_call()) return live_result;
 
 event_inherited();
 
+healthBarColorTop = #990033;
+healthBarColorBottom = #440000;
+
 bloodSpurtPart = global.bloodSpurt;
 radialGlimmer = global.radialShimmerPart;
 trailPart = global.bossTrail;
@@ -47,8 +50,6 @@ material = E_tile.dirt;
 sprite_index = spr_tileBanana;
 image_index = 0;
 
-depth -= 5;
-
 #region states 
 state = "idle";
 stateTimer = 0;
@@ -85,7 +86,9 @@ setState = function(stateSet, duration = undefined) {
 			
 			with(obj_conglomerateBoss) {
 				if(id != other.id) {
-					setState("condense");
+					if(!conglomerateCore) {
+						setState("condense");
+					}
 				}
 			}
 		} else { // normal movement
@@ -199,7 +202,7 @@ newState = function() {
 		} else {
 			if(state == "idleAttached") {
 				
-				if(!conglomerateCore && random(1) < .01) {
+				if(!conglomerateCore && random(1) < .0025) {
 					setState("breakIntoEnemyAttached");
 				} else {
 					setState(choose("idleAttached", "idleAttached", "shotAttached", "idleAttached", "shotAttached", "idleAttached", "shotAttached")); // do piece states when attached to body
@@ -229,11 +232,11 @@ hit = function(damage, dir = 0, force = 0, destroyBody = false) {
 		yChange -= dsin(dir) * force * knockbackMult;
 		
 		if(irandom(3) == 0) {
-			msg("HELLO HIT PASS CHECK BUT DAMAGE = " + string(damage));
+			//msg("HELLO HIT PASS CHECK BUT DAMAGE = " + string(damage));
 			
 			repeat(irandom(damage * 3 + 1)) {
-				image_xscale *= 1 - damage * .05;
-				image_yscale *= 1 - damage * .05;
+				image_xscale = clamp(image_xscale * (1 - damage * .05), 1, 99);
+				image_yscale = clamp(image_yscale * (1 - damage * .05), 1, 99);
 				
 				var _debris = instance_create_layer(x, y, "Instances", obj_bouncingDebris);
 				_debris.xChange = random_range(-5, 5) + random_range(-5, 5);

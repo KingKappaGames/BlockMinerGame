@@ -10,6 +10,7 @@ enum E_spell {
 	bouncyBolt = 8,
 	laser = 9,
 	conglomerateShot = 10,
+	materialBolt = 11,
 	count
 }
 
@@ -79,7 +80,7 @@ enum E_item {
 	materialSpray,
 	tremorInducer,
 	heartLantern,
-	itemCount,
+	count,
 }
 
 enum E_allegiance {

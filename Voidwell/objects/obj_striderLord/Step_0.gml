@@ -38,6 +38,8 @@ if(state == "die") {
 	}
 	
 	if(deathTimer >= deathTimerMax) {
+		global.gameInfo.striderKilled = true;
+		
 		instance_destroy();
 	}
 } else {
@@ -271,7 +273,7 @@ if(state == "die") {
 		}
 	} else if(state == "barrage") {
 		if(stateTimer < stateTimerMax - 15) {
-			if(stateTimer % 24 == 0) {
+			if(stateTimer % 14 == 0) {
 				var _spell = script_castSpell(E_spell.bolt, x + irandom_range(-20, 20), y + irandom_range(-20, 20), global.player.x + irandom_range(-60, 60), global.player.y + irandom_range(-60, 60), .75);
 				_spell.image_blend = c_aqua;
 				var _kbDir = _dirToPlayer + 180;
@@ -325,6 +327,35 @@ if(state == "die") {
 				_shot.breakTileChance = 1; // guarentee
 			}
 		}
+	} else if(state == "materialBombs") {
+		if((stateTimer < stateTimerMax * .8) && (stateTimer > stateTimerMax * .3) && (irandom(10) == 0)) {
+			var _shot = script_castSpell(E_spell.materialBolt, x + irandom_range(-9, 9), y - irandom_range(5, 32), global.player.x + irandom_range(-50, 50), global.player.y + random_range(-50, 50), 1.35, 1, E_tile.diamond);
+		}
+	} else if(state == "swing") {
+		var _swingDir = point_direction(swingPointX, swingPointY, x, y);
+		var _swingDist = point_distance(swingPointX, swingPointY, x, y) * .99; // get closer to point over time
+		_swingDir += 12 * swingDir * 50 / (_swingDist + 50); // swing speed
+		
+		x = swingPointX + lengthdir_x(_swingDist, _swingDir);
+		y = swingPointY + lengthdir_y(_swingDist, _swingDir);
+		
+		if(abs(angle_difference(_swingDir, 90)) > 45) {
+			if(stateTimer < 5) {
+				stateTimer += 2; // goofy way of delaying state end until he reaches top of swing
+			}
+		}
+	} else if(state == "leap") {
+		var _tileOn = inWorld ? tiles[x div tileSize][(y + 1) div tileSize] : 0;
+		
+		if(_tileOn isSolid) {
+			stateTimer = 0; // end state
+		}
+	} else if(state == "dome") {
+		if(stateTimer == round(stateTimerMax * .85)) {
+			var _shockwave = script_createShockwaveSpell(x, y, 17,, 1.145, E_tile.diamond, .35, false);
+		} else if(stateTimer == round(stateTimerMax * .8)) {
+			var _shockwave = script_createShockwaveSpell(x, y, 16,, 1.12, 0, .7, false);
+		}
 	}
 	
 	stateTimer--;
@@ -339,7 +370,9 @@ if(state != "idle") {
 }
 
 if(inWorld) {
-	script_moveCollide();	
+	if(state != "swing") {
+		script_moveCollide();	
+	}
 } else {
 	x += xChange;
 	y += yChange;

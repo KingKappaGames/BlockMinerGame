@@ -16,7 +16,7 @@ function script_tileBreakEffects(xx, yy, index) { // chaos is how mashed around 
 		
 		part_particles_create_color(sys, _worldX, _worldY, explosionPart, c_orange, 20); // EXPLOSIVE PARTS
 		
-		if(irandom(max(60, 250 - _explosiveCount * 6)) == 0) { // TODO make this an option? Like, tremor frequency in the options, could be a cool thing to customize, i dunno
+		if(irandom(max(150, 750 - _explosiveCount * 6)) == 0) { // TODO make this an option? Like, tremor frequency in the options, could be a cool thing to customize, i dunno
 			script_createTremor(x, y, irandom_range(240, 500), random_range(.12, .5), true);
 		}
 		

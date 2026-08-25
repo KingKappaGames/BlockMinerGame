@@ -37,7 +37,7 @@ options[2][3] = "AMBIENT VOLUME";
 options[3][0] = "RETURN";
 options[3][1] = "RESOLUTION";
 options[3][2] = "WINDOW";
-options[3][3] = "COLORS";
+options[3][3] = "FILTERS";
 options[3][4] = "BRIGHTNESS";
 
 options[4][0] = "RETURN";
