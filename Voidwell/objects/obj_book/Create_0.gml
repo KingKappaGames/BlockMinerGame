@@ -1,5 +1,7 @@
 event_inherited();
 
+pickupType = "book";
+
 sprite_index = spr_book;
 
 shimmerPart = global.radialShimmerPart;

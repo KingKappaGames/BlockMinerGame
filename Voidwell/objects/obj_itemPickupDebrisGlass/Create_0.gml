@@ -13,7 +13,7 @@ verticalBounce = -.4;
 
 spinSpeed = random_range(-15, 15);
 
-item = E_item.fairySummon;
+item = choose(E_item.fairySummon, E_item.amalgamSummon, E_item.striderSummon);
 
 hitGround = function(verticalSpeed, tileHit) { // does various bounce and fall damage related things?
 	xChange += random_range(-.3, .3);

@@ -191,6 +191,7 @@ if(alive) {
 			script_useHeldItem();
 		} else {
 			heldItemActiveGlowTimer = max(heldItemActiveGlowTimer, 20);
+			sound_play(snd_spellFizzle,,, .2, .2);
 		}
 	}
 	

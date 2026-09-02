@@ -99,8 +99,7 @@ endState = function() { // what do
 
 newState = function() {
 	if(state == "idle") {
-		setState("laser");
-		//setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
+		setState(choose("idle", "idle", "barrage", "circle", "laser", "rush", "rise", "shockwave"));
 	} else {
 		setState("idle", 45);
 	}

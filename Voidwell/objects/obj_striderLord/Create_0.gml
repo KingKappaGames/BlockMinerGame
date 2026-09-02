@@ -127,8 +127,8 @@ setState = function(stateSet, duration = undefined, info = undefined) {
 	} else if(stateSet == "swing") {
 		duration ??= 160;
 		
-		swingPointX = x + choose(-1, 1) * irandom_range(150, 320);
-		swingPointY = y;
+		swingPointX = clamp(x + choose(-1, 1) * irandom_range(150, 320), 600, global.worldSizePixels - 600);
+		swingPointY = clamp(y, 600, global.worldSizePixels - 600);
 		
 		swingDir = (swingPointX < x) ? -1 : 1;
 	} else if(stateSet == "bonk") {

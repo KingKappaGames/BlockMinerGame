@@ -20,6 +20,6 @@ source = noone;
 damageBase = 1;
 knockbackBase = 1;
 
-sound = audio_play_sound(snd_electricityBlast, 5, true, 1, 0, 5);
-audio_sound_loop_start(sound, .9); // does not sound good because this sound has a consistent fall to it, i need something with a natural loop for at least a half second or something
-audio_sound_loop_end(sound, 1.1);
+sound = audio_play_sound(snd_electricityBlast, 5, true, 1, 0, 1);
+audio_sound_loop_start(sound, 1.5); // does not sound good because this sound has a consistent fall to it, i need something with a natural loop for at least a half second or something
+audio_sound_loop_end(sound, 1.65);

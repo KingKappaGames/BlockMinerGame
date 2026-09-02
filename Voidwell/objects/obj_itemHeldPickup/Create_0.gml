@@ -1,5 +1,7 @@
 event_inherited();
 
+pickupType = "item";
+
 pickUp = function() {
 	var _player = player;
 	

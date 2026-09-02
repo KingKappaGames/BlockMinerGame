@@ -21,7 +21,7 @@ function script_saveWorld(filename) {
 	instance_deactivate_object(obj_materialOrbNode);
 	instance_deactivate_object(obj_itemPickUpParent);
 	
-	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups, variable_clone(global.tileBiomes)]; // 10 length so far
+	var _saveData = [variable_clone(global.worldTiles), _player.x, _player.y, variable_clone(_player.spellsUnlocked), variable_clone(_player.heldMaterialsUnlocked), _player.robeIndex, _player.pickaxeIndex, _robeRespawnData, _materialNodeArray, _itemPickups, variable_clone(global.tileBiomes), global.gameInfo]; // 10 length so far
 	var _jsonWorld = json_stringify(_saveData);
 	
     var _worldSavebuffer = buffer_create(string_byte_length(_jsonWorld) + 1, buffer_fixed, 1);
@@ -43,6 +43,8 @@ function script_loadWorld(filename) {
 	
 	global.worldTiles = _loadData[0];
 	global.tileBiomes = _loadData[10];
+	
+	global.gameInfo = _loadData[11];
 	
 	var _player = instance_create_layer(0, 0, "Instances", obj_player);
 	
@@ -72,9 +74,13 @@ function script_loadWorld(filename) {
 	for(var _pickupI = array_length(_pickupData) - 1; _pickupI >= 0; _pickupI--) {
 		_pickup = _pickupData[_pickupI];
 		if(_pickup[2] == "pickaxe") {
-			script_createPickaxe(_pickupData[_pickupI][3], _pickupData[_pickupI][0], _pickupData[_pickupI][1]); // i dont have a create pickaxe script...
+			script_createPickaxe(_pickup[3], _pickup[0], _pickup[1]); // i dont have a create pickaxe script...
 		} else if(_pickup[2] == "robe") {
-			script_createRobePickup(_pickupData[_pickupI][3], _pickupData[_pickupI][0], _pickupData[_pickupI][1]);
+			script_createRobePickup(_pickup[3], _pickup[0], _pickup[1]);
+		} else if(_pickup[2] == "level") {
+			script_createLevelPickup(_pickup[0], _pickup[1]);
+		} else if(_pickup[2] == "item") {
+			script_createHeldItemPickup(_pickup[3], _pickup[0], _pickup[1]);
 		}
 	}
 	

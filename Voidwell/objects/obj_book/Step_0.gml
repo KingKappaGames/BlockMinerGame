@@ -32,4 +32,20 @@ if(irandom(30) == 0) {
 	part_type_direction(shimmerPart, _dir, _dir, 0, 0);
 	part_type_speed(shimmerPart, 1, 1.9, -.02, 0);
 	part_particles_create(sysUnder, _spawnX, _spawnY, shimmerPart, 1);
+	
+	var _nearCreatures = ds_list_create();
+	
+	collision_circle_list(x, y, 250, obj_creature, false, true, _nearCreatures, false);
+	
+	for(var _i = ds_list_size(_nearCreatures) - 1; _i >= 0; _i--) {
+		var _creature = _nearCreatures[| _i];
+		
+		if(instance_exists(_creature)) {
+			if(_creature != global.player) {
+				_creature.hit(1,, 5);
+			}
+		}
+	}
+	
+	ds_list_destroy(_nearCreatures);
 }

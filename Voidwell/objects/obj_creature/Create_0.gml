@@ -60,7 +60,7 @@ die = function(destroyBody = false) {
 	}
 	audio_play_sound_at(snd_monsterSquak, x, y, 0, audioRefMedium, audioMaxMedium, 1, 0, 0, 1,, random_range(.9, 1.1));
 	
-	if(irandom(3) == 0) {
+	if(irandom(2) == 0) {
 		script_createDebrisChunk(choose(obj_itemPickupDebris, obj_itemPickupDebrisGlass), x, y, random_range(-2, 2), random_range(-2, 2), irandom(E_item.count - 1), 1, 1, 180);
 	}
 	

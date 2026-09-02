@@ -50,4 +50,4 @@ if(inGame) {
 	}
 }
 
-draw_text(200, 280, global.bossSpawned);
+//draw_text(200, 280, global.bossSpawned);

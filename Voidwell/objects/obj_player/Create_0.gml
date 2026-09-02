@@ -148,7 +148,7 @@ hitGround = function(fallSpeed, tileIndex) {
 	}
 }
 
-hit = function(damage = 0, dir, force = 0, destroyBody = false, iFramesSet = undefined, ignoreIframes = false) {
+hit = function(damage = 0, dir = random(360), force = 0, destroyBody = false, iFramesSet = undefined, ignoreIframes = false) {
 	
 	if(!ignoreIframes && iFrames > 0) { exit; } // good?
 	

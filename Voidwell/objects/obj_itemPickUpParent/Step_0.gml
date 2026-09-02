@@ -12,9 +12,13 @@ if(irandom(10) == 0) {
 	available = accesable && inRange;
 }
 
-if(available) {
-	if(keyboard_check_pressed(ord("E"))) {
+if(keyboard_check_pressed(ord("E"))) {
+	if(available) {
 		pickUp();
 		keyboard_clear(ord("E"));
+	} else {
+		if(inRange) {
+			sound_play(snd_spellFizzle, 1, 1, .2, .2);
+		}
 	}
 }

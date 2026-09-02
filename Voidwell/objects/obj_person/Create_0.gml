@@ -7,10 +7,14 @@ debugTileDraw = [];
 
 waitTimer = 0;
 
-damage = 2;
+damage = irandom_range(2, 3);
 
-HealthMax = irandom_range(8, 12);
+HealthMax = irandom_range(4, 12);
 Health = HealthMax;
+
+var _scale = random_range(.85, 1.2);
+image_xscale = _scale;
+image_yscale = _scale;
 
 knockbackMult = 1.6;
 

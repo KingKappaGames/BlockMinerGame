@@ -1,6 +1,6 @@
 event_inherited();
 
-image_blend = make_color_rgb(irandom_range(220, 255), irandom_range(220, 255), irandom_range(220, 255)); // lower range
+image_blend = make_color_rgb(irandom_range(200, 255), irandom_range(200, 255), irandom_range(200, 255)); // lower range
 
 image_angle = irandom(360);
 

@@ -202,7 +202,7 @@ newState = function() {
 		} else {
 			if(state == "idleAttached") {
 				
-				if(!conglomerateCore && random(1) < .0025) {
+				if(!conglomerateCore && random(1) < .00375) {
 					setState("breakIntoEnemyAttached");
 				} else {
 					setState(choose("idleAttached", "idleAttached", "shotAttached", "idleAttached", "shotAttached", "idleAttached", "shotAttached")); // do piece states when attached to body

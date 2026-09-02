@@ -78,7 +78,7 @@ updateScreen = function(rightX = undefined, topY = undefined, sizeChanged = fals
 			array_copy(tilesScreen[_i], 0, tiles[screenWorldTileX + _i], screenWorldTileY, tileScreenHeight); // fills 2d array of screen with world sections at this position [x][y]
 		}
 		
-		if(irandom(50) == 0) {
+		if(irandom(40 + global.gameDifficultySelected * 5) == 0) {
 			script_spawnAmbientCreatures();
 		}
 	}
@@ -177,7 +177,7 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 				//###################################################################################################
 				//next layer of generation involving little blips of other blocks and stuff
 				
-				if((_tile == E_tile.stone || _tile == E_tile.deepStone) && random(1) < .000001) {
+				if((_tile == E_tile.stone || _tile == E_tile.deepStone) && random(1) < .00015) {
 					_tile = E_tile.explosive;
 				}
 				
@@ -381,13 +381,29 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 	
 	
 	if(_doNextPasses) { // whether the generation should happen in passes, so that the code can be reused and mix and matched.. idk, it's not important
+		var _files = [];
+		
+		var _file = file_find_first("STRUCTUREDATA/*.txt", fa_none);
+		
+		while(!array_contains(_files, _file) && _file != "") {
+			array_push(_files, _file);
+			
+			_file = file_find_next(); // find for next loop (wont get added if dupe)
+		}
+		
+		file_find_close();
+		
+		var _structsFound = array_length(_files);
+		
+		msg($"Found {_structsFound} structures for world generation!");
+		
 		for (var _worldX = 2; _worldX < size - 2; _worldX++) {
 			for (var _worldY = 2; _worldY < size - 2; _worldY++) {
-				if(irandom(10000 / structureMult) == 0) { // spawning structures randomly through the world   STRUCTURES
+				if(irandom(900 / structureMult) == 0) { // spawning structures randomly through the world   STRUCTURES
 					if(_tiles[_worldX][_worldY] == 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
 						if(_tiles[_worldX][_worldY + 2] > 0) { // basic check for building on empty space but something below, ISH. I'm well aware this is extremely shoddy checking but it took 90 seconds so whatever
-							var _file = file_find_first("STRUCTUREDATA/*.txt", fa_none);
-							script_loadStructure(_worldX, _worldY, "STRUCTUREDATA/" + _file);
+							var _fileToGenerate = _files[irandom(_structsFound - 1)];
+							script_loadStructure(_worldX, _worldY, "STRUCTUREDATA/" + _fileToGenerate);
 						}
 					}
 				} else { // DECORATION TILES
@@ -414,7 +430,6 @@ generateWorld = function(type = "normal", size = 1000, structureMult = 1, flat =
 			}
 		}
 	}
-	
-	
-	
+		
+		
 }

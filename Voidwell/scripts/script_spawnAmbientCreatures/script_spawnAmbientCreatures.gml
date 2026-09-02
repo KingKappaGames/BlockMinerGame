@@ -15,7 +15,7 @@ function script_spawnAmbientCreatures() {
 	
 	if(_spawnX < tileSize || _spawnY < tileSize || _spawnX >= global.worldSizePixels - tileSize || _spawnY >= global.worldSizePixels - tileSize) { exit; } // don't spawn outside of the map... (maybe it depends on the enemy?)
 	
-	if(irandom(30) == 0) {
+	if(irandom(35) == 0) {
 		if(irandom(2) == 0) {
 			if(_camCenterY > global.worldSizePixels * .68) { // is this not backwards? Greater than depth = normal worm? Or did i not want giant worms spawning underground...
 				script_createWorm(_spawnX, _spawnY, 18);
@@ -30,10 +30,16 @@ function script_spawnAmbientCreatures() {
 	} else {
 		if(tiles[_spawnX div tileSize][_spawnY div tileSize] isClear) {
 			if(tiles[_spawnX div tileSize][_spawnY div tileSize + 1] isSolid) { // standing over solid ground
-				if(irandom(5) == 0 && _camCenterY > global.worldSizePixels * .48) {
+				if(irandom(4) == 0 && _camCenterY > global.worldSizePixels * .44) {
 					script_spawnCreature(obj_bombThrower, _spawnX, _spawnY);
+					if(irandom(1) == 0) {
+						script_spawnCreature(obj_bombThrower, _spawnX, _spawnY);
+					}
 				} else {
 					script_spawnCreature(obj_person, _spawnX, _spawnY);
+					if(irandom(1) == 0) {
+						script_spawnCreature(obj_person, _spawnX, _spawnY);
+					}
 				}
 			} else {
 				if(irandom(20 + instance_number(obj_creature)) == 0) {

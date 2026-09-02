@@ -9,7 +9,16 @@ function script_useHeldItem() {
 			script_createShockwaveSpell(mouse_x, mouse_y, 90, 64, 1.014,, .3,, c_red);
 			setHeldItem(E_item.none);
 		} else if(heldItem == E_item.fairySummon) {
-			script_spawnCreature(obj_fairyLord, mouse_x, mouse_y);
+			script_spawnCreature(obj_fairyLord, global.player.x, global.player.y - 320);
+			
+			setHeldItem(E_item.none);
+		} else if(heldItem == E_item.striderSummon) {
+			script_spawnCreature(obj_striderLord, global.player.x + choose(-300, 300), global.player.y - 200);
+			
+			setHeldItem(E_item.none);
+		} else if(heldItem == E_item.amalgamSummon) {
+
+			script_createConglomerate(global.player.x + choose(-200, 200), global.player.y - 300, 40);
 			
 			setHeldItem(E_item.none);
 		} else if(heldItem == E_item.clusterBomb) {

@@ -1,3 +1,5 @@
+shader_set_live(shd_fogDistort, true);
+
 randomize();
 
 window_set_caption(choose("It's alive!", "Uh-oh...", "Come to the dark side-", "What's that chemical smell?", "The lights are going dark all around the world.", "When will it all be over?", "The end is near.", "You don't belong here.", "You are my favorite."))
@@ -194,8 +196,8 @@ startGameWorld = function(worldIndex, exists = false) {
 		repeat(_worldVolume / 25000) {
 			var _materialOrb = script_createMaterialNode(irandom_range(200, _worldSizePixels - 200), irandom_range(200, _worldSizePixels - 200), irandom_range(1, 7));
 		}
-		repeat(_worldVolume / 15000) {
-			var _materialOrb = script_createLevelPickup(irandom_range(300, _worldSizePixels - 300), irandom_range(300, _worldSizePixels - 300));
+		repeat(_worldVolume / 5000) {
+			var _levelEssence = script_createLevelPickup(irandom_range(300, _worldSizePixels - 300), irandom_range(300, _worldSizePixels - 300));
 		}
 	}
 	

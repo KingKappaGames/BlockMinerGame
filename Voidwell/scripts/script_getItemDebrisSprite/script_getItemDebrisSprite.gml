@@ -13,5 +13,5 @@ function script_getItemDebrisSprite(itemIndex) {
 		return spr_breakerTalisman;
 	}
 	
-	return spr_heart; // no do thisss
+	return spr_bottle; // no do thisss
 }

@@ -12,6 +12,9 @@ trailPart = global.thickTrail;
 
 event_inherited();
 
+x = clamp(x, tileSize * 5,  global.worldSizePixels - tileSize * 5);
+y = clamp(y, tileSize * 5,  global.worldSizePixels - tileSize * 5);
+
 if(state == "die") {
 	script_cameraShake(.2);
 	

@@ -4,14 +4,14 @@ function script_getHeldItemSprite(itemIndex) {
 	} else if(itemIndex == E_item.memento) {
 		return spr_resourceHeldIcons;
 	} else if(itemIndex == E_item.fairySummon) {
-		return spr_resourceHeldIcons;
+		return spr_fairySummonItemDebris;
 	} else if(itemIndex == E_item.clusterBomb) {
-		return spr_resourceHeldIcons;
+		return spr_breakerTalisman;
 	} else if(itemIndex == E_item.materialSpray) {
 		return spr_resourceHeldIcons;
 	} else if(itemIndex == E_item.tremorInducer) {
 		return spr_breakerTalisman;
 	}
 	
-	return spr_heart; // no do thisss
+	return spr_bottle; // no do thisss
 }

@@ -13,6 +13,10 @@ function script_getHeldItemText(item) {
 		return "This little ribbon feels familiar.";
 	} else if(item == E_item.tremorInducer) {
 		return "Force of nature in a bottle, watch your head.";
+	} else if(item == E_item.amalgamSummon) {
+		return "You can't help but think about how you consist of meat and little pieces of grime."
+	} else if(item == E_item.striderSummon) {
+		return "There's something painful about the texture, something might be waiting."
 	}
 	
 	return "Yo text machine broke, check the item get text script son."

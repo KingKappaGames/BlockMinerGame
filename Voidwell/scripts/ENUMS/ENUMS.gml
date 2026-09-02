@@ -76,6 +76,8 @@ enum E_item {
 	none = 0,
 	memento,
 	fairySummon,
+	amalgamSummon,
+	striderSummon,
 	clusterBomb,
 	materialSpray,
 	tremorInducer,
